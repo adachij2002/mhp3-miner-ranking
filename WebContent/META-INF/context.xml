@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+	<Resource 
+		name="ds/mh-ds" 
+		auth="Container" 
+		type="javax.sql.DataSource" 
+		driverClassName="org.postgresql.Driver"
+		maxActive="100" 
+		maxIdle="30" 
+		maxWait="10000"
+		username="mh" 
+		password="hunter" 
+		url="jdbc:postgresql://localhost:5432/mhdb"
+	/>
+</Context>

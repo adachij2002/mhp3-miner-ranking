@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="../css/style.css" type="text/css" />
+	<script src="//code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="../js/functions.js" type="text/javascript"></script>
+	<h:outputScript name="jsf.js" library="javax.faces" />
+	<title>
+		<ui:insert name="title">
+			<h:outputText value="#{msg['label.common.title']}"/>
+		</ui:insert>
+	</title>
+</h:head>
+
+<h:body onload="#{onLoadJS}">
+	<div class="container">
+		<div id="header">
+			<ui:insert name="header">
+				<ui:include src="/view/common/header.xhtml" />
+			</ui:insert>
+		</div>
+		<div id="content">
+			<ui:insert name="content">
+				Default Content
+			</ui:insert>
+		</div>
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="/view/common/footer.xhtml" />
+			</ui:insert>
+		</div>
+	</div>
+</h:body>
+</ui:composition>
+</html>

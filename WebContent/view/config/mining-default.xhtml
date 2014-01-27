@@ -1,0 +1,263 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="../templates/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="config_mining" prependId="false">
+			<h:panelGroup rendered="#{accountManager.loggedIn}">
+				<h:outputFormat value="#{msg['label.common.welcome']}" >
+					<f:param value="#{accountManager.loginUser.mhName}"/>
+				</h:outputFormat>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{not accountManager.loggedIn}">
+				<h:outputFormat value="#{msg['label.common.welcome']}" >
+					<f:param value="#{accountManager.loginUser.mhName}"/>
+				</h:outputFormat>
+			</h:panelGroup>
+			<br />
+			<br />
+			<h:panelGroup id="searchPanel" styleClass="form-inline">
+				<h:outputText value="#{msg['label.config.mining.search.mine']}" />
+				<h:selectOneMenu id="search_mine_id" value="#{mining.miningStatusSearchParam.mMine.id}" >
+					<f:selectItem itemValue="" itemLabel="#{msg['nav.common.default']}" />
+					<f:selectItems value="#{mMine.mines}"/>
+					<f:ajax execute="@this" listener="#{mining.search}" render="listPanel"
+						onevent="showWorkingIndicator" />
+				</h:selectOneMenu>
+			</h:panelGroup>
+			<h3>
+				<h:outputText value="#{msg['label.config.mining.list']}"/>
+				<span id="workingIndicator" class="status" style="display: none;">
+					<img src="../images/ajax-loader.gif" />
+				</span>
+			</h3>
+			<h:panelGroup id="listPanel">
+				<h:outputFormat value="#{msg['nav.common.resultcount']}">
+					<f:param value="#{mining.resultCount}"/>
+				</h:outputFormat>
+				<br />
+				<h:panelGroup id="navPanelTop" layout="block" rendered="#{not empty mining.miningStatuses}" styleClass="pagination pagination-centered">
+					<ul>
+					<li>
+					<h:commandLink value="#{msg['nav.common.prev']}"
+						action="#{mining.previousPage}"
+						disabled="#{mining.miningStatusSearchParam.pageIndex le 0}" >
+						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+					</h:commandLink>
+					</li>
+					<ui:repeat value="#{mining.pages}" var="page" varStatus="status">
+						<li>
+						<h:commandLink value="#{page + 1}"
+							action="#{mining.movePage}"
+							disabled="#{page eq mining.miningStatusSearchParam.pageIndex}" >
+							<f:param name="pagenum" value="${page}" />
+							<f:ajax render=":config_mining:listPanel" onevent="showWorkingIndicator"/>
+						</h:commandLink>
+						</li>
+					</ui:repeat>
+					<li>
+					<h:commandLink value="#{msg['nav.common.next']}"
+						action="#{mining.nextPage}"
+						disabled="#{mining.miningStatusSearchParam.pageIndex * mining.miningStatusSearchParam.pageSize + mining.miningStatusSearchParam.pageSize >= mining.resultCount}" >
+						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+					</h:commandLink>
+					</li>
+					</ul>
+				</h:panelGroup>
+				<h:dataTable
+					id="dataTable"
+					value="#{mining.miningStatuses}"
+					var="miningStatus"
+					border="1"
+					rendered="#{not empty mining.miningStatuses}"
+					styleClass="table table-striped">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.config.mining.list.num']}"/>
+						</f:facet>
+						<h:outputText value="#{mining.miningStatusSearchParam.pageIndex * mining.miningStatusSearchParam.pageSize + mining.miningStatuses.rowIndex + 1}"/>
+					</h:column>
+					<h:column rendered="#{accountManager.loggedIn}">
+						<f:facet name="header">
+							<h:commandLink id="header_checked">
+								<h:outputText value="#{msg['label.config.mining.list.checked']}"/>
+								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'a.checked' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
+								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'a.checked' and mining.miningStatusSearchParam.sortOrders[0].type eq 'DESC'}"/>
+								<f:ajax event="click" execute="@this" listener="#{mining.sortByColumn('a.checked')}" render=":config_mining:listPanel"
+									onevent="showWorkingIndicator" />
+							</h:commandLink>
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{miningStatus.checked}" disabled="#{not accountManager.loggedIn}" styleClass="checkbox">
+							<f:ajax event="click" execute="@this" listener="#{mining.updateStatus}" render="@this"
+								onevent="showWorkingIndicator" />
+						</h:selectBooleanCheckbox>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:commandLink id="header_mine">
+								<h:outputText value="#{msg['label.config.mining.list.mine']}"/>
+								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'e.id' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
+								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'e.id' and mining.miningStatusSearchParam.sortOrders[0].type eq 'DESC'}"/>
+								<f:ajax event="click" execute="@this" listener="#{mining.sortByColumn('e.id')}" render=":config_mining:listPanel"
+									onevent="showWorkingIndicator" />
+							</h:commandLink>
+						</f:facet>
+						<h:outputText value="#{miningStatus.mineName}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:commandLink id="header_seed">
+								<h:outputText value="#{msg['label.config.mining.list.amulet.seed']}"/>
+								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'b.seed' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
+								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'b.seed' and mining.miningStatusSearchParam.sortOrders[0].type eq 'DESC'}"/>
+								<f:ajax event="click" execute="@this" listener="#{mining.sortByColumn('b.seed')}" render=":config_mining:listPanel"
+									onevent="showWorkingIndicator" />
+							</h:commandLink>
+						</f:facet>
+						<h:outputText value="#{miningStatus.amuletSeed}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:commandLink id="header_level">
+								<h:outputText value="#{msg['label.config.mining.list.amulet.level']}"/>
+								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'f.id' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
+								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'f.id' and mining.miningStatusSearchParam.sortOrders[0].type eq 'DESC'}"/>
+								<f:ajax event="click" execute="@this" listener="#{mining.sortByColumn('f.id')}" render=":config_mining:listPanel"
+									onevent="showWorkingIndicator" />
+							</h:commandLink>
+						</f:facet>
+						<h:outputText value="#{miningStatus.amuletLevel}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:commandLink id="header_skill1">
+								<h:outputText value="#{msg['label.config.mining.list.skill1']}"/>
+								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'c.name' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
+								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'c.name' and mining.miningStatusSearchParam.sortOrders[0].type eq 'DESC'}"/>
+								<f:ajax event="click" execute="@this" listener="#{mining.sortByColumn('c.name')}" render=":config_mining:listPanel"
+									onevent="showWorkingIndicator" />
+							</h:commandLink>
+						</f:facet>
+						<h:outputText value="#{miningStatus.skill1Name}" />
+						<h:outputText value="#{miningStatus.skill1Point}" rendered="#{not empty miningStatus.skill1Name}">
+							<f:convertNumber pattern="+#;-#"/>
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:commandLink id="header_skill2">
+								<h:outputText value="#{msg['label.config.mining.list.skill2']}"/>
+								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'd.name' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
+								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'd.name' and mining.miningStatusSearchParam.sortOrders[0].type eq 'DESC'}"/>
+								<f:ajax event="click" execute="@this" listener="#{mining.sortByColumn('d.name')}" render=":config_mining:listPanel"
+									onevent="showWorkingIndicator" />
+							</h:commandLink>
+						</f:facet>
+						<h:outputText value="#{miningStatus.skill2Name}"/>
+						<h:outputText value="#{miningStatus.skill2Point}" rendered="#{not empty miningStatus.skill2Name}">
+							<f:convertNumber pattern="+#;-#"/>
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:commandLink id="header_slotnum">
+								<h:outputText value="#{msg['label.config.mining.list.slotnum']}"/>
+								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'b.slot_num' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
+								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'b.slot_num' and mining.miningStatusSearchParam.sortOrders[0].type eq 'DESC'}"/>
+								<f:ajax event="click" execute="@this" listener="#{mining.sortByColumn('b.slot_num')}" render=":config_mining:listPanel"
+									onevent="showWorkingIndicator" />
+							</h:commandLink>
+						</f:facet>
+						<h:outputText value="#{miningStatus.slotNum}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:commandLink id="header_type">
+								<h:outputText value="#{msg['label.config.mining.list.amulet.type']}"/>
+								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'g.id' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
+								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
+									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'g.id' and mining.miningStatusSearchParam.sortOrders[0].type eq 'DESC'}"/>
+								<f:ajax event="click" execute="@this" listener="#{mining.sortByColumn('g.id')}" render=":config_mining:listPanel"
+									onevent="showWorkingIndicator" />
+							</h:commandLink>
+						</f:facet>
+						<h:outputText value="#{miningStatus.amuletType}"/>
+					</h:column>
+				</h:dataTable>
+				<h:panelGroup id="navPanelBottom" layout="block" rendered="#{not empty mining.miningStatuses}" styleClass="pagination pagination-centered">
+					<ul>
+					<li>
+					<h:commandLink value="#{msg['nav.common.prev']}"
+						action="#{mining.previousPage}"
+						disabled="#{mining.miningStatusSearchParam.pageIndex le 0}" >
+						<f:ajax render="listPanel"/>
+					</h:commandLink>
+					</li>
+					<ui:repeat value="#{mining.pages}" var="page" varStatus="status">
+						<li>
+						<h:commandLink value="#{page + 1}"
+							action="#{mining.movePage}"
+							disabled="#{page eq mining.miningStatusSearchParam.pageIndex}" >
+							<f:param name="pagenum" value="${page}" />
+							<f:ajax render=":config_mining:listPanel" onevent="showWorkingIndicator"/>
+						</h:commandLink>
+						</li>
+					</ui:repeat>
+					<li>
+					<h:commandLink value="#{msg['nav.common.next']}"
+						action="#{mining.nextPage}"
+						disabled="#{mining.miningStatusSearchParam.pageIndex * mining.miningStatusSearchParam.pageSize + mining.miningStatusSearchParam.pageSize >= mining.resultCount}" >
+						<f:ajax render="listPanel"/>
+					</h:commandLink>
+					</li>
+					</ul>
+				</h:panelGroup>
+			</h:panelGroup>
+			<br />
+			<h3>
+				<h:outputText value="#{msg['label.config.mining.report']}"/>
+			</h3>
+			<h:panelGroup id="reportPanel" styleClass="form-inline">
+				<h:panelGrid columns="2">
+					<h:outputText value="#{msg['label.config.mining.report.comment']}" />
+					<h:inputText id="input_comment" size="50" value="#{mining.miningStatusSearchParam.tUser.comment}" disabled="#{not accountManager.loggedIn}" />
+					<h:outputText value="#{msg['label.config.mining.report.publish']}" />
+					<h:selectBooleanCheckbox id="select_publish" value="#{mining.miningStatusSearchParam.tUser.publish}" disabled="#{not accountManager.loggedIn}" styleClass="checkbox" />
+				</h:panelGrid>
+			</h:panelGroup>
+			<h:panelGroup id="pagePanelBottom" styleClass="form-inline">
+				<h:panelGrid columns="2">
+					<h:commandButton id="save_cmd_bottom" value="#{msg['nav.common.save']}"
+						action="#{mining.update}" type="submit"
+						rendered="#{accountManager.loggedIn}"
+						styleClass="btn" >
+						<f:ajax execute="reportPanel" render="messages" onevent="showWorkingIndicator"/>
+					</h:commandButton>
+					<h:commandButton id="cancel_cmd_bottom" value="#{msg['nav.common.back']}"
+						action="#{mining.cancel}" immediate="true"
+						styleClass="btn" />
+				</h:panelGrid>
+			</h:panelGroup>
+			<h:panelGrid columns="1">
+				<h:messages id="messages" globalOnly="true"/>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

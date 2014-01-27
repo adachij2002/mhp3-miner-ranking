@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mh.miner.entity.TStatus">
+	<resultMap type="TStatus" id="tStatusResult">
+		<result column="id" property="id" />
+		<result column="checked" property="checked" />
+		<result column="user_id" property="userId" />
+		<result column="amulet_id" property="amuletId" />
+	</resultMap>
+	<select id="select"
+		resultType="TStatus" resultMap="tStatusResult">
+		SELECT
+			*
+		FROM
+			t_status
+    </select>
+	<select id="selectById"  parameterType="long"
+		resultType="TStatus" resultMap="tStatusResult">
+		SELECT
+			*
+		FROM
+			t_status
+		WHERE
+			id = #{value}
+    </select>
+	<insert id="insert" parameterType="TStatus">
+		INSERT INTO
+			t_status (checked, user_id, amulet_id)
+		VALUES
+			(#{checked}, #{userId}, #{amulet_id})
+	</insert>
+	<insert id="insertForNewUser" parameterType="TStatus">
+		INSERT INTO
+			t_status (checked, user_id, amulet_id)
+		SELECT
+			#{checked} AS checked, #{userId} AS user_id, id AS amulet_id
+		FROM
+			m_amulet
+		ORDER BY
+			id
+	</insert>
+	<update id="update" parameterType="TStatus">
+		UPDATE
+			t_status
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="checked != null">
+				checked = #{checked},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="amulet_id != null">
+				amulet_id = #{amuletId}
+			</if>
+		</trim>
+		WHERE
+			id = #{id}
+	</update>
+	<update id="updateByIds" parameterType="MiningStatusUpdateParam" >
+		UPDATE
+			t_status
+		SET
+			checked = #{checked}
+		WHERE
+			id
+		IN
+		<foreach item="id" collection="ids" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</update>
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM
+			t_status
+		WHERE
+			id = #{value}
+	</delete>
+	<delete id="deleteByUserId" parameterType="String">
+		DELETE FROM
+			t_status
+		WHERE
+			user_id = #{value}
+	</delete>
+</mapper>

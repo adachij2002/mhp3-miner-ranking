@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="../templates/layout.xhtml">
+	<ui:param name="onLoadJS" value="var elem = document.getElementById('input_user_id'); if(elem == null) { elem = document.getElementById('mh_name'); } elem.focus();" />
+	<ui:define name="content">
+		<h:form id="config_user" prependId="false">
+			<h3>
+				<h:outputText value="#{msg['label.config.user.title']}"/>
+			</h3>
+			<h:panelGrid columns="1">
+				<h:messages id="messages" globalOnly="true"/>
+			</h:panelGrid>
+			<h:panelGrid columns="2" styleClass="form-inline">
+				<h:outputText value="#{msg['label.config.user.userid']}" />
+				<h:inputText id="input_user_id" cols="50" value="#{user.tUser.id}" rendered="#{not accountManager.loggedIn}" />
+				<h:outputText id="output_user_id" cols="50" value="#{user.tUser.id}" rendered="#{accountManager.loggedIn}" />
+				<h:outputText value="#{msg['label.config.user.mhname']}" />
+				<h:inputText id="mh_name" cols="50" value="#{user.tUser.mhName}" />
+				<h:outputText value="#{msg['label.config.user.password']}" />
+				<h:inputSecret id="password" cols="50" value="#{user.tUser.password}" required="true" redisplay="true" />
+			</h:panelGrid>
+			<h:panelGrid columns="2" rendered="#{not accountManager.loggedIn}" styleClass="form-inline">
+				<h:commandButton id="create_cmd" value="#{msg['nav.common.create']}" action="#{user.create}" type="submit"
+				styleClass="btn" />
+				<h:commandButton id="cancel_cmd_notloggedin" value="#{msg['nav.common.cancel']}" action="#{user.cancel}" type="submit" immediate="true"
+				styleClass="btn" />
+			</h:panelGrid>
+			<h:panelGrid columns="3" rendered="#{accountManager.loggedIn}" styleClass="form-inline">
+				<h:commandButton id="edit_cmd" value="#{msg['nav.common.update']}" action="#{user.update}" type="submit"
+				styleClass="btn" />
+				<h:commandButton id="delete_cmd" value="#{msg['nav.common.delete']}" action="#{user.delete}" type="submit"
+				styleClass="btn" />
+				<h:commandButton id="cancel_cmd_loggedin" value="#{msg['nav.common.cancel']}" action="#{user.cancel}" type="submit" immediate="true"
+				styleClass="btn" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

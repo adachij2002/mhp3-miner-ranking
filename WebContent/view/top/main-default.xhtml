@@ -1,0 +1,188 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="../templates/layout.xhtml">
+	<ui:param name="onLoadJS" value="document.getElementById('mh_name').focus()" />
+	<ui:define name="content">
+		<h:form id="top_main" prependId="false">
+			<h:panelGroup id="headerPanelNotLogin" rendered="#{not accountManager.loggedIn}">
+		      <div class="masthead">
+		        <div class="navbar">
+		          <div class="navbar-inner">
+		            <div class="container">
+		              <ul class="nav">
+						<li>
+							<h:link id="login_cmd" value="#{msg['nav.common.login']}" outcome="/view/top/login" />
+						</li>
+						<li>
+							<h:commandLink id="listmining_cmd" value="#{msg['nav.common.listmining']}" action="#{mining.list}" />
+						</li>
+						<li>
+							<h:commandLink id="createuser_cmd" value="#{msg['nav.common.createuser']}" action="#{user.show}" immediate="true" />
+						</li>
+						<li>
+							<a href="#{msg['url.top.main.routemap']}" >
+								<h:outputText value="#{msg['label.top.main.routemap']}" />
+							</a>
+						</li>
+		              </ul>
+		            </div>
+		          </div>
+		        </div><!-- /.navbar -->
+		      </div>
+			</h:panelGroup>
+			<h:panelGroup id="headerPanelLogin" rendered="#{accountManager.loggedIn}" >
+			  <h:outputFormat value="#{msg['label.common.welcome']}" >
+				<f:param value="#{accountManager.loginUser.mhName}"/>
+			  </h:outputFormat>
+		      <div class="masthead">
+		        <div class="navbar">
+		          <div class="navbar-inner">
+		            <div class="container">
+		              <ul class="nav">
+						<li>
+							<h:commandLink id="editmining_cmd" value="#{msg['nav.common.editmining']}" action="#{mining.list}" />
+						</li>
+						<li>
+							<h:commandLink id="edituser_cmd" value="#{msg['nav.common.edituser']}" action="#{user.show}" immediate="true" />
+						</li>
+						<li>
+							<a href="#{msg['url.top.main.routemap']}" >
+								<h:outputText value="#{msg['label.top.main.routemap']}" />
+							</a>
+						</li>
+						<li>
+							<h:commandLink id="logout_cmd" value="#{msg['nav.common.logout']}" action="#{accountManager.logout}" immediate="true" />
+						</li>
+		              </ul>
+		            </div>
+		          </div>
+		        </div><!-- /.navbar -->
+		      </div>
+			</h:panelGroup>
+			<div class="title">
+				<h:outputText value="#{msg['msg.top.main.topic']}" escape="false"/>
+			</div>
+			<br />
+			<h:panelGroup id="searchPanel" styleClass="form-inline">
+				<h:outputLabel value="#{msg['label.top.main.search.mhname']}" for="mh_name" styleClass="control-label"/>
+				<h:inputText id="mh_name" value="#{top.minerRankingSearchParam.tUser.mhName}" styleClass="input-xlarge" />
+				<h:commandButton id="search_cmd" value="#{msg['nav.common.search']}"
+					action="#{top.search}" type="submit"
+					styleClass="btn" >
+					<f:ajax execute="mh_name" render="listPanel" onevent="showWorkingIndicator"/>
+				</h:commandButton>
+			</h:panelGroup>
+			<h3>
+				<h:outputText value="#{msg['label.top.main.list']}"/>
+				<span id="workingIndicator" class="status" style="display: none;">
+					<img src="../images/ajax-loader.gif" />
+				</span>
+			</h3>
+			<h:panelGroup id="listPanel">
+				<h:outputFormat value="#{msg['label.top.main.list.minercount']}" >
+					<f:param value="#{top.minerCount + 1000}"/>
+				</h:outputFormat>
+				<br />
+				<h:outputFormat value="#{msg['nav.common.resultcount']}" >
+					<f:param value="#{top.resultCount}"/>
+				</h:outputFormat>
+				<br />
+				<h:panelGroup id="navPanelTop" layout="block" rendered="#{not empty top.minerRankings}" styleClass="pagination pagination-centered">
+					<ul>
+					<li>
+					<h:commandLink value="#{msg['nav.common.prev']}"
+						action="#{top.previousPage}"
+						disabled="#{top.minerRankingSearchParam.pageIndex le 0}" >
+						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+					</h:commandLink>
+					</li>
+					<ui:repeat value="#{top.pages}" var="page" varStatus="status">
+						<li>
+						<h:commandLink value="#{page + 1}"
+							action="#{top.movePage}"
+							disabled="#{page eq top.minerRankingSearchParam.pageIndex}" >
+							<f:param name="pagenum" value="${page}" />
+							<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
+						</h:commandLink>
+						</li>
+					</ui:repeat>
+					<li>
+					<h:commandLink value="#{msg['nav.common.next']}"
+						action="#{top.nextPage}"
+						disabled="#{top.minerRankingSearchParam.pageIndex * top.minerRankingSearchParam.pageSize + top.minerRankingSearchParam.pageSize >= top.resultCount}" >
+						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+					</h:commandLink>
+					</li>
+					</ul>
+				</h:panelGroup>
+				<h:dataTable
+					id="dataTable"
+					value="#{top.minerRankings}"
+					var="minerRanking"
+					border="1"
+					rendered="#{not empty top.minerRankings}"
+					styleClass="table table-striped"
+					columnClasses="num_column, mhname_column, amuletcount_column">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.top.main.list.num']}"/>
+						</f:facet>
+						<h:outputText value="#{top.minerRankingSearchParam.pageIndex * top.minerRankingSearchParam.pageSize + top.minerRankings.rowIndex + 1}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.top.main.list.mhname']}"/>
+						</f:facet>
+						<h:outputText value="#{minerRanking.mhName}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.top.main.list.amuletcount']}"/>
+						</f:facet>
+						<h:outputText value="#{minerRanking.amuletCount}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg['label.top.main.list.comment']}"/>
+						</f:facet>
+						<h:outputText value="#{minerRanking.comment}"/>
+					</h:column>
+				</h:dataTable>
+				<h:panelGroup id="navPanelBottom" layout="block" rendered="#{not empty top.minerRankings}" styleClass="pagination pagination-centered">
+					<ul>
+					<li>
+					<h:commandLink value="#{msg['nav.common.prev']}"
+						action="#{top.previousPage}"
+						disabled="#{top.minerRankingSearchParam.pageIndex le 0}">
+						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+					</h:commandLink>
+					</li>
+					<ui:repeat value="#{top.pages}" var="page" varStatus="status">
+						<li>
+						<h:commandLink value="#{page + 1}"
+							action="#{top.movePage}"
+							disabled="#{page eq top.minerRankingSearchParam.pageIndex}" >
+							<f:param name="pagenum" value="${page}" />
+							<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
+						</h:commandLink>
+						</li>
+					</ui:repeat>
+					<li>
+					<h:commandLink value="#{msg['nav.common.next']}"
+						action="#{top.nextPage}"
+						disabled="#{top.minerRankingSearchParam.pageIndex * top.minerRankingSearchParam.pageSize + top.minerRankingSearchParam.pageSize >= top.resultCount}">
+						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+					</h:commandLink>
+					</li>
+					</ul>
+				</h:panelGroup>
+			</h:panelGroup>
+			<br />
+			<!-- for IE bug -->
+			<h:inputText style="visibility:hidden;display:none;" disabled="true" required="false" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
