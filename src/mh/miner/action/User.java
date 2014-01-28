@@ -86,7 +86,7 @@ public class User implements Serializable {
 				return "";
 			}
 
-			tUser.setPublish(false);
+			tUser.setPublish(true);
 			session.insert("mh.miner.entity.TUser.insert", tUser);
 
 			TStatus status = new TStatus();
