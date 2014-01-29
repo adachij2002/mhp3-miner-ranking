@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
@@ -39,7 +40,7 @@ public class Top implements Serializable {
 	private int resultCount;
 	private int navSize;
 	private List<Integer> pages = new ArrayList<Integer>();
-	
+
 	public MinerRankingSearchParam getMinerRankingSearchParam() {
 		return minerRankingSearchParam;
 	}
@@ -79,6 +80,7 @@ public class Top implements Serializable {
 
 			navSize = ConfigurationManager.getInstance().getConf().getTopConf().getNavsize();
 
+			parseQueryParam();
 			searchUser();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -90,7 +92,7 @@ public class Top implements Serializable {
 		minerRankingSearchParam.setPageIndex(0);
 		this.searchUser();
 
-		return "";
+		return "/view/top/main?faces-redirect=true&includeViewParams=true";
 	}
 
 	public String previousPage() {
@@ -117,6 +119,14 @@ public class Top implements Serializable {
 		this.searchUser();
 
 		return "";
+	}
+
+	private void parseQueryParam() {
+		String mh_name = FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap().get("mh_name");
+		if(mh_name != null) {
+			minerRankingSearchParam.gettUser().setMhName(mh_name);
+		}
 	}
 
 	@SuppressWarnings("unchecked")

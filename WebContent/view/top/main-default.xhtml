@@ -4,6 +4,11 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="../templates/layout.xhtml">
 	<ui:param name="onLoadJS" value="document.getElementById('mh_name').focus()" />
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="mh_name" value="#{top.minerRankingSearchParam.tUser.mhName}" />
+		</f:metadata>
+	</ui:define>
 	<ui:define name="content">
 		<h:form id="top_main" prependId="false">
 			<h:panelGroup id="headerPanelNotLogin" rendered="#{not accountManager.loggedIn}">
@@ -72,6 +77,7 @@
 					action="#{top.search}" type="submit"
 					styleClass="btn" >
 					<f:ajax execute="mh_name" render="listPanel" onevent="showWorkingIndicator"/>
+					<f:param name="mh_name" value="#{top.minerRankingSearchParam.tUser.mhName}" />
 				</h:commandButton>
 			</h:panelGroup>
 			<h3>
