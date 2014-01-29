@@ -158,10 +158,11 @@
 	<!-- Convert native2ascii                                                -->
 	<!-- =================================================================== -->
 	<target name="native2ascii">
-		<native2ascii
+		<mkdir dir="${dist.dir}/${resources.dir}/WEB-INF/classes"/>
+	    <native2ascii
 			encoding="UTF-8"
 			src="${resources.dir}/lang"
-			dest="${resources.dir}/WEB-INF/classes"
+			dest="${dist.dir}/${resources.dir}/WEB-INF/classes"
 			includes="**/*.properties" />
 	</target>
 
