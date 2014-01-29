@@ -122,10 +122,10 @@ public class Top implements Serializable {
 	}
 
 	private void parseQueryParam() {
-		String mh_name = FacesContext.getCurrentInstance().getExternalContext()
-				.getRequestParameterMap().get("mh_name");
-		if(mh_name != null) {
-			minerRankingSearchParam.gettUser().setMhName(mh_name);
+		String q_name = FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap().get("q_name");
+		if(q_name != null) {
+			minerRankingSearchParam.gettUser().setMhName(q_name);
 		}
 	}
 

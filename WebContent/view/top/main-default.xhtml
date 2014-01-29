@@ -3,10 +3,10 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="../templates/layout.xhtml">
-	<ui:param name="onLoadJS" value="document.getElementById('mh_name').focus()" />
+	<ui:param name="onLoadJS" value="document.getElementById('q_name').focus()" />
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam name="mh_name" value="#{top.minerRankingSearchParam.tUser.mhName}" />
+			<f:viewParam name="q_name" value="#{top.minerRankingSearchParam.tUser.mhName}" />
 		</f:metadata>
 	</ui:define>
 	<ui:define name="content">
@@ -71,13 +71,12 @@
 			</div>
 			<br />
 			<h:panelGroup id="searchPanel" styleClass="form-inline">
-				<h:outputLabel value="#{msg['label.top.main.search.mhname']}" for="mh_name" styleClass="control-label"/>
-				<h:inputText id="mh_name" value="#{top.minerRankingSearchParam.tUser.mhName}" styleClass="input-xlarge" />
+				<h:outputLabel value="#{msg['label.top.main.search.mhname']}" for="q_name" styleClass="control-label"/>
+				<h:inputText id="q_name" value="#{top.minerRankingSearchParam.tUser.mhName}" styleClass="input-xlarge" />
 				<h:commandButton id="search_cmd" value="#{msg['nav.common.search']}"
 					action="#{top.search}" type="submit"
 					styleClass="btn" >
-					<f:ajax execute="mh_name" render="listPanel" onevent="showWorkingIndicator"/>
-					<f:param name="mh_name" value="#{top.minerRankingSearchParam.tUser.mhName}" />
+					<f:ajax execute="q_name" render="listPanel" onevent="showWorkingIndicator"/>
 				</h:commandButton>
 			</h:panelGroup>
 			<h3>

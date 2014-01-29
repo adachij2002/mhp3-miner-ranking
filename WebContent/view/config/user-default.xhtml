@@ -26,7 +26,7 @@
 			<h:panelGrid columns="2" rendered="#{not accountManager.loggedIn}" styleClass="form-inline">
 				<h:commandButton id="create_cmd" value="#{msg['nav.common.create']}" action="#{user.create}" type="submit"
 				styleClass="btn" />
-				<h:commandButton id="cancel_cmd_notloggedin" value="#{msg['nav.common.cancel']}" action="#{user.cancel}" type="submit" immediate="true"
+				<h:commandButton id="cancel_cmd_notloggedin" value="#{msg['nav.common.cancel']}" action="#{user.cancel}" immediate="true"
 				styleClass="btn" />
 			</h:panelGrid>
 			<h:panelGrid columns="3" rendered="#{accountManager.loggedIn}" styleClass="form-inline">
@@ -34,7 +34,7 @@
 				styleClass="btn" />
 				<h:commandButton id="delete_cmd" value="#{msg['nav.common.delete']}" action="#{user.delete}" type="submit"
 				styleClass="btn" />
-				<h:commandButton id="cancel_cmd_loggedin" value="#{msg['nav.common.cancel']}" action="#{user.cancel}" type="submit" immediate="true"
+				<h:commandButton id="cancel_cmd_loggedin" value="#{msg['nav.common.cancel']}" action="#{user.cancel}" immediate="true"
 				styleClass="btn" />
 			</h:panelGrid>
 		</h:form>
