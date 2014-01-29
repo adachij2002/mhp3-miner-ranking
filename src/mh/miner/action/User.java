@@ -95,6 +95,15 @@ public class User implements Serializable {
 			session.insert("mh.miner.entity.TStatus.insertForNewUser", status);
 
 			session.commit();
+
+			Object accountManager =
+					FacesContext
+						.getCurrentInstance()
+						.getExternalContext()
+						.getSessionMap().get("accountManager");
+				if(accountManager instanceof AccountManager) {
+					((AccountManager)accountManager).setLoginUser(tUser);
+				}
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(
@@ -108,7 +117,7 @@ public class User implements Serializable {
 			}
 		}
 
-		return "/view/top/login";
+		return "/view/top/main";
 	}
 
 	public String update() {
@@ -165,7 +174,7 @@ public class User implements Serializable {
 			session.delete("mh.miner.entity.TUser.deleteById", tUser.getId());
 
 			session.commit();
-			
+
 			Object accountManager =
 				FacesContext
 					.getCurrentInstance()
