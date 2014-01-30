@@ -252,13 +252,14 @@ public class Mining implements Serializable {
 		return "";
 	}
 
-	@SuppressWarnings("unchecked")
 	private void searchStatus() {
 		SqlSession session = sessionFactory.openSession();
 
 		resultCount = (Integer)session.selectOne(
 				"mh.miner.entity.MiningStatus.countStatus",
 				miningStatusSearchParam);
+
+		@SuppressWarnings("unchecked")
 		List<MiningStatus> statuses = session.selectList(
 			"mh.miner.entity.MiningStatus.selectStatus",
 			miningStatusSearchParam);
