@@ -107,14 +107,6 @@ public class Mining implements Serializable {
 		}
 	}
 
-	public String list() {
-		return "/view/config/mining";
-	}
-
-	public String cancel() {
-		return "/view/top/main";
-	}
-
 	public String search() {
 		miningStatusSearchParam.setPageIndex(0);
 		this.searchStatus();

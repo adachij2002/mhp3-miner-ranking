@@ -59,14 +59,6 @@ public class User implements Serializable {
 		}
 	}
 
-	public String show() {
-		return "/view/config/user";
-	}
-
-	public String cancel() {
-		return "/view/top/main";
-	}
-
 	public String create() {
 		SqlSession session = null;
 
@@ -117,7 +109,7 @@ public class User implements Serializable {
 			}
 		}
 
-		return "/view/top/main";
+		return "/view/top/main?faces-redirect=true";
 	}
 
 	public String update() {
@@ -161,7 +153,7 @@ public class User implements Serializable {
 			}
 		}
 
-		return "/view/top/main";
+		return "/view/top/main?faces-redirect=true";
 	}
 
 	public String delete() {
@@ -196,6 +188,6 @@ public class User implements Serializable {
 			}
 		}
 	
-		return "/view/top/main";
+		return "/view/top/main?faces-redirect=true";
 	}
 }

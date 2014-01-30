@@ -80,10 +80,10 @@
 			<h:panelGroup id="footerPanelLogin" rendered="#{accountManager.loggedIn}" >
 				<ul data-role="listview">
 					<li>
-						<h:commandLink id="editmining_cmd" value="#{msg['nav.common.editmining']}" action="#{mining.list}" />
+						<h:link id="editmining_cmd" value="#{msg['nav.common.editmining']}" outcome="/view/config/mining" />
 					</li>
 					<li>
-						<h:commandLink id="edituser_cmd" value="#{msg['nav.common.edituser']}" action="#{user.show}" immediate="true" />
+						<h:link id="edituser_cmd" value="#{msg['nav.common.edituser']}" outcome="/view/config/user" />
 					</li>
 					<li>
 						<a href="#{msg['url.top.main.routemap']}" >
@@ -98,10 +98,10 @@
 			<h:panelGroup id="footerPanelNotLogin" rendered="#{not accountManager.loggedIn}" >
 				<ul data-role="listview">
 					<li>
-						<h:commandLink id="createuser_cmd" value="#{msg['nav.common.createuser']}" action="#{user.show}" immediate="true" />
+						<h:link id="createuser_cmd" value="#{msg['nav.common.createuser']}" outcome="/view/config/user" />
 					</li>
 					<li>
-						<h:commandLink id="listmining_cmd" value="#{msg['nav.common.listmining']}" action="#{mining.list}" />
+						<h:link id="listmining_cmd" value="#{msg['nav.common.listmining']}" outcome="/view/config/mining" />
 					</li>
 					<li>
 						<a href="#{msg['url.top.main.routemap']}" >

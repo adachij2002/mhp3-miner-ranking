@@ -21,10 +21,10 @@
 							<h:link id="login_cmd" value="#{msg['nav.common.login']}" outcome="/view/top/login" />
 						</li>
 						<li>
-							<h:commandLink id="listmining_cmd" value="#{msg['nav.common.listmining']}" action="#{mining.list}" />
+							<h:link id="listmining_cmd" value="#{msg['nav.common.listmining']}" outcome="/view/config/mining" />
 						</li>
 						<li>
-							<h:commandLink id="createuser_cmd" value="#{msg['nav.common.createuser']}" action="#{user.show}" immediate="true" />
+							<h:link id="createuser_cmd" value="#{msg['nav.common.createuser']}" outcome="/view/config/user" />
 						</li>
 						<li>
 							<a href="#{msg['url.top.main.routemap']}" >
@@ -47,10 +47,10 @@
 		            <div class="container">
 		              <ul class="nav">
 						<li>
-							<h:commandLink id="editmining_cmd" value="#{msg['nav.common.editmining']}" action="#{mining.list}" />
+							<h:link id="editmining_cmd" value="#{msg['nav.common.editmining']}" outcome="/view/config/mining" />
 						</li>
 						<li>
-							<h:commandLink id="edituser_cmd" value="#{msg['nav.common.edituser']}" action="#{user.show}" immediate="true" />
+							<h:link id="edituser_cmd" value="#{msg['nav.common.edituser']}" outcome="/view/config/user" />
 						</li>
 						<li>
 							<a href="#{msg['url.top.main.routemap']}" >

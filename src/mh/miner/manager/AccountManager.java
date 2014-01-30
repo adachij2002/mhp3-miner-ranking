@@ -68,10 +68,6 @@ public class AccountManager implements Serializable {
 		}
 	}
 
-	public String cancel() {
-		return "/view/top/main";
-	}
-
 	public String login() {
 		SqlSession session = sessionFactory.openSession();
 
@@ -82,9 +78,10 @@ public class AccountManager implements Serializable {
 		if(loginUser != null
 			&& tUser.getId().equals(loginUser.getId())
 			&& tUser.getPassword().equals(loginUser.getPassword())) {
-			return "main";
+			return "main?faces-redirect=true";
 		} else {
-			loginUser = null;
+			loginUser = guestUser;
+			tUser = new TUser();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(msg.getString("msg.top.login.failure")));
 			return "login";

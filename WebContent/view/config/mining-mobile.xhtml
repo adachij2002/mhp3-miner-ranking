@@ -195,8 +195,8 @@
 						rendered="#{accountManager.loggedIn}" >
 						<f:ajax execute="reportPanel" render="messages" onevent="showWorkingIndicator"/>
 					</h:commandLink>
-					<h:commandLink id="cancel_cmd_bottom" value="#{msg['nav.common.back']}"
-						action="#{mining.cancel}" type="submit" immediate="true" />
+					<h:button id="cancel_cmd_bottom" value="#{msg['nav.common.back']}"
+						outcome="/view/top/main" styleClass="btn" />
 				</fieldset>
 			</h:panelGroup>
 			<h:panelGrid columns="1">

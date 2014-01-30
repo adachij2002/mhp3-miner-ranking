@@ -17,7 +17,7 @@
 			</h:panelGrid>
 			<fieldset data-role="controlgroup" data-type="horizontal">
 				<h:commandLink id="login_cmd" value="#{msg['nav.common.login']}" action="#{accountManager.login}" type="submit" />
-				<h:commandLink id="cancel_cmd" value="#{msg['nav.common.cancel']}" action="#{accountManager.cancel}" type="submit" immediate="true" />
+				<h:button id="cancel_cmd" value="#{msg['nav.common.cancel']}" outcome="/view/top/main" styleClass="btn"/>
 			</fieldset>
 			<h:panelGrid columns="1">
 				<h:messages id="messages" globalOnly="true"/>

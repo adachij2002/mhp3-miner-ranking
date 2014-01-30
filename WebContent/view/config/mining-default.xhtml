@@ -249,9 +249,8 @@
 						styleClass="btn" >
 						<f:ajax execute="reportPanel" render="messages" onevent="showWorkingIndicator"/>
 					</h:commandButton>
-					<h:commandButton id="cancel_cmd_bottom" value="#{msg['nav.common.back']}"
-						action="#{mining.cancel}" immediate="true"
-						styleClass="btn" />
+					<h:button id="cancel_cmd_bottom" value="#{msg['nav.common.back']}"
+						outcome="/view/top/main" styleClass="btn" />
 				</h:panelGrid>
 			</h:panelGroup>
 			<h:panelGrid columns="1">
