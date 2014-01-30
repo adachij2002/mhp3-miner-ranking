@@ -1,4 +1,4 @@
-Monster Hunter Portable 3rd Miner Ranking Site
+MHP3 Miner Ranking Site
 =========
 
 Monster Hunter Portable 3rd (MHP3) is a major game on PSP.
