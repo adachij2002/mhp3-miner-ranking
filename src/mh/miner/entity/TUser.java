@@ -8,15 +8,6 @@ public class TUser implements Cloneable {
 	private String password;
 	private boolean publish;
 
-	@Override
-	public TUser clone() {
-		try {
-			return (TUser) super.clone();
-		} catch (CloneNotSupportedException e) {
-			return null;
-		}
-    }
-
     public String getId() {
 		return this.id;
 	}
@@ -47,4 +38,13 @@ public class TUser implements Cloneable {
 	public void setPublish(boolean publish) {
 		this.publish = publish;
 	}
+
+	@Override
+	public TUser clone() {
+		try {
+			return (TUser) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
+    }
 }

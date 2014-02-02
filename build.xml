@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="mhp3-miner-ranking" default="deploy" basedir=".">
+<project name="mhp3-miner-ranking" default="create-war" basedir=".">
 
 	<!-- =================================================================== -->
 	<!-- Set environment                                                     -->
@@ -83,7 +83,12 @@
 		</copy>
 		<copy todir="${dist.dir}/${resources.dir}" overwrite="yes">
 			<fileset dir="${resources.dir}" />
-			<mapper type="glob" from="*.${env.deploy}" to="*"/>
+			<mapper type="glob" from="*.${env.deploy}" to="*" />
+		</copy>
+		<copy todir="${bin.dir}" overwrite="yes">
+			<fileset dir="${src.dir}">
+				<include name="**/*.xml"/>
+			</fileset>
 		</copy>
 		<war warfile="${dist.dir}/${war.file}" webxml="${dist.dir}/${resources.dir}/WEB-INF/web.xml">
 			<metainf dir="${dist.dir}/${resources.dir}/META-INF">

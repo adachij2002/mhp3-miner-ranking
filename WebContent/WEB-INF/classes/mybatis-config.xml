@@ -37,10 +37,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="m_mine-mapper.xml" />
-		<mapper resource="t_user-mapper.xml" />
-		<mapper resource="t_status-mapper.xml" />
-		<mapper resource="miner-ranking-mapper.xml" />
-		<mapper resource="mining-status-mapper.xml" />
+		<mapper resource="mh/miner/entity/m_mine-mapper.xml" />
+		<mapper resource="mh/miner/entity/t_user-mapper.xml" />
+		<mapper resource="mh/miner/entity/t_status-mapper.xml" />
+		<mapper resource="mh/miner/entity/miner-ranking-mapper.xml" />
+		<mapper resource="mh/miner/entity/mining-status-mapper.xml" />
 	</mappers>
 </configuration>

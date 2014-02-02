@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mh.miner.entity.TUser">
+	<resultMap type="TUser" id="tUserResult">
+		<result column="id" property="id" />
+		<result column="mh_name" property="mhName" />
+		<result column="password" property="password" />
+		<result column="comment" property="comment" />
+	</resultMap>
+	<select id="select" resultType="TUser"
+		resultMap="tUserResult">
+		SELECT
+			*
+		FROM
+			t_user
+    </select>
+	<select id="selectById"  parameterType="String" resultType="TUser"
+		resultMap="tUserResult">
+		SELECT
+			*
+		FROM
+			t_user
+		WHERE
+			id = #{value}
+    </select>
+	<insert id="insert" parameterType="TUser">
+		INSERT INTO
+			t_user (id, mh_name, password, comment, publish)
+		VALUES
+			(#{id}, #{mhName}, #{password}, #{comment}, #{publish})
+	</insert>
+	<update id="update" parameterType="TUser">
+		UPDATE
+			t_user
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="mhName != null">
+				mh_name = #{mhName},
+			</if>
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="comment != null">
+				comment = #{comment},
+			</if>
+			<if test="publish != null">
+				publish = #{publish}
+			</if>
+		</trim>
+		WHERE
+			id = #{id}
+	</update>
+	<delete id="deleteById" parameterType="String">
+		DELETE FROM
+			t_user
+		WHERE
+			id = #{value}
+	</delete>
+</mapper>
