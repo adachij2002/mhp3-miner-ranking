@@ -4,14 +4,21 @@ import java.util.List;
 
 public class MiningStatusUpdateParam {
 
-	private List<Long> ids;
+	private String userId;
+	private List<String> amuletIds;
 	private boolean checked;
 
-	public List<Long> getIds() {
-		return ids;
+	public String getUserId() {
+		return userId;
 	}
-	public void setIds(List<Long> ids) {
-		this.ids = ids;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public List<String> getAmuletIds() {
+		return amuletIds;
+	}
+	public void setAmuletIds(List<String> amuletIds) {
+		this.amuletIds = amuletIds;
 	}
 	public boolean isChecked() {
 		return checked;

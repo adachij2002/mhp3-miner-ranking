@@ -49,7 +49,8 @@ public class User implements Serializable {
 					.getSessionMap().get("accountManager");
 			if(accountManager instanceof AccountManager) {
 				TUser user = ((AccountManager)accountManager).getLoginUser();
-				if(user != null) {
+				if(user != null
+						&& !user.getId().equals(((AccountManager)accountManager).getGuestUser().getId())) {
 					tUser = user;
 				}
 			}
@@ -173,7 +174,7 @@ public class User implements Serializable {
 					.getExternalContext()
 					.getSessionMap().get("accountManager");
 			if(accountManager instanceof AccountManager) {
-				((AccountManager)accountManager).setLoginUser(null);
+				((AccountManager)accountManager).setLoginUser(((AccountManager)accountManager).getGuestUser());
 			}
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,

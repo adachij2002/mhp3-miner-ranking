@@ -46,6 +46,10 @@ public class AccountManager implements Serializable {
 		this.loginUser = loginUser;
 	}
 
+	public TUser getGuestUser() {
+		return guestUser;
+	}
+
 	@PostConstruct
 	public void init() {
 		try {
@@ -62,7 +66,7 @@ public class AccountManager implements Serializable {
 
 			session.close();
 
-			loginUser = guestUser;
+			loginUser = guestUser.clone();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -89,7 +93,7 @@ public class AccountManager implements Serializable {
 	}
 
 	public String logout() {
-		loginUser = guestUser;
+		loginUser = guestUser.clone();
 		tUser = new TUser();
 
 		return "main";
@@ -97,6 +101,6 @@ public class AccountManager implements Serializable {
 
 	public boolean isLoggedIn() {
 		return loginUser != null
-			&& loginUser != guestUser;
+			&& !loginUser.getId().equals(guestUser.getId());
 	}
 }

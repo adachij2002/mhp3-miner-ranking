@@ -131,9 +131,8 @@ public class Mining implements Serializable {
 	}
 
 	public String movePage() {
-		Map<String,String> params = 
-				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String pagenum = params.get("pagenum");
+		String pagenum = FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap().get("pagenum");
 		miningStatusSearchParam.setPageIndex(Integer.parseInt(pagenum));
 		this.searchStatus();
 
@@ -172,10 +171,11 @@ public class Mining implements Serializable {
 
 				MiningStatus status = miningStatuses.getRowData();
 				MiningStatusUpdateParam statusParam = new MiningStatusUpdateParam();
+				statusParam.setUserId(miningStatusSearchParam.gettUser().getId());
+				statusParam.setAmuletIds(Arrays.asList(status.getAmuletId()));
 				statusParam.setChecked(status.isChecked());
-				statusParam.setIds(Arrays.asList(status.getId()));
 				session.update(
-						"mh.miner.entity.TStatus.updateByIds",
+						"mh.miner.entity.TStatus.updateByAmuletIds",
 						statusParam);
 
 				session.commit();

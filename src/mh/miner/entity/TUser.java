@@ -1,11 +1,6 @@
 package mh.miner.entity;
 
-import java.io.Serializable;
-
-
-
-
-public class TUser {
+public class TUser implements Cloneable {
 
 	private String id;
 	private String comment;
@@ -13,10 +8,16 @@ public class TUser {
 	private String password;
 	private boolean publish;
 
-    public TUser() {
+	@Override
+	public TUser clone() {
+		try {
+			return (TUser) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
     }
 
-	public String getId() {
+    public String getId() {
 		return this.id;
 	}
 	public void setId(String id) {

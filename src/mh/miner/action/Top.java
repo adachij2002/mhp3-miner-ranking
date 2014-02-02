@@ -100,7 +100,7 @@ public class Top implements Serializable {
 				minerRankingSearchParam.getPageIndex() - 1);
 		this.searchUser();
 
-		return "";
+		return "/view/top/main?faces-redirect=true&includeViewParams=true";
 	}
 
 	public String nextPage() {
@@ -108,24 +108,32 @@ public class Top implements Serializable {
 				minerRankingSearchParam.getPageIndex() + 1);
 		this.searchUser();
 
-		return "";
+		return "/view/top/main?faces-redirect=true&includeViewParams=true";
 	}
 
 	public String movePage() {
-		Map<String,String> params = 
-				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String pagenum = params.get("pagenum");
+		String pagenum = FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap().get("pagenum");
 		minerRankingSearchParam.setPageIndex(Integer.parseInt(pagenum));
 		this.searchUser();
 
-		return "";
+		return "/view/top/main?faces-redirect=true&includeViewParams=true";
 	}
 
 	private void parseQueryParam() {
-		String q_name = FacesContext.getCurrentInstance().getExternalContext()
-				.getRequestParameterMap().get("q_name");
-		if(q_name != null) {
-			minerRankingSearchParam.gettUser().setMhName(q_name);
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap();
+		minerRankingSearchParam.gettUser().setMhName(params.get("q_name"));
+		try {
+			minerRankingSearchParam.setPageIndex(Integer.parseInt(params.get("q_pageIndex")));
+		} catch (NumberFormatException e) {
+			minerRankingSearchParam.setPageIndex(0);
+		}
+		try {
+			minerRankingSearchParam.setPageSize(Integer.parseInt(params.get("q_pageSize")));
+		} catch (NumberFormatException e) {
+			minerRankingSearchParam.setPageSize(
+					ConfigurationManager.getInstance().getConf().getTopConf().getMaxPagesize());
 		}
 	}
 

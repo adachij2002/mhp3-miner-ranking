@@ -2,8 +2,8 @@ package mh.miner.entity;
 
 public class MiningStatus {
 
-	private long id;
 	private boolean checked;
+	private String amuletId;
 	private String amuletSeed;
 	private String mineName;
 	private String skill1Name;
@@ -14,17 +14,17 @@ public class MiningStatus {
 	private String amuletLevel;
 	private String amuletType;
 
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public boolean isChecked() {
 		return checked;
 	}
 	public void setChecked(boolean checked) {
 		this.checked = checked;
+	}
+	public String getAmuletId() {
+		return amuletId;
+	}
+	public void setAmuletId(String amuletId) {
+		this.amuletId = amuletId;
 	}
 	public String getAmuletSeed() {
 		return amuletSeed;

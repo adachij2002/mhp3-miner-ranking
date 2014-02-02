@@ -11,7 +11,7 @@
 			</h3>
 			<h:panelGrid columns="2">
 				<h:outputText value="#{msg['label.top.login.userid']}" />
-				<h:inputText id="user_id" cols="50" value="#{accountManager.tUser.id}" />
+				<h:inputText id="user_id" cols="50" value="#{accountManager.tUser.id}" required="true" />
 				<h:outputText value="#{msg['label.top.login.password']}" />
 				<h:inputSecret id="password" cols="50" value="#{accountManager.tUser.password}" required="true" redisplay="true" />
 			</h:panelGrid>

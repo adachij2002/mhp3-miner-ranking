@@ -7,8 +7,10 @@
 	<ui:define name="metadata">
 		<f:metadata>
 			<f:viewParam name="q_name" value="#{top.minerRankingSearchParam.tUser.mhName}" />
+			<f:viewParam name="q_pageIndex" value="#{top.minerRankingSearchParam.pageIndex}" />
+			<f:viewParam name="q_pageSize" value="#{top.minerRankingSearchParam.pageSize}" />
 		</f:metadata>
-	</ui:define>
+ 	</ui:define>
 	<ui:define name="content">
 		<h:form id="top_main" prependId="false">
 			<h:panelGroup id="headerPanelNotLogin" rendered="#{not accountManager.loggedIn}">
@@ -87,7 +89,7 @@
 			</h3>
 			<h:panelGroup id="listPanel">
 				<h:outputFormat value="#{msg['label.top.main.list.minercount']}" >
-					<f:param value="#{top.minerCount + 1000}"/>
+					<f:param value="#{top.minerCount}"/>
 				</h:outputFormat>
 				<br />
 				<h:outputFormat value="#{msg['nav.common.resultcount']}" >

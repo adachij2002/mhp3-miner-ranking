@@ -4,8 +4,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mh.miner.entity.MiningStatus">
 	<resultMap type="MiningStatus" id="miningStatusResult">
-		<result column="id" property="id" />
 		<result column="checked" property="checked" />
+		<result column="amulet_id" property="amuletId" />
 		<result column="amulet_seed" property="amuletSeed" />
 		<result column="mine_name" property="mineName" />
 		<result column="skill1_name" property="skill1Name" />
@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectStatus" parameterType="MiningStatusSearchParam"
 		resultType="MiningStatus" resultMap="miningStatusResult">
 			SELECT
-				a.id, a.checked,
+				a.checked, a.amulet_id,
 				b.name as amulet_name, b.seed as amulet_seed, b.slot_num as slot_num,
 				c.name as skill1_name, c.point as skill1_point,
 				d.name as skill2_name, d.point as skill2_point,

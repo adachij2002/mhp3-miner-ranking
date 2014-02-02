@@ -16,15 +16,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM
 			t_status
     </select>
-	<select id="selectById"  parameterType="long"
-		resultType="TStatus" resultMap="tStatusResult">
-		SELECT
-			*
-		FROM
-			t_status
-		WHERE
-			id = #{value}
-    </select>
 	<insert id="insert" parameterType="TStatus">
 		INSERT INTO
 			t_status (checked, user_id, amulet_id)
@@ -55,27 +46,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				amulet_id = #{amuletId}
 			</if>
 		</trim>
-		WHERE
-			id = #{id}
 	</update>
-	<update id="updateByIds" parameterType="MiningStatusUpdateParam" >
+	<update id="updateByAmuletIds" parameterType="MiningStatusUpdateParam" >
 		UPDATE
 			t_status
 		SET
 			checked = #{checked}
 		WHERE
-			id
+			user_id = #{userId}
+		AND
+			amulet_id
 		IN
-		<foreach item="id" collection="ids" open="(" close=")" separator=",">
-			#{id}
+		<foreach item="amuletId" collection="amuletIds" open="(" close=")" separator=",">
+			#{amuletId}
 		</foreach>
 	</update>
-	<delete id="deleteById" parameterType="long">
-		DELETE FROM
-			t_status
-		WHERE
-			id = #{value}
-	</delete>
 	<delete id="deleteByUserId" parameterType="String">
 		DELETE FROM
 			t_status
