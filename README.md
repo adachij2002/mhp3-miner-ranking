@@ -14,11 +14,14 @@ Requirement
 - Java 7 (Probably work on Java 6)
 - Tomcat 7.x (Probably work on Tomcat 6.x or other application servers)
 - PostgreSQL 9.x (Probably work on PostgreSQL 8.x or lower)
+    - or MySQL 5.x (Probably work on MySQL 4.x or lower)
 
 Installation
 --------
 1. Git clone latest source
-1. Create database, only supported PostgreSQL
+1. Create database
+
+    * PostgreSQL
 
     ```bash
 $ createuser -U postgres -P mh
@@ -27,6 +30,20 @@ $ createdb -U postgres -E unicode mhdb
 $ cd database
 $ psql -U mh mhdb
 mhdb=# \i init_postgres.sql
+```
+
+    * MySQL
+
+    ```bash
+$ mysql -u root -p
+mysql> CREATE DATABASE mhdb DEFAULT CHARACTER SET utf8;
+mysql> CREATE USER 'mh'@'localhost' IDENTIFIED BY 'hunter';
+(Default password "hunter" in context.xml)
+mysql> GRANT ALL PRIVILEGES ON mhdb.* TO 'mh'@'localhost';
+mysql> FLUSH PRIVILEGES;
+$ cd database
+$ mysql -u mh -p
+mysql> source init_mysql.sql
 ```
 
 1. Build with Ant
