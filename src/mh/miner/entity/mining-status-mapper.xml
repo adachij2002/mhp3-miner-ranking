@@ -104,11 +104,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					${order.column} ${order.type}
 				</foreach>
 			</if>
-			<if test="pageIndex > 0">
-				OFFSET #{pageIndex} * #{pageSize}
-			</if>
 			<if test="pageSize > 0">
 				LIMIT #{pageSize}
+			</if>
+			<if test="pageIndex > 0">
+				OFFSET #{offset}
 			</if>
     </select>
 </mapper>

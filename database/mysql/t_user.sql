@@ -1,5 +1,5 @@
 CREATE TABLE t_user ( 
-	id text NOT NULL,
+	id varchar(255) NOT NULL,
 	mh_name text,
 	password text,
 	comment text,

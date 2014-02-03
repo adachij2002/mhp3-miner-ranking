@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS m_amulet;
-
 CREATE TABLE m_amulet ( 
 	id text NOT NULL,
 	seed integer,

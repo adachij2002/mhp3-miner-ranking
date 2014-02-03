@@ -16,4 +16,7 @@ abstract public class Pagination {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
+	public int getOffset() {
+		return pageIndex * pageSize;
+	}
 }
