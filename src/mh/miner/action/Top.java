@@ -125,12 +125,23 @@ public class Top implements Serializable {
 				.getRequestParameterMap();
 		minerRankingSearchParam.gettUser().setMhName(params.get("q_name"));
 		try {
-			minerRankingSearchParam.setPageIndex(Integer.parseInt(params.get("q_pageIndex")));
+			int index = Integer.parseInt(params.get("q_pageIndex"));
+			if(index > 0) {
+				minerRankingSearchParam.setPageIndex(index);
+			} else {
+				minerRankingSearchParam.setPageIndex(0);
+			}
 		} catch (NumberFormatException e) {
 			minerRankingSearchParam.setPageIndex(0);
 		}
 		try {
-			minerRankingSearchParam.setPageSize(Integer.parseInt(params.get("q_pageSize")));
+			int size = Integer.parseInt(params.get("q_pageSize"));
+			if(size > 0) {
+				minerRankingSearchParam.setPageSize(size);
+			} else {
+				minerRankingSearchParam.setPageSize(
+						ConfigurationManager.getInstance().getConf().getTopConf().getMaxPagesize());
+			}
 		} catch (NumberFormatException e) {
 			minerRankingSearchParam.setPageSize(
 					ConfigurationManager.getInstance().getConf().getTopConf().getMaxPagesize());

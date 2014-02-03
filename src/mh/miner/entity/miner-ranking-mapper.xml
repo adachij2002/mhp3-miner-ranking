@@ -119,7 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="pageSize > 0">
 				LIMIT #{pageSize}
 			</if>
-			<if test="pageIndex > 0">
+			<if test="offset > 0">
 				OFFSET #{offset}
 			</if>
     </select>
