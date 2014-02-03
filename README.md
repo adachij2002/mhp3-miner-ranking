@@ -26,7 +26,7 @@ Installation
     ```bash
 $ createuser -U postgres -P mh
 (Default password "hunter" in context.xml)
-$ createdb -U postgres -E unicode mhdb
+$ createdb -U postgres -E utf8 mhdb
 $ cd database
 $ psql -U mh mhdb
 mhdb=# \i init_postgres.sql
@@ -41,8 +41,9 @@ mysql> CREATE USER 'mh'@'localhost' IDENTIFIED BY 'hunter';
 (Default password "hunter" in context.xml)
 mysql> GRANT ALL PRIVILEGES ON mhdb.* TO 'mh'@'localhost';
 mysql> FLUSH PRIVILEGES;
+mysql> exit
 $ cd database
-$ mysql -u mh -p
+$ mysql -u mh -p mhdb
 mysql> source init_mysql.sql
 ```
 
