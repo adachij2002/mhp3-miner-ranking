@@ -4,6 +4,13 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="../templates/layout.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="q_keyword" value="#{top.minerRankingSearchParam.keyword}" />
+			<f:viewParam name="q_pageIndex" value="#{top.minerRankingSearchParam.pageIndex}" />
+			<f:viewParam name="q_pageSize" value="#{top.minerRankingSearchParam.pageSize}" />
+		</f:metadata>
+ 	</ui:define>
 	<ui:define name="content">
 		<h:form id="top_main" prependId="false">
 			<h:panelGroup id="headerPanelLogin" rendered="#{accountManager.loggedIn}" >
