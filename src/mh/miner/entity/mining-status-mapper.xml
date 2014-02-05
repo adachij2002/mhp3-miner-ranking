@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				m_amulet_type g
 			ON
 				( b.type_id = g.id )
-			<trim prefix="WHERE" prefixOverrides="AND | OR ">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
 				<if test="tUser != null and tUser.id != null and tUser.id != ''">
 					AND a.user_id = #{tUser.id}
 				</if>
@@ -91,7 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				m_amulet_type g
 			ON
 				( b.type_id = g.id )
-			<trim prefix="WHERE" prefixOverrides="AND | OR ">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
 				<if test="tUser != null and tUser.id != null and tUser.id != ''">
 					AND a.user_id = #{tUser.id}
 				</if>

@@ -1,17 +1,14 @@
 package mh.miner.action;
 
-import java.io.Serializable;
-
-import mh.miner.entity.TUser;
 
 public class MinerRankingSearchParam extends Pagination {
 
-	private TUser tUser = new TUser();
+	private String keyword;
 
-	public TUser gettUser() {
-		return tUser;
+	public String getKeyword() {
+		return keyword;
 	}
-	public void settUser(TUser tUser) {
-		this.tUser = tUser;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 }

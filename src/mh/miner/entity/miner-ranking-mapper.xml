@@ -61,18 +61,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			) b
 			ON
 				(a.id = b.id)
-			<trim prefix="WHERE" prefixOverrides="AND | OR ">
-				<if test="tUser.id != null and tUser.id != ''">
-					AND a.id = #{tUser.id}
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyword != null and keyword != ''">
+					OR a.mh_name LIKE '%' || #{keyword} || '%'
 				</if>
-				<if test="tUser.mhName != null and tUser.mhName != ''">
-					AND a.mh_name LIKE '%' || #{tUser.mhName} || '%'
-				</if>
-				<if test="tUser.password != null and tUser.password != ''">
-					AND a.password LIKE '%' || #{tUser.password} || '%'
-				</if>
-				<if test="tUser.comment != null and tUser.comment != ''">
-					AND a.comment LIKE '%' || #{tUser.comment} || '%'
+				<if test="keyword != null and keyword != ''">
+					OR a.comment LIKE '%' || #{keyword} || '%'
 				</if>
 			</trim>
     </select>
@@ -99,18 +93,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			) b
 			ON
 				(a.id = b.id)
-			<trim prefix="WHERE" prefixOverrides="AND | OR ">
-				<if test="tUser.id != null and tUser.id != ''">
-					AND a.id = #{tUser.id}
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyword != null and keyword != ''">
+					OR a.mh_name LIKE '%' || #{keyword} || '%'
 				</if>
-				<if test="tUser.mhName != null and tUser.mhName != ''">
-					AND a.mh_name LIKE '%' || #{tUser.mhName} || '%'
-				</if>
-				<if test="tUser.password != null and tUser.password != ''">
-					AND a.password LIKE '%' || #{tUser.password} || '%'
-				</if>
-				<if test="tUser.comment != null and tUser.comment != ''">
-					AND a.comment LIKE '%' || #{tUser.comment} || '%'
+				<if test="keyword != null and keyword != ''">
+					OR a.comment LIKE '%' || #{keyword} || '%'
 				</if>
 			</trim>
 			ORDER BY

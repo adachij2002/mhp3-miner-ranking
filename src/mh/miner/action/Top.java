@@ -123,7 +123,7 @@ public class Top implements Serializable {
 	private void parseQueryParam() {
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap();
-		minerRankingSearchParam.gettUser().setMhName(params.get("q_name"));
+		minerRankingSearchParam.setKeyword(params.get("q_keyword"));
 		try {
 			int index = Integer.parseInt(params.get("q_pageIndex"));
 			if(index > 0) {
