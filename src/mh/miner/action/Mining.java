@@ -16,6 +16,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
+import javax.servlet.ServletContext;
 
 import mh.miner.action.SortOrder.SortType;
 import mh.miner.entity.MMine;
@@ -23,6 +24,7 @@ import mh.miner.entity.MiningStatus;
 import mh.miner.entity.TUser;
 import mh.miner.manager.AccountManager;
 import mh.miner.manager.ConfigurationManager;
+import mh.miner.manager.SqlSessionFactoryManager;
 import mh.miner.util.PaginationUtil;
 
 import org.apache.ibatis.io.Resources;
@@ -64,47 +66,41 @@ public class Mining implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		try {
-			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-			sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-			Object accountManager =
-				FacesContext
-					.getCurrentInstance()
-					.getExternalContext()
-					.getSessionMap().get("accountManager");
-			if(accountManager instanceof AccountManager) {
-				TUser user = ((AccountManager)accountManager).getLoginUser();
-				miningStatusSearchParam.settUser(user);
-			}
-
-			MMine mMine = new MMine();
-			miningStatusSearchParam.setmMine(mMine);
-
-			List<MiningStatusSortOrder> sortOrders = new ArrayList<MiningStatusSortOrder>();
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.MINE, SortType.ASC));
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL1_NAME, SortType.ASC));
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL1_POINT, SortType.DESC));
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL2_NAME, SortType.ASC));
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL2_POINT, SortType.DESC));
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SEED, SortType.ASC));
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.AMULET_LEVEL, SortType.ASC));
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.CHECKED, SortType.ASC));
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SLOT_NUM, SortType.ASC));
-			sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.AMULET_TYPE, SortType.ASC));
-			miningStatusSearchParam.setSortOrders(sortOrders);
-
-			miningStatusSearchParam.setPageIndex(0);
-			miningStatusSearchParam.setPageSize(
-					ConfigurationManager.getInstance().getConf().getMiningConf().getMaxPagesize());
-
-			navSize = ConfigurationManager.getInstance().getConf().getMiningConf().getNavsize();
-
-			searchStatus();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
+		Object accountManager =
+			FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.getSessionMap().get("accountManager");
+		if(accountManager instanceof AccountManager) {
+			TUser user = ((AccountManager)accountManager).getLoginUser();
+			miningStatusSearchParam.settUser(user);
 		}
+
+		MMine mMine = new MMine();
+		miningStatusSearchParam.setmMine(mMine);
+
+		List<MiningStatusSortOrder> sortOrders = new ArrayList<MiningStatusSortOrder>();
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.MINE, SortType.ASC));
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL1_NAME, SortType.ASC));
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL1_POINT, SortType.DESC));
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL2_NAME, SortType.ASC));
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL2_POINT, SortType.DESC));
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SEED, SortType.ASC));
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.AMULET_LEVEL, SortType.ASC));
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.CHECKED, SortType.ASC));
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SLOT_NUM, SortType.ASC));
+		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.AMULET_TYPE, SortType.ASC));
+		miningStatusSearchParam.setSortOrders(sortOrders);
+
+		miningStatusSearchParam.setPageIndex(0);
+		miningStatusSearchParam.setPageSize(
+				ConfigurationManager.getInstance().getConf().getMiningConf().getMaxPagesize());
+
+		navSize = ConfigurationManager.getInstance().getConf().getMiningConf().getNavsize();
+
+		searchStatus();
 	}
 
 	public String search() {

@@ -7,8 +7,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import mh.miner.manager.SqlSessionFactoryManager;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -28,8 +31,7 @@ public class MMine implements Serializable {
 		SqlSession session = null;
 
 		try {
-			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-			SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+			SqlSessionFactory sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
 			session = sessionFactory.openSession();
 
@@ -42,8 +44,6 @@ public class MMine implements Serializable {
 			for(MMine mine : mineList) {
 				mines.put(mine.getName(), mine.getId());
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		} finally {
 			if(session != null) {
 				session.close();

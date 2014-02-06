@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 import mh.miner.entity.TUser;
 
@@ -52,24 +53,19 @@ public class AccountManager implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		try {
-			msg = ResourceBundle.getBundle("messages",
-					FacesContext.getCurrentInstance().getViewRoot().getLocale());
-			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-			sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		msg = ResourceBundle.getBundle("messages",
+				FacesContext.getCurrentInstance().getViewRoot().getLocale());
+		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-			SqlSession session = sessionFactory.openSession();
+		SqlSession session = sessionFactory.openSession();
 
-			guestUser = (TUser)session.selectOne(
-					"mh.miner.entity.TUser.selectById",
-					msg.getString("value.common.guest.id"));
+		guestUser = (TUser)session.selectOne(
+				"mh.miner.entity.TUser.selectById",
+				msg.getString("value.common.guest.id"));
 
-			session.close();
+		session.close();
 
-			loginUser = guestUser.clone();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		loginUser = guestUser.clone();
 	}
 
 	public String login() {

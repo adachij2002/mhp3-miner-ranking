@@ -10,10 +10,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 import mh.miner.entity.TStatus;
 import mh.miner.entity.TUser;
 import mh.miner.manager.AccountManager;
+import mh.miner.manager.SqlSessionFactoryManager;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -38,25 +40,19 @@ public class User implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		try {
-			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-			sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-			Object accountManager =
-				FacesContext
-					.getCurrentInstance()
-					.getExternalContext()
-					.getSessionMap().get("accountManager");
-			if(accountManager instanceof AccountManager) {
-				TUser user = ((AccountManager)accountManager).getLoginUser();
-				if(user != null
-						&& !user.getId().equals(((AccountManager)accountManager).getGuestUser().getId())) {
-					tUser = user;
-				}
+		Object accountManager =
+			FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.getSessionMap().get("accountManager");
+		if(accountManager instanceof AccountManager) {
+			TUser user = ((AccountManager)accountManager).getLoginUser();
+			if(user != null
+					&& !user.getId().equals(((AccountManager)accountManager).getGuestUser().getId())) {
+				tUser = user;
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
 		}
 	}
 

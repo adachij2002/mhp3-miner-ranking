@@ -1,4 +1,4 @@
-package mh.miner.service.rest;
+package mh.miner.webapi;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import mh.miner.action.MinerRankingSearchParam;
 import mh.miner.entity.MinerRanking;
 import mh.miner.manager.ConfigurationManager;
+import mh.miner.manager.SqlSessionFactoryManager;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -23,14 +24,7 @@ public class RankingResource {
 	@Path("/list")
     @Produces("application/json; charset=UTF-8")
 	public List<MinerRanking> getList() {
-		Reader reader = null;
-		try {
-			reader = Resources.getResourceAsReader("mybatis-config.xml");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		SqlSessionFactory sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 		SqlSession session = sessionFactory.openSession();
 
 		MinerRankingSearchParam minerRankingSearchParam = new MinerRankingSearchParam();

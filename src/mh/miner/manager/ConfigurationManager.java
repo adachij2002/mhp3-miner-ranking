@@ -12,8 +12,8 @@ import org.simpleframework.xml.stream.HyphenStyle;
 
 public class ConfigurationManager {
 	private static final ConfigurationManager instance = new ConfigurationManager();
+	private static final String filename = "mhp3-miner-ranking-conf.xml";
 	private MainConf conf = null;
-	private final String filename = "mhp3-miner-ranking-conf.xml";
 
 	private ConfigurationManager() {
 		InputStream in = null;

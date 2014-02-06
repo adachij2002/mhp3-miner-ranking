@@ -17,10 +17,12 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
+import javax.servlet.ServletContext;
 
 import mh.miner.entity.MinerRanking;
 import mh.miner.entity.TUser;
 import mh.miner.manager.ConfigurationManager;
+import mh.miner.manager.SqlSessionFactoryManager;
 import mh.miner.util.PaginationUtil;
 
 import org.apache.ibatis.io.Resources;
@@ -70,22 +72,16 @@ public class Top implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		try {
-			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-			sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-			minerRankingSearchParam.setPageIndex(0);
-			minerRankingSearchParam.setPageSize(
-					ConfigurationManager.getInstance().getConf().getTopConf().getMaxPagesize());
+		minerRankingSearchParam.setPageIndex(0);
+		minerRankingSearchParam.setPageSize(
+				ConfigurationManager.getInstance().getConf().getTopConf().getMaxPagesize());
 
-			navSize = ConfigurationManager.getInstance().getConf().getTopConf().getNavsize();
+		navSize = ConfigurationManager.getInstance().getConf().getTopConf().getNavsize();
 
-			parseQueryParam();
-			searchUser();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
-		}
+		parseQueryParam();
+		searchUser();
 	}
 
 	public String search() {
