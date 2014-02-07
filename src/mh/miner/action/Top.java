@@ -81,12 +81,12 @@ public class Top implements Serializable {
 		navSize = ConfigurationManager.getInstance().getConf().getTopConf().getNavsize();
 
 		parseQueryParam();
-		searchUser();
+		searchRanking();
 	}
 
 	public String search() {
 		minerRankingSearchParam.setPageIndex(0);
-		this.searchUser();
+		this.searchRanking();
 
 		return "/view/top/main?faces-redirect=true&includeViewParams=true";
 	}
@@ -94,7 +94,7 @@ public class Top implements Serializable {
 	public String previousPage() {
 		minerRankingSearchParam.setPageIndex(
 				minerRankingSearchParam.getPageIndex() - 1);
-		this.searchUser();
+		this.searchRanking();
 
 		return "/view/top/main?faces-redirect=true&includeViewParams=true";
 	}
@@ -102,7 +102,7 @@ public class Top implements Serializable {
 	public String nextPage() {
 		minerRankingSearchParam.setPageIndex(
 				minerRankingSearchParam.getPageIndex() + 1);
-		this.searchUser();
+		this.searchRanking();
 
 		return "/view/top/main?faces-redirect=true&includeViewParams=true";
 	}
@@ -111,7 +111,7 @@ public class Top implements Serializable {
 		String pagenum = FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap().get("pagenum");
 		minerRankingSearchParam.setPageIndex(Integer.parseInt(pagenum));
-		this.searchUser();
+		this.searchRanking();
 
 		return "/view/top/main?faces-redirect=true&includeViewParams=true";
 	}
@@ -145,7 +145,7 @@ public class Top implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void searchUser() {
+	private void searchRanking() {
 		SqlSession session = sessionFactory.openSession();
 
 		// ranking
