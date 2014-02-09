@@ -16,6 +16,7 @@ import mh.miner.entity.MinerRanking;
 import mh.miner.manager.ConfigurationManager;
 import mh.miner.manager.SqlSessionFactoryManager;
 import mh.miner.util.PaginationUtil;
+import mh.miner.util.QueryParamUtil;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -109,29 +110,7 @@ public class Ranking implements Serializable {
 	private void parseQueryParam() {
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap();
-		minerRankingSearchParam.setKeyword(params.get("q_keyword"));
-		try {
-			int index = Integer.parseInt(params.get("q_pageIndex"));
-			if(index > 0) {
-				minerRankingSearchParam.setPageIndex(index);
-			} else {
-				minerRankingSearchParam.setPageIndex(0);
-			}
-		} catch (NumberFormatException e) {
-			minerRankingSearchParam.setPageIndex(0);
-		}
-		try {
-			int size = Integer.parseInt(params.get("q_pageSize"));
-			if(size > 0) {
-				minerRankingSearchParam.setPageSize(size);
-			} else {
-				minerRankingSearchParam.setPageSize(
-						ConfigurationManager.getInstance().getConf().getRankingConf().getMaxPagesize());
-			}
-		} catch (NumberFormatException e) {
-			minerRankingSearchParam.setPageSize(
-					ConfigurationManager.getInstance().getConf().getRankingConf().getMaxPagesize());
-		}
+		minerRankingSearchParam = QueryParamUtil.parseMinerRankingSearchParam(params);
 	}
 
 	@SuppressWarnings("unchecked")

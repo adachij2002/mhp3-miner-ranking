@@ -1,7 +1,12 @@
 package mh.miner.action;
 
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.QueryParam;
+
 abstract public class Pagination {
+	@QueryParam("q_pageIndex")
 	private int pageIndex;
+	@QueryParam("q_pageSize")
 	private int pageSize;
 
 	public int getPageIndex() {
