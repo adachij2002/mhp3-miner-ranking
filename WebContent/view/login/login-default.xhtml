@@ -6,6 +6,7 @@
 	<ui:param name="onLoadJS" value="document.getElementById('user_id').focus()" />
 	<ui:define name="content">
 		<h:form id="top_login" prependId="false" styleClass="form-horizontal">
+			<ui:include src="/view/common/menu.xhtml" />
 			<h3>
 				<h:outputText value="#{msg['label.login.login.title']}"/>
 			</h3>
@@ -17,7 +18,7 @@
 			</h:panelGrid>
 			<h:panelGrid columns="2">
 				<h:commandButton id="login_cmd" value="#{msg['nav.common.login']}" action="#{accountManager.login}" type="submit" styleClass="btn"/>
-				<h:button id="cancel_cmd" value="#{msg['nav.common.cancel']}" outcome="/view/ranking/miner" styleClass="btn"/>
+				<h:button id="cancel_cmd" value="#{msg['nav.common.cancel']}" outcome="/view/ranking/ranking" styleClass="btn"/>
 			</h:panelGrid>
 			<h:panelGrid columns="1">
 				<h:messages id="messages" globalOnly="true"/>

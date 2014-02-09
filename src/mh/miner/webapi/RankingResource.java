@@ -31,7 +31,7 @@ public class RankingResource {
 
 		minerRankingSearchParam.setPageIndex(0);
 		minerRankingSearchParam.setPageSize(
-				ConfigurationManager.getInstance().getConf().getStatusConf().getMaxPagesize());
+				ConfigurationManager.getInstance().getConf().getMiningConf().getMaxPagesize());
 
 		@SuppressWarnings("unchecked")
 		List<MinerRanking> rankings = session.selectList(

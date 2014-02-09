@@ -58,6 +58,6 @@
   </session-config>
   <error-page>
     <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-    <location>/view/ranking/miner.jsf</location>
+    <location>/view/ranking/ranking.jsf</location>
   </error-page>
 </web-app>

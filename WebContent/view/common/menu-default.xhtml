@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:panelGroup id="headerPanelNotLogin" rendered="#{not accountManager.loggedIn}">
+      <div class="masthead">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+				<li>
+					<h:link id="menu_ranking_notlogin" value="#{msg['nav.common.ranking']}" outcome="/view/ranking/ranking" />
+				</li>
+				<li>
+					<h:link id="menu_listmining" value="#{msg['nav.common.listmining']}" outcome="/view/status/mining" />
+				</li>
+				<li>
+					<h:link id="menu_createuser" value="#{msg['nav.common.createuser']}" outcome="/view/config/user" />
+				</li>
+				<li>
+					<a href="#{msg['url.ranking.ranking.routemap']}" >
+						<h:outputText value="#{msg['label.ranking.ranking.routemap']}" />
+					</a>
+				</li>
+				<li>
+					<h:link id="menu_login" value="#{msg['nav.common.login']}" outcome="/view/login/login" />
+				</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+	</h:panelGroup>
+	<h:panelGroup id="headerPanelLogin" rendered="#{accountManager.loggedIn}" >
+	  <h:outputFormat value="#{msg['label.common.welcome']}" >
+		<f:param value="#{accountManager.loginUser.mhName}"/>
+	  </h:outputFormat>
+      <div class="masthead">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+				<li>
+					<h:link id="menu_ranking" value="#{msg['nav.common.ranking']}" outcome="/view/ranking/ranking" />
+				</li>
+				<li>
+					<h:link id="menu_editmining" value="#{msg['nav.common.editmining']}" outcome="/view/status/mining" />
+				</li>
+				<li>
+					<h:link id="menu_edituser" value="#{msg['nav.common.edituser']}" outcome="/view/config/user" />
+				</li>
+				<li>
+					<a href="#{msg['url.ranking.ranking.routemap']}" >
+						<h:outputText value="#{msg['label.ranking.ranking.routemap']}" />
+					</a>
+				</li>
+				<li>
+					<h:commandLink id="menu_logout" value="#{msg['nav.common.logout']}" action="#{accountManager.logout}" immediate="true" />
+				</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+	</h:panelGroup>
+</html>

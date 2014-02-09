@@ -13,6 +13,7 @@
  	</ui:define>
 	<ui:define name="content">
 		<h:form id="top_main" prependId="false">
+			<ui:include src="/view/common/menu.xhtml" />
 			<h:panelGroup id="headerPanelLogin" rendered="#{accountManager.loggedIn}" >
 				<ul data-role="listview">
 					<li data-role="list-divider">
@@ -32,7 +33,7 @@
 				</ul>
 			</h:panelGroup>
 			<h3>
-				<h:outputText value="#{msg['label.ranking.miner.list']}"/>
+				<h:outputText value="#{msg['label.ranking.ranking.list']}"/>
 				<span id="workingIndicator" class="status" style="display: none;">
 					<img src="../images/ajax-loader.gif" />
 				</span>
@@ -65,19 +66,19 @@
 					rowClasses="gray_row, white_row" >
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msg['label.ranking.miner.list.num']}"/>
+							<h:outputText value="#{msg['label.ranking.ranking.list.num']}"/>
 						</f:facet>
 						<h:outputText value="#{ranking.minerRankingSearchParam.pageIndex * ranking.minerRankingSearchParam.pageSize + ranking.minerRankings.rowIndex + 1}"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msg['label.ranking.miner.list.mhname']}"/>
+							<h:outputText value="#{msg['label.ranking.ranking.list.mhname']}"/>
 						</f:facet>
 						<h:outputText value="#{minerRanking.mhName}"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msg['label.ranking.miner.list.amuletcount']}"/>
+							<h:outputText value="#{msg['label.ranking.ranking.list.amuletcount']}"/>
 						</f:facet>
 						<h:outputText value="#{minerRanking.amuletCount}"/>
 					</h:column>
@@ -93,8 +94,8 @@
 						<h:link id="edituser_cmd" value="#{msg['nav.common.edituser']}" outcome="/view/config/user" />
 					</li>
 					<li>
-						<a href="#{msg['url.ranking.miner.routemap']}" >
-							<h:outputText value="#{msg['label.ranking.miner.routemap']}" />
+						<a href="#{msg['url.ranking.ranking.routemap']}" >
+							<h:outputText value="#{msg['label.ranking.ranking.routemap']}" />
 						</a>
 					</li>
 					<li>
@@ -111,8 +112,8 @@
 						<h:link id="listmining_cmd" value="#{msg['nav.common.listmining']}" outcome="/view/status/mining" />
 					</li>
 					<li>
-						<a href="#{msg['url.ranking.miner.routemap']}" >
-							<h:outputText value="#{msg['label.ranking.miner.routemap']}" />
+						<a href="#{msg['url.ranking.ranking.routemap']}" >
+							<h:outputText value="#{msg['label.ranking.ranking.routemap']}" />
 						</a>
 					</li>
 				</ul>

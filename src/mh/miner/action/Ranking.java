@@ -78,7 +78,7 @@ public class Ranking implements Serializable {
 		minerRankingSearchParam.setPageIndex(0);
 		this.searchRanking();
 
-		return "/view/ranking/miner?faces-redirect=true&includeViewParams=true";
+		return "/view/ranking/ranking?faces-redirect=true&includeViewParams=true";
 	}
 
 	public String previousPage() {
@@ -86,7 +86,7 @@ public class Ranking implements Serializable {
 				minerRankingSearchParam.getPageIndex() - 1);
 		this.searchRanking();
 
-		return "/view/ranking/miner?faces-redirect=true&includeViewParams=true";
+		return "/view/ranking/ranking?faces-redirect=true&includeViewParams=true";
 	}
 
 	public String nextPage() {
@@ -94,7 +94,7 @@ public class Ranking implements Serializable {
 				minerRankingSearchParam.getPageIndex() + 1);
 		this.searchRanking();
 
-		return "/view/ranking/miner?faces-redirect=true&includeViewParams=true";
+		return "/view/ranking/ranking?faces-redirect=true&includeViewParams=true";
 	}
 
 	public String movePage() {
@@ -103,7 +103,7 @@ public class Ranking implements Serializable {
 		minerRankingSearchParam.setPageIndex(Integer.parseInt(pagenum));
 		this.searchRanking();
 
-		return "/view/ranking/miner?faces-redirect=true&includeViewParams=true";
+		return "/view/ranking/ranking?faces-redirect=true&includeViewParams=true";
 	}
 
 	private void parseQueryParam() {
