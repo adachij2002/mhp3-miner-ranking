@@ -1,34 +1,24 @@
 package mh.miner.action;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
-import javax.servlet.ServletContext;
 
 import mh.miner.entity.MinerRanking;
-import mh.miner.entity.TUser;
 import mh.miner.manager.ConfigurationManager;
 import mh.miner.manager.SqlSessionFactoryManager;
 import mh.miner.util.PaginationUtil;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 @ManagedBean
 @ViewScoped
@@ -76,9 +66,9 @@ public class Top implements Serializable {
 
 		minerRankingSearchParam.setPageIndex(0);
 		minerRankingSearchParam.setPageSize(
-				ConfigurationManager.getInstance().getConf().getTopConf().getMaxPagesize());
+				ConfigurationManager.getInstance().getConf().getRankingConf().getMaxPagesize());
 
-		navSize = ConfigurationManager.getInstance().getConf().getTopConf().getNavsize();
+		navSize = ConfigurationManager.getInstance().getConf().getRankingConf().getNavsize();
 
 		parseQueryParam();
 		searchRanking();
@@ -88,7 +78,7 @@ public class Top implements Serializable {
 		minerRankingSearchParam.setPageIndex(0);
 		this.searchRanking();
 
-		return "/view/top/main?faces-redirect=true&includeViewParams=true";
+		return "/view/ranking/miner?faces-redirect=true&includeViewParams=true";
 	}
 
 	public String previousPage() {
@@ -96,7 +86,7 @@ public class Top implements Serializable {
 				minerRankingSearchParam.getPageIndex() - 1);
 		this.searchRanking();
 
-		return "/view/top/main?faces-redirect=true&includeViewParams=true";
+		return "/view/ranking/miner?faces-redirect=true&includeViewParams=true";
 	}
 
 	public String nextPage() {
@@ -104,7 +94,7 @@ public class Top implements Serializable {
 				minerRankingSearchParam.getPageIndex() + 1);
 		this.searchRanking();
 
-		return "/view/top/main?faces-redirect=true&includeViewParams=true";
+		return "/view/ranking/miner?faces-redirect=true&includeViewParams=true";
 	}
 
 	public String movePage() {
@@ -113,7 +103,7 @@ public class Top implements Serializable {
 		minerRankingSearchParam.setPageIndex(Integer.parseInt(pagenum));
 		this.searchRanking();
 
-		return "/view/top/main?faces-redirect=true&includeViewParams=true";
+		return "/view/ranking/miner?faces-redirect=true&includeViewParams=true";
 	}
 
 	private void parseQueryParam() {
@@ -136,11 +126,11 @@ public class Top implements Serializable {
 				minerRankingSearchParam.setPageSize(size);
 			} else {
 				minerRankingSearchParam.setPageSize(
-						ConfigurationManager.getInstance().getConf().getTopConf().getMaxPagesize());
+						ConfigurationManager.getInstance().getConf().getRankingConf().getMaxPagesize());
 			}
 		} catch (NumberFormatException e) {
 			minerRankingSearchParam.setPageSize(
-					ConfigurationManager.getInstance().getConf().getTopConf().getMaxPagesize());
+					ConfigurationManager.getInstance().getConf().getRankingConf().getMaxPagesize());
 		}
 	}
 

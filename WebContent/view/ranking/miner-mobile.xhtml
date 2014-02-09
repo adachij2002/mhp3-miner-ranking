@@ -25,7 +25,7 @@
 			<h:panelGroup id="headerPanelNotLogin" rendered="#{not accountManager.loggedIn}" >
 				<ul data-role="listview">
 					<li data-role="list-divider">
-						<h:link id="login_cmd" outcome="/view/top/login" >
+						<h:link id="login_cmd" outcome="/view/login/login" >
 							<h:outputText value="#{msg['nav.common.login']}"/>
 						</h:link>
 					</li>
@@ -87,7 +87,7 @@
 			<h:panelGroup id="footerPanelLogin" rendered="#{accountManager.loggedIn}" >
 				<ul data-role="listview">
 					<li>
-						<h:link id="editmining_cmd" value="#{msg['nav.common.editmining']}" outcome="/view/config/mining" />
+						<h:link id="editmining_cmd" value="#{msg['nav.common.editmining']}" outcome="/view/status/mining" />
 					</li>
 					<li>
 						<h:link id="edituser_cmd" value="#{msg['nav.common.edituser']}" outcome="/view/config/user" />
@@ -108,7 +108,7 @@
 						<h:link id="createuser_cmd" value="#{msg['nav.common.createuser']}" outcome="/view/config/user" />
 					</li>
 					<li>
-						<h:link id="listmining_cmd" value="#{msg['nav.common.listmining']}" outcome="/view/config/mining" />
+						<h:link id="listmining_cmd" value="#{msg['nav.common.listmining']}" outcome="/view/status/mining" />
 					</li>
 					<li>
 						<a href="#{msg['url.top.main.routemap']}" >

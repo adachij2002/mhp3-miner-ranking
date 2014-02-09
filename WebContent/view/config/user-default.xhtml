@@ -26,14 +26,14 @@
 			<h:panelGrid columns="2" rendered="#{not accountManager.loggedIn}" styleClass="form-inline">
 				<h:commandButton id="create_cmd" value="#{msg['nav.common.create']}" action="#{user.create}" type="submit"
 				styleClass="btn" />
-				<h:button id="cancel_cmd_notloggedin" value="#{msg['nav.common.cancel']}" outcome="/view/top/main" styleClass="btn" />
+				<h:button id="cancel_cmd_notloggedin" value="#{msg['nav.common.cancel']}" outcome="/view/ranking/miner" styleClass="btn" />
 			</h:panelGrid>
 			<h:panelGrid columns="3" rendered="#{accountManager.loggedIn}" styleClass="form-inline">
 				<h:commandButton id="edit_cmd" value="#{msg['nav.common.update']}" action="#{user.update}" type="submit"
 				styleClass="btn" />
 				<h:commandButton id="delete_cmd" value="#{msg['nav.common.delete']}" action="#{user.delete}" type="submit"
 				styleClass="btn" />
-				<h:button id="cancel_cmd_loggedin" value="#{msg['nav.common.cancel']}" outcome="/view/top/main" styleClass="btn" />
+				<h:button id="cancel_cmd_loggedin" value="#{msg['nav.common.cancel']}" outcome="/view/ranking/miner" styleClass="btn" />
 			</h:panelGrid>
 		</h:form>
 	</ui:define>

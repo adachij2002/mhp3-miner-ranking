@@ -9,15 +9,15 @@ import org.simpleframework.xml.Root;
 @Root(name="configuration")
 public class MainConf {
 	@Element(required=false)
-	private TopConf topConf = new TopConf(); 
+	private RankingConf rankingConf = new RankingConf(); 
 	@Element(required=false)
 	private MiningConf miningConf = new MiningConf();
 
-	public TopConf getTopConf() {
-		return topConf;
+	public RankingConf getRankingConf() {
+		return rankingConf;
 	}
-	public void setTopConf(TopConf topConf) {
-		this.topConf = topConf;
+	public void setRankingConf(RankingConf rankingConf) {
+		this.rankingConf = rankingConf;
 	}
 	public MiningConf getMiningConf() {
 		return miningConf;

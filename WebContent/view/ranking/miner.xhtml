@@ -6,12 +6,12 @@
 <ui:composition>
 <c:choose>
 	<c:when test="#{userAgentManager.mobile}">
-		<ui:include src="main-mobile.xhtml">
+		<ui:include src="miner-mobile.xhtml">
 			[mobile]
 		</ui:include>
 	</c:when>
 	<c:otherwise>
-		<ui:include src="main-default.xhtml">
+		<ui:include src="miner-default.xhtml">
 			[default]
 		</ui:include>
 	</c:otherwise>

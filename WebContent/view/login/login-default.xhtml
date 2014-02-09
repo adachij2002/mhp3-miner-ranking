@@ -5,7 +5,7 @@
 <ui:composition template="../templates/layout.xhtml">
 	<ui:param name="onLoadJS" value="document.getElementById('user_id').focus()" />
 	<ui:define name="content">
-		<h:form id="top_login" prependId="false">
+		<h:form id="top_login" prependId="false" styleClass="form-horizontal">
 			<h3>
 				<h:outputText value="#{msg['label.top.login.title']}"/>
 			</h3>
@@ -15,10 +15,10 @@
 				<h:outputText value="#{msg['label.top.login.password']}" />
 				<h:inputSecret id="password" cols="50" value="#{accountManager.tUser.password}" required="true" redisplay="true" />
 			</h:panelGrid>
-			<fieldset data-role="controlgroup" data-type="horizontal">
-				<h:commandLink id="login_cmd" value="#{msg['nav.common.login']}" action="#{accountManager.login}" type="submit" />
-				<h:button id="cancel_cmd" value="#{msg['nav.common.cancel']}" outcome="/view/top/main" styleClass="btn"/>
-			</fieldset>
+			<h:panelGrid columns="2">
+				<h:commandButton id="login_cmd" value="#{msg['nav.common.login']}" action="#{accountManager.login}" type="submit" styleClass="btn"/>
+				<h:button id="cancel_cmd" value="#{msg['nav.common.cancel']}" outcome="/view/ranking/miner" styleClass="btn"/>
+			</h:panelGrid>
 			<h:panelGrid columns="1">
 				<h:messages id="messages" globalOnly="true"/>
 			</h:panelGrid>

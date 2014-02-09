@@ -78,7 +78,7 @@ public class AccountManager implements Serializable {
 		if(loginUser != null
 			&& tUser.getId().equals(loginUser.getId())
 			&& tUser.getPassword().equals(loginUser.getPassword())) {
-			return "main?faces-redirect=true";
+			return "/view/ranking/miner?faces-redirect=true";
 		} else {
 			loginUser = guestUser;
 			tUser = new TUser();

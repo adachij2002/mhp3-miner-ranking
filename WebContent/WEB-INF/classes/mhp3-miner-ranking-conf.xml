@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-    <!-- top page -->
-    <top-conf>
+    <!-- ranking page -->
+    <ranking-conf>
 		<!-- max number of pagesize -->
 		<max-pagesize>10</max-pagesize>
 		<!-- number of navsize -->
 		<navsize>5</navsize>
-	</top-conf>
+	</ranking-conf>
     <!-- mining page -->
     <mining-conf>
 		<!-- max number of pagesize -->

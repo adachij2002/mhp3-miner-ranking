@@ -106,7 +106,7 @@ public class User implements Serializable {
 			}
 		}
 
-		return "/view/top/main?faces-redirect=true";
+		return "/view/ranking/miner?faces-redirect=true";
 	}
 
 	public String update() {
@@ -150,7 +150,7 @@ public class User implements Serializable {
 			}
 		}
 
-		return "/view/top/main?faces-redirect=true";
+		return "/view/ranking/miner?faces-redirect=true";
 	}
 
 	public String delete() {
@@ -185,6 +185,6 @@ public class User implements Serializable {
 			}
 		}
 	
-		return "/view/top/main?faces-redirect=true";
+		return "/view/ranking/miner?faces-redirect=true";
 	}
 }

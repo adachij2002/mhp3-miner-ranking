@@ -27,14 +27,14 @@
 				<h:panelGroup rendered="#{not accountManager.loggedIn}">
 					<fieldset data-role="controlgroup" data-type="horizontal">
 						<h:commandLink id="create_cmd" value="#{msg['nav.common.create']}" action="#{user.create}" type="submit" />
-						<h:button id="cancel_cmd_notloggedin" value="#{msg['nav.common.cancel']}" outcome="/view/top/main" styleClass="btn" />
+						<h:button id="cancel_cmd_notloggedin" value="#{msg['nav.common.cancel']}" outcome="/view/ranking/miner" styleClass="btn" />
 					</fieldset>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{accountManager.loggedIn}">
 					<fieldset data-role="controlgroup" data-type="horizontal">
 						<h:commandLink id="edit_cmd" value="#{msg['nav.common.update']}" action="#{user.update}" type="submit" />
 						<h:commandLink id="delete_cmd" value="#{msg['nav.common.delete']}" action="#{user.delete}" type="submit" />
-						<h:button id="cancel_cmd_loggedin" value="#{msg['nav.common.cancel']}" outcome="/view/top/main" styleClass="btn" />
+						<h:button id="cancel_cmd_loggedin" value="#{msg['nav.common.cancel']}" outcome="/view/ranking/miner" styleClass="btn" />
 					</fieldset>
 				</h:panelGroup>
 			</div>
