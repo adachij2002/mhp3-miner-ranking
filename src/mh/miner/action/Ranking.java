@@ -22,7 +22,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 @ManagedBean
 @ViewScoped
-public class Top implements Serializable {
+public class Ranking implements Serializable {
 
 	private SqlSessionFactory sessionFactory;
 

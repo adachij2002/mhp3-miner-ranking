@@ -4,10 +4,10 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
- * MiningConf provides configuration of mining page. 
+ * StatusConf provides configuration of status page. 
  */
 @Root
-public class MiningConf {
+public class StatusConf {
 	@Element(required=false)
 	private int maxPagesize = 20;
 	@Element(required=false)

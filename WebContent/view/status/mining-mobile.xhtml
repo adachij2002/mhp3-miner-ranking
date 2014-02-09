@@ -20,7 +20,7 @@
 			<br />
 			<br />
 			<div id="search_group" class="data-role-none">
-				<h:outputText value="#{msg['label.config.mining.search.mine']}" />
+				<h:outputText value="#{msg['label.status.mining.search.mine']}" />
 				<h:selectOneMenu id="select_mine" value="#{mining.miningStatusSearchParam.mMine.id}" >
 					<f:selectItem itemValue="" itemLabel="#{msg['nav.common.default']}" />
 					<f:selectItems value="#{mMine.mines}"/>
@@ -29,7 +29,7 @@
 				</h:selectOneMenu>
 			</div>
 			<h3>
-				<h:outputText value="#{msg['label.config.mining.list']}"/>
+				<h:outputText value="#{msg['label.status.mining.list']}"/>
 				<span id="workingIndicator" class="status" style="display: none;">
 					<img src="../images/ajax-loader.gif" />
 				</span>
@@ -61,14 +61,14 @@
 					rowClasses="gray_row, white_row" >
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msg['label.config.mining.list.num']}"/>
+							<h:outputText value="#{msg['label.status.mining.list.num']}"/>
 						</f:facet>
 						<h:outputText value="#{mining.miningStatusSearchParam.pageIndex * mining.miningStatusSearchParam.pageSize + mining.miningStatuses.rowIndex + 1}"/>
 					</h:column>
 					<h:column rendered="#{accountManager.loggedIn}">
 						<f:facet name="header">
 							<h:commandLink id="header_checked" styleClass="ui-link">
-								<h:outputText value="#{msg['label.config.mining.list.checked']}"/>
+								<h:outputText value="#{msg['label.status.mining.list.checked']}"/>
 								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
 									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'a.checked' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
 								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
@@ -85,7 +85,7 @@
 					<h:column>
 						<f:facet name="header">
 							<h:commandLink id="header_mine" styleClass="ui-link">
-								<h:outputText value="#{msg['label.config.mining.list.mine']}"/>
+								<h:outputText value="#{msg['label.status.mining.list.mine']}"/>
 								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
 									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'e.id' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
 								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
@@ -99,7 +99,7 @@
 					<h:column>
 						<f:facet name="header">
 							<h:commandLink id="header_seed" styleClass="ui-link">
-								<h:outputText value="#{msg['label.config.mining.list.amulet.seed']}"/>
+								<h:outputText value="#{msg['label.status.mining.list.amulet.seed']}"/>
 								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
 									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'b.seed' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
 								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
@@ -113,7 +113,7 @@
 					<h:column>
 						<f:facet name="header">
 							<h:commandLink id="header_level" styleClass="ui-link">
-								<h:outputText value="#{msg['label.config.mining.list.amulet.level']}"/>
+								<h:outputText value="#{msg['label.status.mining.list.amulet.level']}"/>
 								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
 									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'f.id' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
 								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
@@ -127,7 +127,7 @@
 					<h:column>
 						<f:facet name="header">
 							<h:commandLink id="header_skill1" styleClass="ui-link">
-								<h:outputText value="#{msg['label.config.mining.list.skill1']}"/>
+								<h:outputText value="#{msg['label.status.mining.list.skill1']}"/>
 								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
 									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'c.name' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
 								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
@@ -144,7 +144,7 @@
 					<h:column>
 						<f:facet name="header">
 							<h:commandLink id="header_skill2" styleClass="ui-link">
-								<h:outputText value="#{msg['label.config.mining.list.skill2']}"/>
+								<h:outputText value="#{msg['label.status.mining.list.skill2']}"/>
 								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
 									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'd.name' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
 								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
@@ -161,7 +161,7 @@
 					<h:column>
 						<f:facet name="header">
 							<h:commandLink id="header_type" styleClass="ui-link">
-								<h:outputText value="#{msg['label.config.mining.list.amulet.type']}"/>
+								<h:outputText value="#{msg['label.status.mining.list.amulet.type']}"/>
 								<h:outputText value="#{msg['nav.common.downarrow']}" escape="false"
 									rendered="#{not empty mining.miningStatusSearchParam.sortOrders and mining.miningStatusSearchParam.sortOrders[0].column eq 'g.id' and mining.miningStatusSearchParam.sortOrders[0].type eq 'ASC'}"/>
 								<h:outputText value="#{msg['nav.common.uparrow']}" escape="false"
@@ -175,15 +175,15 @@
 				</h:dataTable>
 			</h:panelGroup>
 			<h3>
-				<h:outputText value="#{msg['label.config.mining.report']}"/>
+				<h:outputText value="#{msg['label.status.mining.report']}"/>
 			</h3>
 			<h:panelGroup id="reportPanel">
-				<h:outputText value="#{msg['label.config.mining.report.comment']}" />
+				<h:outputText value="#{msg['label.status.mining.report.comment']}" />
 				<h:inputText id="input_comment" size="50" value="#{mining.miningStatusSearchParam.tUser.comment}" disabled="#{not accountManager.loggedIn}" />
 				<fieldset data-role="controlgroup">
 					<h:selectBooleanCheckbox id="select_publish" value="#{mining.miningStatusSearchParam.tUser.publish}" disabled="#{not accountManager.loggedIn}" />
 					<label for="select_publish">
-						<h:outputText value="#{msg['label.config.mining.report.publish']}" />
+						<h:outputText value="#{msg['label.status.mining.report.publish']}" />
 					</label>
 				</fieldset>
 			</h:panelGroup>

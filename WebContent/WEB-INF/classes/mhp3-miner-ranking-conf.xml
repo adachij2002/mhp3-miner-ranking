@@ -7,11 +7,11 @@
 		<!-- number of navsize -->
 		<navsize>5</navsize>
 	</ranking-conf>
-    <!-- mining page -->
-    <mining-conf>
+    <!-- status page -->
+    <status-conf>
 		<!-- max number of pagesize -->
 		<max-pagesize>20</max-pagesize>
 		<!-- number of navsize -->
 		<navsize>5</navsize>
-	</mining-conf>
+	</status-conf>
 </configuration>

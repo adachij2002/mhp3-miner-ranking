@@ -83,7 +83,7 @@ public class AccountManager implements Serializable {
 			loginUser = guestUser;
 			tUser = new TUser();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(msg.getString("msg.top.login.failure")));
+					new FacesMessage(msg.getString("msg.login.login.failure")));
 			return "login";
 		}
 	}

@@ -96,9 +96,9 @@ public class Mining implements Serializable {
 
 		miningStatusSearchParam.setPageIndex(0);
 		miningStatusSearchParam.setPageSize(
-				ConfigurationManager.getInstance().getConf().getMiningConf().getMaxPagesize());
+				ConfigurationManager.getInstance().getConf().getStatusConf().getMaxPagesize());
 
-		navSize = ConfigurationManager.getInstance().getConf().getMiningConf().getNavsize();
+		navSize = ConfigurationManager.getInstance().getConf().getStatusConf().getNavsize();
 
 		searchStatus();
 	}

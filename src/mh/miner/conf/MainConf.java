@@ -11,7 +11,7 @@ public class MainConf {
 	@Element(required=false)
 	private RankingConf rankingConf = new RankingConf(); 
 	@Element(required=false)
-	private MiningConf miningConf = new MiningConf();
+	private StatusConf statusConf = new StatusConf();
 
 	public RankingConf getRankingConf() {
 		return rankingConf;
@@ -19,10 +19,10 @@ public class MainConf {
 	public void setRankingConf(RankingConf rankingConf) {
 		this.rankingConf = rankingConf;
 	}
-	public MiningConf getMiningConf() {
-		return miningConf;
+	public StatusConf getStatusConf() {
+		return statusConf;
 	}
-	public void setMiningConf(MiningConf miningConf) {
-		this.miningConf = miningConf;
+	public void setMiningConf(StatusConf statusConf) {
+		this.statusConf = statusConf;
 	} 
 }

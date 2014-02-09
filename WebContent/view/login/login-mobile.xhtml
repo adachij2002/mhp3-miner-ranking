@@ -7,12 +7,12 @@
 	<ui:define name="content">
 		<h:form id="top_login" prependId="false">
 			<h3>
-				<h:outputText value="#{msg['label.top.login.title']}"/>
+				<h:outputText value="#{msg['label.login.login.title']}"/>
 			</h3>
 			<h:panelGrid columns="2">
-				<h:outputText value="#{msg['label.top.login.userid']}" />
+				<h:outputText value="#{msg['label.login.login.userid']}" />
 				<h:inputText id="user_id" cols="50" value="#{accountManager.tUser.id}" required="true" />
-				<h:outputText value="#{msg['label.top.login.password']}" />
+				<h:outputText value="#{msg['label.login.login.password']}" />
 				<h:inputSecret id="password" cols="50" value="#{accountManager.tUser.password}" required="true" redisplay="true" />
 			</h:panelGrid>
 			<fieldset data-role="controlgroup" data-type="horizontal">
