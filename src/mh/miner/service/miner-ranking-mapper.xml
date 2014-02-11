@@ -2,21 +2,13 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mh.miner.entity.MinerRanking">
+<mapper namespace="mh.miner.service.MinerRanking">
 	<resultMap type="MinerRanking" id="minerRankingResult">
 		<result column="user_id" property="userId" />
 		<result column="mh_name" property="mhName" />
 		<result column="amulet_count" property="amuletCount" />
 		<result column="comment" property="comment" />
 	</resultMap>
-	<select id="countMinerTotal" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			t_user
-		WHERE
-			publish = true
-    </select>
 	<select id="countRankingTotal" resultType="int">
 			SELECT
 				COUNT(*)

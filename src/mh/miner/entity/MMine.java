@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.ws.rs.QueryParam;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import mh.miner.manager.SqlSessionFactoryManager;
 
@@ -52,6 +54,9 @@ public class MMine implements Serializable {
 	}
 
 	public MMine() {
+    }
+	public MMine(String id) {
+		this.id = id;
     }
 
 	public String getId() {

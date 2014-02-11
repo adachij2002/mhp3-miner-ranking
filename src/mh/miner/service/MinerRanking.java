@@ -1,4 +1,4 @@
-package mh.miner.entity;
+package mh.miner.service;
 
 public class MinerRanking {
 

@@ -25,7 +25,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE
 			id = #{value}
     </select>
-	<insert id="insert" parameterType="TUser">
+	<select id="countPublish" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			t_user
+		WHERE
+			publish = true
+    </select>
+		<insert id="insert" parameterType="TUser">
 		INSERT INTO
 			t_user (id, mh_name, password, comment, publish)
 		VALUES

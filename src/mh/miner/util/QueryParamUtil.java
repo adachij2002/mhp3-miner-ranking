@@ -2,8 +2,9 @@ package mh.miner.util;
 
 import java.util.Map;
 
-import mh.miner.action.MinerRankingSearchParam;
 import mh.miner.manager.ConfigurationManager;
+import mh.miner.service.MinerRankingSearchParam;
+import mh.miner.service.Pagination;
 
 public class QueryParamUtil {
 	public static MinerRankingSearchParam parseMinerRankingSearchParam(Map<String, String> params) {
@@ -21,12 +22,12 @@ public class QueryParamUtil {
 			param.setPageSize(
 					ConfigurationManager.getInstance().getConf().getRankingConf().getMaxPagesize());
 		}
-		validateMinerRankingSearchParam(param);
+		validatePagination(param);
 
 		return param;
 	}
 
-	public static void validateMinerRankingSearchParam(MinerRankingSearchParam param) {
+	public static void validatePagination(Pagination param) {
 		if(param.getPageIndex() < 0) {
 			param.setPageIndex(0);
 		}

@@ -1,14 +1,19 @@
-package mh.miner.action;
+package mh.miner.service;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.ws.rs.QueryParam;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import mh.miner.entity.MMine;
 import mh.miner.entity.TUser;
 
 public class MiningStatusSearchParam extends Pagination {
 
+	@QueryParam("q_userid")
 	private TUser tUser;
+	@QueryParam("q_mineid")
 	private MMine mMine;
 	private List<MiningStatusSortOrder> sortOrders;
 

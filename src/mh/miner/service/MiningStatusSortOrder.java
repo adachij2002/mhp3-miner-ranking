@@ -1,8 +1,8 @@
-package mh.miner.action;
+package mh.miner.service;
 
 public class MiningStatusSortOrder extends SortOrder {
 
-	class Column {
+	public class Column {
 		public static final String CHECKED = "a.checked";
 		public static final String SEED = "b.seed";
 		public static final String SLOT_NUM = "b.slot_num";

@@ -12,9 +12,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
 
-import mh.miner.entity.MinerRanking;
 import mh.miner.manager.ConfigurationManager;
 import mh.miner.manager.SqlSessionFactoryManager;
+import mh.miner.service.MinerRanking;
+import mh.miner.service.MinerRankingSearchParam;
 import mh.miner.util.PaginationUtil;
 import mh.miner.util.QueryParamUtil;
 
@@ -119,12 +120,12 @@ public class Ranking implements Serializable {
 
 		// ranking
 		minerCount = (Integer)session.selectOne(
-				"mh.miner.entity.MinerRanking.countMinerTotal");
+				"mh.miner.entity.TUser.countPublish");
 		resultCount = (Integer)session.selectOne(
-				"mh.miner.entity.MinerRanking.countRanking",
+				"mh.miner.service.MinerRanking.countRanking",
 				minerRankingSearchParam);
 		List<MinerRanking> rankings = session.selectList(
-				"mh.miner.entity.MinerRanking.selectRanking",
+				"mh.miner.service.MinerRanking.selectRanking",
 				minerRankingSearchParam);
 
 		// set DataModel

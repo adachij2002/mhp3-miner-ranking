@@ -1,4 +1,4 @@
-package mh.miner.action;
+package mh.miner.service;
 
 import java.util.List;
 

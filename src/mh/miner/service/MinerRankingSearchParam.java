@@ -1,4 +1,4 @@
-package mh.miner.action;
+package mh.miner.service;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;

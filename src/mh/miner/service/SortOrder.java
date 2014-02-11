@@ -1,7 +1,7 @@
-package mh.miner.action;
+package mh.miner.service;
 
 abstract public class SortOrder {
-	enum SortType {
+	public enum SortType {
 		ASC,
 		DESC
 	}

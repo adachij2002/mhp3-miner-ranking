@@ -1,12 +1,9 @@
 package mh.miner.action;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
@@ -16,21 +13,21 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
-import javax.servlet.ServletContext;
 
-import mh.miner.action.SortOrder.SortType;
 import mh.miner.entity.MMine;
-import mh.miner.entity.MiningStatus;
 import mh.miner.entity.TUser;
 import mh.miner.manager.AccountManager;
 import mh.miner.manager.ConfigurationManager;
 import mh.miner.manager.SqlSessionFactoryManager;
+import mh.miner.service.MiningStatus;
+import mh.miner.service.MiningStatusSearchParam;
+import mh.miner.service.MiningStatusSortOrder;
+import mh.miner.service.MiningStatusUpdateParam;
+import mh.miner.service.SortOrder.SortType;
 import mh.miner.util.PaginationUtil;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 @ManagedBean
 @ViewScoped
@@ -252,12 +249,12 @@ public class Mining implements Serializable {
 		SqlSession session = sessionFactory.openSession();
 
 		resultCount = (Integer)session.selectOne(
-				"mh.miner.entity.MiningStatus.countStatus",
+				"mh.miner.service.MiningStatus.countStatus",
 				miningStatusSearchParam);
 
 		@SuppressWarnings("unchecked")
 		List<MiningStatus> statuses = session.selectList(
-			"mh.miner.entity.MiningStatus.selectStatus",
+			"mh.miner.service.MiningStatus.selectStatus",
 			miningStatusSearchParam);
 
 		if(statuses.size() > 0) {

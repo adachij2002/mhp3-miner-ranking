@@ -13,6 +13,8 @@ import mh.miner.manager.ConfigurationManager;
 import mh.miner.manager.SqlSessionFactoryManager;
 import mh.miner.service.MinerRanking;
 import mh.miner.service.MinerRankingSearchParam;
+import mh.miner.service.MiningStatus;
+import mh.miner.service.MiningStatusSearchParam;
 import mh.miner.util.QueryParamUtil;
 
 import org.apache.ibatis.io.Resources;
@@ -24,42 +26,41 @@ import com.sun.jersey.api.core.InjectParam;
 import com.sun.jersey.api.core.ResourceContext;
 
 
-@Path("/ranking")
-public class RankingResource {
+@Path("/status")
+public class MiningStatusResource {
 	private SqlSessionFactory sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
 	@GET
 	@Path("/search")
     @Produces("application/json; charset=UTF-8")
-	public List<MinerRanking> searchRanking(
+	public List<MiningStatus> searchStatus(
 			@InjectParam
-			MinerRankingSearchParam minerRankingSearchParam) {
+			MiningStatusSearchParam miningStatusSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 
-		QueryParamUtil.validatePagination(minerRankingSearchParam);
+		QueryParamUtil.validatePagination(miningStatusSearchParam);
 
 		@SuppressWarnings("unchecked")
-		List<MinerRanking> rankings = session.selectList(
-				"mh.miner.service.MinerRanking.selectRanking",
-				minerRankingSearchParam);
+		List<MiningStatus> statuses = session.selectList(
+				"mh.miner.service.MiningStatus.selectStatus",
+				miningStatusSearchParam);
 
 		session.close();
 
-		return rankings;
+		return statuses;
 	}
 
 	@GET
 	@Path("/count")
     @Produces("application/json; charset=UTF-8")
-	public int countRanking(
+	public int countStatus(
 			@InjectParam
-			MinerRankingSearchParam minerRankingSearchParam) {
+			MiningStatusSearchParam miningStatusSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 
-		@SuppressWarnings("unchecked")
 		int resultCount = (Integer)session.selectOne(
-				"mh.miner.service.MinerRanking.countRanking",
-				minerRankingSearchParam);
+				"mh.miner.service.MiningStatus.countStatus",
+				miningStatusSearchParam);
 
 		session.close();
 

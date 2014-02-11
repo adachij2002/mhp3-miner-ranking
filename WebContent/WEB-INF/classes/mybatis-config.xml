@@ -13,19 +13,19 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			type="mh.miner.entity.TStatus"
 			alias="TStatus" />
 		<typeAlias
-			type="mh.miner.entity.MinerRanking"
+			type="mh.miner.service.MinerRanking"
 			alias="MinerRanking" />
 		<typeAlias
-			type="mh.miner.entity.MiningStatus"
+			type="mh.miner.service.MiningStatus"
 			alias="MiningStatus" />
 		<typeAlias
-			type="mh.miner.action.MinerRankingSearchParam"
+			type="mh.miner.service.MinerRankingSearchParam"
 			alias="MinerRankingSearchParam" />
 		<typeAlias
-			type="mh.miner.action.MiningStatusSearchParam"
+			type="mh.miner.service.MiningStatusSearchParam"
 			alias="MiningStatusSearchParam" />
 		<typeAlias
-			type="mh.miner.action.MiningStatusUpdateParam"
+			type="mh.miner.service.MiningStatusUpdateParam"
 			alias="MiningStatusUpdateParam" />
 	</typeAliases>
 	<environments default="development">
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mh/miner/entity/m_mine-mapper.xml" />
 		<mapper resource="mh/miner/entity/t_user-mapper.xml" />
 		<mapper resource="mh/miner/entity/t_status-mapper.xml" />
-		<mapper resource="mh/miner/entity/miner-ranking-mapper.xml" />
-		<mapper resource="mh/miner/entity/mining-status-mapper.xml" />
+		<mapper resource="mh/miner/service/miner-ranking-mapper.xml" />
+		<mapper resource="mh/miner/service/mining-status-mapper.xml" />
 	</mappers>
 </configuration>

@@ -1,5 +1,8 @@
 package mh.miner.entity;
 
+import javax.ws.rs.QueryParam;
+import javax.xml.bind.annotation.XmlRootElement;
+
 public class TUser implements Cloneable {
 
 	private String id;
@@ -8,7 +11,13 @@ public class TUser implements Cloneable {
 	private String password;
 	private boolean publish;
 
-    public String getId() {
+	public TUser() {
+	}
+	public TUser(String id) {
+		this.id = id;
+	}
+
+	public String getId() {
 		return this.id;
 	}
 	public void setId(String id) {
