@@ -23,6 +23,10 @@
 				<h:inputText id="mh_name" cols="50" value="#{user.tUser.mhName}" required="true" />
 				<h:outputText value="#{msg['label.config.user.password']}" />
 				<h:inputSecret id="password" cols="50" value="#{user.tUser.password}" required="true" redisplay="true" />
+				<h:outputText value="#{msg['label.config.user.comment']}" />
+				<h:inputText id="input_comment" size="50" value="#{user.tUser.comment}" />
+				<h:selectBooleanCheckbox id="select_publish" value="#{user.tUser.publish}" />
+				<h:outputLabel value="#{msg['label.config.user.publish']}" for="select_publish"/>
 			</h:panelGrid>
 			<div data-role="fieldcontain">
 				<h:panelGroup rendered="#{not accountManager.loggedIn}">

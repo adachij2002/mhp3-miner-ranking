@@ -175,26 +175,8 @@
 					</h:column>
 				</h:dataTable>
 			</h:panelGroup>
-			<h3>
-				<h:outputText value="#{msg['label.status.mining.report']}"/>
-			</h3>
-			<h:panelGroup id="reportPanel">
-				<h:outputText value="#{msg['label.status.mining.report.comment']}" />
-				<h:inputText id="input_comment" size="50" value="#{mining.miningStatusSearchParam.tUser.comment}" disabled="#{not accountManager.loggedIn}" />
-				<fieldset data-role="controlgroup">
-					<h:selectBooleanCheckbox id="select_publish" value="#{mining.miningStatusSearchParam.tUser.publish}" disabled="#{not accountManager.loggedIn}" />
-					<label for="select_publish">
-						<h:outputText value="#{msg['label.status.mining.report.publish']}" />
-					</label>
-				</fieldset>
-			</h:panelGroup>
 			<h:panelGroup id="pagePanelBottom">
 				<fieldset data-role="controlgroup" data-type="horizontal">
-					<h:commandLink id="save_cmd_bottom" value="#{msg['nav.common.save']}"
-						action="#{mining.update}" type="submit"
-						rendered="#{accountManager.loggedIn}" >
-						<f:ajax execute="reportPanel" render="messages" onevent="showWorkingIndicator"/>
-					</h:commandLink>
 					<h:button id="cancel_cmd_bottom" value="#{msg['nav.common.back']}"
 						outcome="/view/ranking/ranking" styleClass="btn" />
 				</fieldset>

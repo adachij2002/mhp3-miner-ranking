@@ -9,7 +9,7 @@ public class TUser implements Cloneable {
 	private String comment;
 	private String mhName;
 	private String password;
-	private boolean publish;
+	private boolean publish = true;
 
 	public TUser() {
 	}

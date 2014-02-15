@@ -195,56 +195,6 @@ public class Mining implements Serializable {
 		return "";
 	}
 
-	public String update() {
-		SqlSession session = null;
-
-		try {
-			session = sessionFactory.openSession();
-
-			// update t_user
-			TUser user = (TUser)session.selectOne(
-					"mh.miner.entity.TUser.selectById",
-					miningStatusSearchParam.gettUser().getId());
-
-			user.setComment(miningStatusSearchParam.gettUser().getComment());
-			user.setPublish(miningStatusSearchParam.gettUser().isPublish());
-
-			session.update(
-					"mh.miner.entity.TUser.update",
-					miningStatusSearchParam.gettUser());
-
-			session.commit();
-
-			Object accountManager =
-				FacesContext
-					.getCurrentInstance()
-					.getExternalContext()
-					.getSessionMap().get("accountManager");
-			if(accountManager instanceof AccountManager) {
-				((AccountManager)accountManager).setLoginUser(miningStatusSearchParam.gettUser());
-			}
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(
-						ResourceBundle.getBundle("messages",
-							FacesContext.getCurrentInstance().getViewRoot().getLocale())
-								.getString("msg.common.savefailure")));
-			return "";
-		} finally {
-			if(session != null) {
-				session.close();
-			}
-		}
-
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(
-						ResourceBundle.getBundle("messages",
-							FacesContext.getCurrentInstance().getViewRoot().getLocale())
-								.getString("msg.common.savesuccess")));
-
-		return "";
-	}
-
 	private void searchStatus() {
 		SqlSession session = sessionFactory.openSession();
 

@@ -218,27 +218,6 @@
 					</ul>
 				</h:panelGroup>
 			</h:panelGroup>
-			<h3>
-				<h:outputText value="#{msg['label.status.mining.report']}"/>
-			</h3>
-			<h:panelGroup id="reportPanel" styleClass="form-inline">
-				<h:panelGrid columns="2">
-					<h:outputText value="#{msg['label.status.mining.report.comment']}" />
-					<h:inputText id="input_comment" size="50" value="#{mining.miningStatusSearchParam.tUser.comment}" disabled="#{not accountManager.loggedIn}" style="width:100%" />
-					<h:outputText value="#{msg['label.status.mining.report.publish']}" />
-					<h:selectBooleanCheckbox id="select_publish" value="#{mining.miningStatusSearchParam.tUser.publish}" disabled="#{not accountManager.loggedIn}" styleClass="checkbox" />
-				</h:panelGrid>
-			</h:panelGroup>
-			<h:panelGroup id="pagePanelBottom" styleClass="form-inline">
-				<h:panelGrid columns="1">
-					<h:commandButton id="save_cmd_bottom" value="#{msg['nav.common.save']}"
-						action="#{mining.update}" type="submit"
-						rendered="#{accountManager.loggedIn}"
-						styleClass="btn" >
-						<f:ajax execute="reportPanel" render="messages" onevent="showWorkingIndicator"/>
-					</h:commandButton>
-				</h:panelGrid>
-			</h:panelGroup>
 			<h:panelGrid columns="1">
 				<h:messages id="messages" globalOnly="true"/>
 			</h:panelGrid>
