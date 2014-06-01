@@ -10,21 +10,19 @@
             <div class="container">
               <ul class="nav">
 				<li>
-					<h:link id="menu_ranking_notlogin" value="#{msg['nav.common.ranking']}" outcome="/view/ranking/ranking" />
+					<h:link id="menu_ranking_notlogin" value=" #{msg['nav.common.ranking']}" outcome="/view/ranking/ranking" styleClass="oi oi-flag" />
 				</li>
 				<li>
-					<h:link id="menu_listmining" value="#{msg['nav.common.listmining']}" outcome="/view/status/mining" />
+					<h:link id="menu_listmining" value=" #{msg['nav.common.listmining']}" outcome="/view/status/mining" styleClass="oi oi-list" />
 				</li>
 				<li>
-					<h:link id="menu_createuser" value="#{msg['nav.common.createuser']}" outcome="/view/config/user" />
+					<h:link id="menu_createuser" value=" #{msg['nav.common.createuser']}" outcome="/view/config/user" styleClass="oi oi-cog" />
 				</li>
 				<li>
-					<a href="#{msg['url.ranking.ranking.routemap']}" >
-						<h:outputText value="#{msg['label.ranking.ranking.routemap']}" />
-					</a>
+					<h:outputLink value="#{msg['url.ranking.ranking.routemap']}" styleClass="oi oi-external-link"> #{msg['label.ranking.ranking.routemap']}</h:outputLink>
 				</li>
 				<li>
-					<h:link id="menu_login" value="#{msg['nav.common.login']}" outcome="/view/login/login" />
+					<h:link id="menu_login" value=" #{msg['nav.common.login']}" outcome="/view/login/login" styleClass="oi oi-account-login" />
 				</li>
               </ul>
             </div>
@@ -42,21 +40,19 @@
             <div class="container">
               <ul class="nav">
 				<li>
-					<h:link id="menu_ranking" value="#{msg['nav.common.ranking']}" outcome="/view/ranking/ranking" />
+					<h:link id="menu_ranking" value=" #{msg['nav.common.ranking']}" outcome="/view/ranking/ranking" styleClass="oi oi-flag" />
 				</li>
 				<li>
-					<h:link id="menu_editmining" value="#{msg['nav.common.editmining']}" outcome="/view/status/mining" />
+					<h:link id="menu_editmining" value=" #{msg['nav.common.editmining']}" outcome="/view/status/mining" styleClass="oi oi-list" />
 				</li>
 				<li>
-					<h:link id="menu_edituser" value="#{msg['nav.common.edituser']}" outcome="/view/config/user" />
+					<h:link id="menu_edituser" value=" #{msg['nav.common.edituser']}" outcome="/view/config/user" styleClass="oi oi-cog" />
 				</li>
 				<li>
-					<a href="#{msg['url.ranking.ranking.routemap']}" >
-						<h:outputText value="#{msg['label.ranking.ranking.routemap']}" />
-					</a>
+					<h:outputLink value="#{msg['url.ranking.ranking.routemap']}" styleClass="oi oi-external-link"> #{msg['label.ranking.ranking.routemap']}</h:outputLink>
 				</li>
 				<li>
-					<h:commandLink id="menu_logout" value="#{msg['nav.common.logout']}" action="#{accountManager.logout}" immediate="true" />
+					<h:commandLink id="menu_logout" value=" #{msg['nav.common.logout']}" action="#{accountManager.logout}" immediate="true" styleClass="oi oi-account-logout" />
 				</li>
               </ul>
             </div>
