@@ -19,7 +19,7 @@ Requirement
 Installation
 --------
 1. Git clone latest source
-1. Create database
+2. Create database
 
 * PostgreSQL
 ```bash
@@ -46,7 +46,7 @@ $ mysql -u mh -p mhdb
 mysql> source init_mysql.sql
 ```
 
-1. Build with Ant
+3. Build with Ant
 
 ```bash
 $ vi build.properties
@@ -55,7 +55,7 @@ $ ant
 $ ant deploy
 ```
 
-1. You can access to the MHP3 Miner Ranking Site
+4. You can access to the MHP3 Miner Ranking Site
 
 ```bash
 http://localhost:8080/mhp3-miner-ranking/
