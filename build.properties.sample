@@ -1,5 +1,0 @@
-tomcat.dir=C:/Development/apache-tomcat-7.0.42
-tomcat.webapp.context.path=/mhp3-miner-ranking
-tomcat.manager.url=http://localhost:8080/manager/text
-tomcat.manager.username=tomcat
-tomcat.manager.password=tomcat
