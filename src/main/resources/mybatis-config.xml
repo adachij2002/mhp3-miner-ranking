@@ -1,0 +1,46 @@
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias
+			type="mh.miner.entity.MMine"
+			alias="MMine" />
+		<typeAlias
+			type="mh.miner.entity.TUser"
+			alias="TUser" />
+		<typeAlias
+			type="mh.miner.entity.TStatus"
+			alias="TStatus" />
+		<typeAlias
+			type="mh.miner.service.MinerRanking"
+			alias="MinerRanking" />
+		<typeAlias
+			type="mh.miner.service.MiningStatus"
+			alias="MiningStatus" />
+		<typeAlias
+			type="mh.miner.service.MinerRankingSearchParam"
+			alias="MinerRankingSearchParam" />
+		<typeAlias
+			type="mh.miner.service.MiningStatusSearchParam"
+			alias="MiningStatusSearchParam" />
+		<typeAlias
+			type="mh.miner.service.MiningStatusUpdateParam"
+			alias="MiningStatusUpdateParam" />
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="JNDI">
+				<property name="data_source" value="java:/comp/env/ds/mh-ds" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="mh/miner/entity/m_mine-mapper.xml" />
+		<mapper resource="mh/miner/entity/t_user-mapper.xml" />
+		<mapper resource="mh/miner/entity/t_status-mapper.xml" />
+		<mapper resource="mh/miner/service/miner-ranking-mapper.xml" />
+		<mapper resource="mh/miner/service/mining-status-mapper.xml" />
+	</mappers>
+</configuration>
