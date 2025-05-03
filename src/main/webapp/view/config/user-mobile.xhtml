@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="../templates/layout.xhtml">
+	<ui:param name="onLoadJS" value="var elem = document.getElementById('input_user_id'); if(elem == null) { elem = document.getElementById('mh_name'); } elem.focus();" />
+	<ui:define name="content">
+		<h:form id="config_user" prependId="false">
+			<ui:include src="/view/common/menu.xhtml" />
+			<h3>
+				<h:outputText value="#{msg['label.config.user.title']}"/>
+			</h3>
+			<h:panelGrid columns="1">
+				<h:messages id="messages" globalOnly="true"/>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText value="#{msg['label.config.user.userid']}" />
+				<h:inputText id="input_user_id" cols="50" value="#{user.tUser.id}" required="true" rendered="#{not accountManager.loggedIn}">
+					<f:validateRegex pattern="^[a-zA-Z0-9!-~]+$" />
+				</h:inputText>
+				<h:outputText id="output_user_id" cols="50" value="#{user.tUser.id}" rendered="#{accountManager.loggedIn}" />
+				<h:outputText value="#{msg['label.config.user.mhname']}" />
+				<h:inputText id="mh_name" cols="50" value="#{user.tUser.mhName}" required="true" />
+				<h:outputText value="#{msg['label.config.user.password']}" />
+				<h:inputSecret id="password" cols="50" value="#{user.tUser.password}" required="true" redisplay="true" />
+				<h:outputText value="#{msg['label.config.user.comment']}" />
+				<h:inputText id="input_comment" size="50" value="#{user.tUser.comment}" />
+				<h:selectBooleanCheckbox id="select_publish" value="#{user.tUser.publish}" />
+				<h:outputLabel value="#{msg['label.config.user.publish']}" for="select_publish"/>
+			</h:panelGrid>
+			<div data-role="fieldcontain">
+				<h:panelGroup rendered="#{not accountManager.loggedIn}">
+					<fieldset data-role="controlgroup" data-type="horizontal">
+						<h:commandLink id="create_cmd" value="#{msg['nav.common.create']}" action="#{user.create}" type="submit" />
+						<h:button id="cancel_cmd_notloggedin" value="#{msg['nav.common.cancel']}" outcome="/view/ranking/ranking" styleClass="btn" />
+					</fieldset>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{accountManager.loggedIn}">
+					<fieldset data-role="controlgroup" data-type="horizontal">
+						<h:commandLink id="edit_cmd" value="#{msg['nav.common.update']}" action="#{user.update}" type="submit" />
+						<h:commandLink id="delete_cmd" value="#{msg['nav.common.delete']}" action="#{user.delete}" type="submit" />
+						<h:button id="cancel_cmd_loggedin" value="#{msg['nav.common.cancel']}" outcome="/view/ranking/ranking" styleClass="btn" />
+					</fieldset>
+				</h:panelGroup>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

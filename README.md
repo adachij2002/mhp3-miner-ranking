@@ -12,7 +12,7 @@ This site provides Miner Ranking that obtained rare items.
 Requirement
 --------
 - Java 8 (Probably work on Java 6)
-- Tomcat 8.x (Probably work on Tomcat 6.x or other application servers)
+- Tomcat 9.x (Probably work on Tomcat 6.x or other application servers)
 - PostgreSQL 17.x (Probably work on PostgreSQL 8.x or lower)
     - or MySQL 5.x (Probably work on MySQL 4.x or lower)
 
@@ -46,16 +46,20 @@ $ mysql -u mh -p mhdb
 mysql> source init_mysql.sql
 ```
 
-3. Build with Ant
+3. Build with Gradle
 
 ```bash
-$ vi build.properties
-tomcat.dir=/path/to/tomcat
-$ ant
-$ ant deploy
+$ cd mhp3-miner-ranking
+$ ./gradlew build
 ```
 
-4. You can access to the MHP3 Miner Ranking Site
+4. Deploy to Tomcat
+
+```bash
+$ cp ./build/libs/mhp3-miner-ranking.wat $TOMCAT_HOME/webapps
+```
+
+5. You can access to the MHP3 Miner Ranking Site
 
 ```bash
 http://localhost:8080/mhp3-miner-ranking/

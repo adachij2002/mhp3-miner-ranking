@@ -1,0 +1,67 @@
+import org.apache.tools.ant.filters.EscapeUnicode
+
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'mh.miner'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Servlet API
+    providedCompile 'javax.servlet:servlet-api:2.5'
+
+    // JSF
+    implementation 'javax.faces:jsf-api:2.1'
+    implementation 'org.glassfish:javax.faces:2.1.29-11'
+
+    // JSTL
+    implementation 'javax.servlet.jsp.jstl:jstl-api:1.2'
+    runtimeOnly 'org.glassfish.web:jstl-impl:1.2'
+
+    // Jersey (JAX-RS)
+    implementation 'javax.ws.rs:jsr311-api:1.1.1'
+    implementation 'com.sun.jersey:jersey-server:1.19.4'
+    implementation 'com.sun.jersey:jersey-servlet:1.19.4'
+    implementation 'com.sun.jersey:jersey-json:1.19.4'
+    implementation 'org.codehaus.jackson:jackson-jaxrs:1.9.13'
+
+    // Simple XML
+    implementation 'org.simpleframework:simple-xml:2.7.1'
+
+    // MyBatis
+    implementation 'org.mybatis:mybatis:3.5.19'
+
+    // UserAgentUtils
+    implementation 'eu.bitwalker:UserAgentUtils:1.21'
+
+    // JUnit for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
+}
+
+war {
+    archiveFileName = "${project.name}.war"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// Native2Ascii
+tasks.withType(ProcessResources).configureEach {
+    filteringCharset = 'UTF-8'
+    filesMatching('**/*.properties') {
+        filter(EscapeUnicode)
+    }
+}
