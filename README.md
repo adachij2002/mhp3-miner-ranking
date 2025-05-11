@@ -11,7 +11,7 @@ This site provides Miner Ranking that obtained rare items.
 
 Requirement
 --------
-- Java 8 (Probably work on Java 6)
+- Java 21 (Probably work on Java 6)
 - Tomcat 9.x (Probably work on Tomcat 6.x or other application servers)
 - PostgreSQL 17.x (Probably work on PostgreSQL 8.x or lower)
     - or MySQL 5.x (Probably work on MySQL 4.x or lower)

@@ -1,8 +1,5 @@
 package mh.miner.manager;
 
-import eu.bitwalker.useragentutils.UserAgent;
-
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -14,17 +11,12 @@ import java.io.Serializable;
 public class UserAgentManager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private UserAgent userAgent;
-
-	@PostConstruct
-	public void init() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-		String userAgentStr = request.getHeader("user-agent");
-		userAgent = new UserAgent(userAgentStr);
-	}
 
 	public boolean isMobile() {
-		return userAgent.getOperatingSystem().isMobileDevice();
-	}
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+		String userAgent = request.getHeader("user-agent");
+        return userAgent.toLowerCase().contains("android")
+                || userAgent.toLowerCase().contains("iphone");
+    }
 }

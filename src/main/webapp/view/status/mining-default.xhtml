@@ -11,15 +11,15 @@
 				<h:selectOneMenu id="search_mine_id" value="#{mining.miningStatusSearchParam.mMine.id}" >
 					<f:selectItem itemValue="" itemLabel="#{msg['nav.common.default']}" />
 					<f:selectItems value="#{mMine.mines}"/>
-					<f:ajax execute="@this" listener="#{mining.search}" render="listPanel"
+					<f:ajax execute="@this" listener="#{mining.search}" render=":mining_status:listPanel"
 						onevent="showWorkingIndicator" />
 				</h:selectOneMenu>
 			</h:panelGroup>
 			<h3>
 				<h:outputText value="#{msg['label.status.mining.list']}"/>
-				<span id="workingIndicator" class="status" style="display: none;">
+				<h:panelGroup id="workingIndicator" layout="block" styleClass="status" style="display: none;">
 					<img src="../images/ajax-loader.gif" />
-				</span>
+				</h:panelGroup>
 			</h3>
 			<h:panelGroup id="listPanel">
 				<h:outputFormat value="#{msg['nav.common.resultcount']}">
@@ -32,7 +32,7 @@
 					<h:commandLink value="#{msg['nav.common.prev']}"
 						action="#{mining.previousPage}"
 						disabled="#{mining.miningStatusSearchParam.pageIndex le 0}" >
-						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+						<f:ajax render=":mining_status:listPanel" onevent="showWorkingIndicator"/>
 					</h:commandLink>
 					</li>
 					<ui:repeat value="#{mining.pages}" var="page" varStatus="status">
@@ -49,7 +49,7 @@
 					<h:commandLink value="#{msg['nav.common.next']}"
 						action="#{mining.nextPage}"
 						disabled="#{mining.miningStatusSearchParam.pageIndex * mining.miningStatusSearchParam.pageSize + mining.miningStatusSearchParam.pageSize >= mining.resultCount}" >
-						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+						<f:ajax render=":mining_status:listPanel" onevent="showWorkingIndicator"/>
 					</h:commandLink>
 					</li>
 					</ul>
@@ -195,7 +195,7 @@
 					<h:commandLink value="#{msg['nav.common.prev']}"
 						action="#{mining.previousPage}"
 						disabled="#{mining.miningStatusSearchParam.pageIndex le 0}" >
-						<f:ajax render="listPanel"/>
+						<f:ajax render=":mining_status:listPanel"/>
 					</h:commandLink>
 					</li>
 					<ui:repeat value="#{mining.pages}" var="page" varStatus="status">
@@ -212,7 +212,7 @@
 					<h:commandLink value="#{msg['nav.common.next']}"
 						action="#{mining.nextPage}"
 						disabled="#{mining.miningStatusSearchParam.pageIndex * mining.miningStatusSearchParam.pageSize + mining.miningStatusSearchParam.pageSize >= mining.resultCount}" >
-						<f:ajax render="listPanel"/>
+						<f:ajax render=":mining_status:listPanel"/>
 					</h:commandLink>
 					</li>
 					</ul>

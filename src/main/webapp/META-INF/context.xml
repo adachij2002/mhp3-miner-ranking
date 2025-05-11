@@ -2,7 +2,7 @@
 <Context>
 	<WatchedResource>WEB-INF/web.xml</WatchedResource>
 	<!-- for PostgreSQL -->
-	<Resource 
+	<Resource
 		name="ds/mh-ds" 
 		auth="Container" 
 		type="javax.sql.DataSource" 
