@@ -1,6 +1,5 @@
 package mh.miner.webapi;
 
-import com.sun.jersey.api.core.InjectParam;
 import mh.miner.manager.SqlSessionFactoryManager;
 import mh.miner.service.MiningStatus;
 import mh.miner.service.MiningStatusSearchParam;
@@ -8,6 +7,7 @@ import mh.miner.util.QueryParamUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,7 +22,7 @@ public class MiningStatusResource {
 	@Path("/search")
     @Produces("application/json; charset=UTF-8")
 	public List<MiningStatus> searchStatus(
-			@InjectParam
+			@BeanParam
 			MiningStatusSearchParam miningStatusSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 
@@ -42,7 +42,7 @@ public class MiningStatusResource {
 	@Path("/count")
     @Produces("application/json; charset=UTF-8")
 	public int countStatus(
-			@InjectParam
+			@BeanParam
 			MiningStatusSearchParam miningStatusSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 

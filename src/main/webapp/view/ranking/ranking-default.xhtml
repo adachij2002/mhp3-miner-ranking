@@ -23,14 +23,14 @@
 				<h:commandButton id="search_cmd" value="#{msg['nav.common.search']}"
 					action="#{ranking.search}" type="submit"
 					styleClass="btn" >
-					<f:ajax execute="q_keyword" render="listPanel" onevent="showWorkingIndicator"/>
+					<f:ajax execute="q_keyword" render=":top_main:listPanel" onevent="showWorkingIndicator"/>
 				</h:commandButton>
 			</h:panelGroup>
 			<h3>
 				<h:outputText value="#{msg['label.ranking.ranking.list']}"/>
-				<span id="workingIndicator" class="status" style="display: none;">
+				<h:panelGroup id="workingIndicator" layout="block" styleClass="status" style="display: none;">
 					<img src="../images/ajax-loader.gif" />
-				</span>
+				</h:panelGroup>
 			</h3>
 			<h:panelGroup id="listPanel">
 				<h:outputFormat value="#{msg['label.ranking.ranking.list.minercount']}" >
@@ -47,7 +47,7 @@
 					<h:commandLink value="#{msg['nav.common.prev']}"
 						action="#{ranking.previousPage}"
 						disabled="#{ranking.minerRankingSearchParam.pageIndex le 0}" >
-						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+						<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
 					</h:commandLink>
 					</li>
 					<ui:repeat value="#{ranking.pages}" var="page" varStatus="status">
@@ -64,7 +64,7 @@
 					<h:commandLink value="#{msg['nav.common.next']}"
 						action="#{ranking.nextPage}"
 						disabled="#{ranking.minerRankingSearchParam.pageIndex * ranking.minerRankingSearchParam.pageSize + ranking.minerRankingSearchParam.pageSize >= ranking.resultCount}" >
-						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+						<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
 					</h:commandLink>
 					</li>
 					</ul>
@@ -108,7 +108,7 @@
 					<h:commandLink value="#{msg['nav.common.prev']}"
 						action="#{ranking.previousPage}"
 						disabled="#{ranking.minerRankingSearchParam.pageIndex le 0}">
-						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+						<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
 					</h:commandLink>
 					</li>
 					<ui:repeat value="#{ranking.pages}" var="page" varStatus="status">
@@ -125,7 +125,7 @@
 					<h:commandLink value="#{msg['nav.common.next']}"
 						action="#{ranking.nextPage}"
 						disabled="#{ranking.minerRankingSearchParam.pageIndex * ranking.minerRankingSearchParam.pageSize + ranking.minerRankingSearchParam.pageSize >= ranking.resultCount}">
-						<f:ajax render="listPanel" onevent="showWorkingIndicator"/>
+						<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
 					</h:commandLink>
 					</li>
 					</ul>

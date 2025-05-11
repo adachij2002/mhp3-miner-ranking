@@ -10,7 +10,7 @@ version = '1.0.0'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -31,20 +31,17 @@ dependencies {
     runtimeOnly 'org.glassfish.web:jstl-impl:1.2'
 
     // Jersey (JAX-RS)
-    implementation 'javax.ws.rs:jsr311-api:1.1.1'
-    implementation 'com.sun.jersey:jersey-server:1.19.4'
-    implementation 'com.sun.jersey:jersey-servlet:1.19.4'
-    implementation 'com.sun.jersey:jersey-json:1.19.4'
-    implementation 'org.codehaus.jackson:jackson-jaxrs:1.9.13'
+    implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+    implementation 'org.glassfish.jersey.core:jersey-server:2.46'
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.46'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.46'
+    implementation 'org.glassfish.jersey.inject:jersey-hk2:2.43'
 
     // Simple XML
     implementation 'org.simpleframework:simple-xml:2.7.1'
 
     // MyBatis
     implementation 'org.mybatis:mybatis:3.5.19'
-
-    // UserAgentUtils
-    implementation 'eu.bitwalker:UserAgentUtils:1.21'
 
     // JUnit for testing
     testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
