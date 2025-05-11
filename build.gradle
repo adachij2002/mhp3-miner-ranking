@@ -23,8 +23,8 @@ dependencies {
     providedCompile 'javax.servlet:servlet-api:2.5'
 
     // JSF
-    implementation 'javax.faces:jsf-api:2.1'
-    implementation 'org.glassfish:javax.faces:2.1.29-11'
+    implementation 'com.sun.faces:jsf-api:2.1.29-11'
+    implementation 'com.sun.faces:jsf-impl:2.1.29-11'
 
     // JSTL
     implementation 'javax.servlet.jsp.jstl:jstl-api:1.2'
