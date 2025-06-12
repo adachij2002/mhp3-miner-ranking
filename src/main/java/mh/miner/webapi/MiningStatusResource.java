@@ -7,22 +7,22 @@ import mh.miner.util.QueryParamUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import javax.ws.rs.BeanParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import jakarta.ws.rs.BeanParam;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import java.util.List;
 
 
-@Path("/status")
+@jakarta.ws.rs.Path("/status")
 public class MiningStatusResource {
 	private SqlSessionFactory sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-	@GET
-	@Path("/search")
-    @Produces("application/json; charset=UTF-8")
+	@jakarta.ws.rs.GET
+	@jakarta.ws.rs.Path("/search")
+    @jakarta.ws.rs.Produces("application/json; charset=UTF-8")
 	public List<MiningStatus> searchStatus(
-			@BeanParam
+			@jakarta.ws.rs.BeanParam
 			MiningStatusSearchParam miningStatusSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 
@@ -38,11 +38,11 @@ public class MiningStatusResource {
 		return statuses;
 	}
 
-	@GET
-	@Path("/count")
-    @Produces("application/json; charset=UTF-8")
+	@jakarta.ws.rs.GET
+	@jakarta.ws.rs.Path("/count")
+    @jakarta.ws.rs.Produces("application/json; charset=UTF-8")
 	public int countStatus(
-			@BeanParam
+			@jakarta.ws.rs.BeanParam
 			MiningStatusSearchParam miningStatusSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 

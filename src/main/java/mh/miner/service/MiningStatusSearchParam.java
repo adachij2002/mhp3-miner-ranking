@@ -3,7 +3,7 @@ package mh.miner.service;
 import mh.miner.entity.MMine;
 import mh.miner.entity.TUser;
 
-import javax.ws.rs.QueryParam;
+import jakarta.ws.rs.QueryParam;
 import java.util.List;
 
 public class MiningStatusSearchParam extends Pagination {

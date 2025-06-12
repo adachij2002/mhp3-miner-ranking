@@ -4,15 +4,15 @@ import mh.miner.manager.SqlSessionFactoryManager;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 
-@ManagedBean
+@Named
 @SessionScoped
 public class MMine implements Serializable {
 

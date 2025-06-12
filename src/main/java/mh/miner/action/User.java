@@ -7,15 +7,15 @@ import mh.miner.manager.SqlSessionFactoryManager;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class User implements Serializable {
 
@@ -36,7 +36,7 @@ public class User implements Serializable {
 		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
 		Object accountManager =
-			FacesContext
+			jakarta.faces.context.FacesContext
 				.getCurrentInstance()
 				.getExternalContext()
 				.getSessionMap().get("accountManager");
@@ -60,10 +60,10 @@ public class User implements Serializable {
 					tUser.getId());
 	
 			if(user != null) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(
+				jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
+						new jakarta.faces.application.FacesMessage(
 							ResourceBundle.getBundle("messages",
-								FacesContext.getCurrentInstance().getViewRoot().getLocale())
+								jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
 									.getString("msg.config.user.alreadyexists")));
 				return "";
 			}
@@ -78,7 +78,7 @@ public class User implements Serializable {
 			session.commit();
 
 			Object accountManager =
-					FacesContext
+					jakarta.faces.context.FacesContext
 						.getCurrentInstance()
 						.getExternalContext()
 						.getSessionMap().get("accountManager");
@@ -86,10 +86,10 @@ public class User implements Serializable {
 					((AccountManager)accountManager).setLoginUser(tUser);
 				}
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(
+			jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
+					new jakarta.faces.application.FacesMessage(
 						ResourceBundle.getBundle("messages",
-							FacesContext.getCurrentInstance().getViewRoot().getLocale())
+							jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
 								.getString("msg.common.addfailure")));
 			return "";
 		} finally {
@@ -122,7 +122,7 @@ public class User implements Serializable {
 			session.commit();
 
 			Object accountManager =
-				FacesContext
+				jakarta.faces.context.FacesContext
 					.getCurrentInstance()
 					.getExternalContext()
 					.getSessionMap().get("accountManager");
@@ -130,10 +130,10 @@ public class User implements Serializable {
 				((AccountManager)accountManager).setLoginUser(tUser);
 			}
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(
+			jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
+					new jakarta.faces.application.FacesMessage(
 							ResourceBundle.getBundle("messages",
-								FacesContext.getCurrentInstance().getViewRoot().getLocale())
+								jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
 									.getString("msg.common.editfailure")));
 			return "";
 		} finally {
@@ -157,7 +157,7 @@ public class User implements Serializable {
 			session.commit();
 
 			Object accountManager =
-				FacesContext
+				jakarta.faces.context.FacesContext
 					.getCurrentInstance()
 					.getExternalContext()
 					.getSessionMap().get("accountManager");
@@ -165,10 +165,10 @@ public class User implements Serializable {
 				((AccountManager)accountManager).setLoginUser(((AccountManager)accountManager).getGuestUser());
 			}
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(
+			jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
+					new jakarta.faces.application.FacesMessage(
 						ResourceBundle.getBundle("messages",
-							FacesContext.getCurrentInstance().getViewRoot().getLocale())
+							jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
 								.getString("msg.common.deletefailure")));
 			return "";
 		} finally {

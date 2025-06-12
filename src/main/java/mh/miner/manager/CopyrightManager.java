@@ -1,15 +1,15 @@
 package mh.miner.manager;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class CopyrightManager implements Serializable {
 
@@ -23,7 +23,7 @@ public class CopyrightManager implements Serializable {
 	@PostConstruct
 	public void init() {
 		msg = ResourceBundle.getBundle("messages",
-				FacesContext.getCurrentInstance().getViewRoot().getLocale());
+				jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale());
 
 		String beginDate = msg.getString("label.common.copyright.begindate");
 		String nowDate = new SimpleDateFormat("yyyy").format(new Date());

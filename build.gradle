@@ -20,22 +20,24 @@ repositories {
 
 dependencies {
     // Servlet API
-    providedCompile 'javax.servlet:servlet-api:2.5'
+    providedCompile 'jakarta.servlet:jakarta.servlet-api:6.0.0'
 
     // JSF
-    implementation 'com.sun.faces:jsf-api:2.1.29-11'
-    implementation 'com.sun.faces:jsf-impl:2.1.29-11'
+    implementation 'jakarta.faces:jakarta.faces-api:4.0.1'
+    implementation 'org.glassfish:jakarta.faces:4.0.1'
+    implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
+    implementation 'jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1'
 
     // JSTL
-    implementation 'javax.servlet.jsp.jstl:jstl-api:1.2'
-    runtimeOnly 'org.glassfish.web:jstl-impl:1.2'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+    runtimeOnly 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.0'
 
     // Jersey (JAX-RS)
-    implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
-    implementation 'org.glassfish.jersey.core:jersey-server:2.46'
-    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.46'
-    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.46'
-    implementation 'org.glassfish.jersey.inject:jersey-hk2:2.43'
+    implementation 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
+    implementation 'org.glassfish.jersey.core:jersey-server:3.1.5'
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:3.1.5'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.5'
+    implementation 'org.glassfish.jersey.inject:jersey-hk2:3.1.5'
 
     // Simple XML
     implementation 'org.simpleframework:simple-xml:2.7.1'

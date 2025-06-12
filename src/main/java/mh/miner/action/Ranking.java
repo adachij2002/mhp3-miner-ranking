@@ -9,18 +9,18 @@ import mh.miner.util.QueryParamUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.ArrayDataModel;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
+import jakarta.faces.model.DataModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class Ranking implements Serializable {
 
@@ -98,7 +98,7 @@ public class Ranking implements Serializable {
 	}
 
 	public String movePage() {
-		String pagenum = FacesContext.getCurrentInstance().getExternalContext()
+		String pagenum = jakarta.faces.context.FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap().get("pagenum");
 		minerRankingSearchParam.setPageIndex(Integer.parseInt(pagenum));
 		this.searchRanking();
@@ -107,7 +107,7 @@ public class Ranking implements Serializable {
 	}
 
 	private void parseQueryParam() {
-		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext()
+		Map<String, String> params = jakarta.faces.context.FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap();
 		minerRankingSearchParam = QueryParamUtil.parseMinerRankingSearchParam(params);
 	}

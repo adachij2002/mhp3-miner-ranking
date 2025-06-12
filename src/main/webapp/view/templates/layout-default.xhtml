@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+	xmlns:ui="jakarta.faces.facelets">
 <ui:composition>
 
 <h:head>
@@ -15,7 +15,7 @@
 	<script src="//code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="../js/functions.js" type="text/javascript"></script>
-	<h:outputScript name="jsf.js" library="javax.faces" />
+	<h:outputScript name="jsf.js" library="jakarta.faces" />
 	<title>
 		<ui:insert name="title">
 			<h:outputText value="#{msg['label.common.title']}"/>

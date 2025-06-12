@@ -1,8 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:c="jakarta.tags.core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
 <ui:composition template="../templates/layout.xhtml">
 	<ui:param name="onLoadJS" value="$('#search_group').removeClass('data-role-none');$('#select_mine').selectmenu();$('#select_mine').selectmenu('refresh', true);" />
 	<ui:define name="content">

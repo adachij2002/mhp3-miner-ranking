@@ -4,15 +4,15 @@ import mh.miner.entity.TUser;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class AccountManager implements Serializable {
 
@@ -46,7 +46,7 @@ public class AccountManager implements Serializable {
 	@PostConstruct
 	public void init() {
 		msg = ResourceBundle.getBundle("messages",
-				FacesContext.getCurrentInstance().getViewRoot().getLocale());
+				jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale());
 		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
 		SqlSession session = sessionFactory.openSession();
@@ -74,8 +74,8 @@ public class AccountManager implements Serializable {
 		} else {
 			loginUser = guestUser;
 			tUser = new TUser();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(msg.getString("msg.login.login.failure")));
+			jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
+					new jakarta.faces.application.FacesMessage(msg.getString("msg.login.login.failure")));
 			return "login";
 		}
 	}
