@@ -14,15 +14,15 @@ import jakarta.ws.rs.Produces;
 import java.util.List;
 
 
-@jakarta.ws.rs.Path("/status")
+@Path("/status")
 public class MiningStatusResource {
 	private SqlSessionFactory sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-	@jakarta.ws.rs.GET
-	@jakarta.ws.rs.Path("/search")
-    @jakarta.ws.rs.Produces("application/json; charset=UTF-8")
+	@GET
+	@Path("/search")
+    @Produces("application/json; charset=UTF-8")
 	public List<MiningStatus> searchStatus(
-			@jakarta.ws.rs.BeanParam
+			@BeanParam
 			MiningStatusSearchParam miningStatusSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 
@@ -38,11 +38,11 @@ public class MiningStatusResource {
 		return statuses;
 	}
 
-	@jakarta.ws.rs.GET
-	@jakarta.ws.rs.Path("/count")
-    @jakarta.ws.rs.Produces("application/json; charset=UTF-8")
+	@GET
+	@Path("/count")
+    @Produces("application/json; charset=UTF-8")
 	public int countStatus(
-			@jakarta.ws.rs.BeanParam
+			@BeanParam
 			MiningStatusSearchParam miningStatusSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 

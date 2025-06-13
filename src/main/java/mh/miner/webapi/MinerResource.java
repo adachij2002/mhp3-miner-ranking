@@ -9,7 +9,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 
 
-@jakarta.ws.rs.Path("/miner")
+@Path("/miner")
 public class MinerResource {
 	private SqlSessionFactory sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 

@@ -14,15 +14,15 @@ import jakarta.ws.rs.Produces;
 import java.util.List;
 
 
-@jakarta.ws.rs.Path("/ranking")
+@Path("/ranking")
 public class RankingResource {
 	private SqlSessionFactory sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-	@jakarta.ws.rs.GET
-	@jakarta.ws.rs.Path("/search")
-    @jakarta.ws.rs.Produces("application/json; charset=UTF-8")
+	@GET
+	@Path("/search")
+    @Produces("application/json; charset=UTF-8")
 	public List<MinerRanking> searchRanking(
-			@jakarta.ws.rs.BeanParam
+			@BeanParam
 			MinerRankingSearchParam minerRankingSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 
@@ -38,11 +38,11 @@ public class RankingResource {
 		return rankings;
 	}
 
-	@jakarta.ws.rs.GET
-	@jakarta.ws.rs.Path("/count")
-    @jakarta.ws.rs.Produces("application/json; charset=UTF-8")
+	@GET
+	@Path("/count")
+    @Produces("application/json; charset=UTF-8")
 	public int countRanking(
-			@jakarta.ws.rs.BeanParam
+			@BeanParam
 			MinerRankingSearchParam minerRankingSearchParam) {
 		SqlSession session = sessionFactory.openSession();
 
