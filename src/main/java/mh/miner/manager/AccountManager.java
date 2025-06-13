@@ -46,7 +46,7 @@ public class AccountManager implements Serializable {
 	@PostConstruct
 	public void init() {
 		msg = ResourceBundle.getBundle("messages",
-				jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale());
+				FacesContext.getCurrentInstance().getViewRoot().getLocale());
 		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
 		SqlSession session = sessionFactory.openSession();
@@ -74,8 +74,8 @@ public class AccountManager implements Serializable {
 		} else {
 			loginUser = guestUser;
 			tUser = new TUser();
-			jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
-					new jakarta.faces.application.FacesMessage(msg.getString("msg.login.login.failure")));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(msg.getString("msg.login.login.failure")));
 			return "login";
 		}
 	}

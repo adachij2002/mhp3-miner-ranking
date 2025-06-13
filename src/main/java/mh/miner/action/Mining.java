@@ -64,7 +64,7 @@ public class Mining implements Serializable {
 		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
 		Object accountManager =
-			jakarta.faces.context.FacesContext
+			FacesContext
 				.getCurrentInstance()
 				.getExternalContext()
 				.getSessionMap().get("accountManager");
@@ -122,7 +122,7 @@ public class Mining implements Serializable {
 	}
 
 	public String movePage() {
-		String pagenum = jakarta.faces.context.FacesContext.getCurrentInstance().getExternalContext()
+		String pagenum = FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap().get("pagenum");
 		miningStatusSearchParam.setPageIndex(Integer.parseInt(pagenum));
 		this.searchStatus();
@@ -172,10 +172,10 @@ public class Mining implements Serializable {
 				session.commit();
 			}
 		} catch (Exception e) {
-			jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
-					new jakarta.faces.application.FacesMessage(
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(
 						ResourceBundle.getBundle("messages",
-							jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
+							FacesContext.getCurrentInstance().getViewRoot().getLocale())
 								.getString("msg.common.savefailure")));
 			return "";
 		} finally {
@@ -184,10 +184,10 @@ public class Mining implements Serializable {
 			}
 		}
 
-		jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
-				new jakarta.faces.application.FacesMessage(
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(
 						ResourceBundle.getBundle("messages",
-							jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
+							FacesContext.getCurrentInstance().getViewRoot().getLocale())
 								.getString("msg.common.savesuccess")));
 
 		return "";

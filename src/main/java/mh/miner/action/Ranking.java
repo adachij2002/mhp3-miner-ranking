@@ -98,7 +98,7 @@ public class Ranking implements Serializable {
 	}
 
 	public String movePage() {
-		String pagenum = jakarta.faces.context.FacesContext.getCurrentInstance().getExternalContext()
+		String pagenum = FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap().get("pagenum");
 		minerRankingSearchParam.setPageIndex(Integer.parseInt(pagenum));
 		this.searchRanking();
@@ -107,7 +107,7 @@ public class Ranking implements Serializable {
 	}
 
 	private void parseQueryParam() {
-		Map<String, String> params = jakarta.faces.context.FacesContext.getCurrentInstance().getExternalContext()
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap();
 		minerRankingSearchParam = QueryParamUtil.parseMinerRankingSearchParam(params);
 	}

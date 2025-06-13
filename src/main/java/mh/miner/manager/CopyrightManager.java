@@ -23,7 +23,7 @@ public class CopyrightManager implements Serializable {
 	@PostConstruct
 	public void init() {
 		msg = ResourceBundle.getBundle("messages",
-				jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale());
+				FacesContext.getCurrentInstance().getViewRoot().getLocale());
 
 		String beginDate = msg.getString("label.common.copyright.begindate");
 		String nowDate = new SimpleDateFormat("yyyy").format(new Date());

@@ -13,8 +13,8 @@ public class UserAgentManager implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public boolean isMobile() {
-		jakarta.faces.context.FacesContext context = jakarta.faces.context.FacesContext.getCurrentInstance();
-		jakarta.servlet.http.HttpServletRequest request = (jakarta.servlet.http.HttpServletRequest)context.getExternalContext().getRequest();
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
 		String userAgent = request.getHeader("user-agent");
         return userAgent.toLowerCase().contains("android")
                 || userAgent.toLowerCase().contains("iphone");

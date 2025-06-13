@@ -36,7 +36,7 @@ public class User implements Serializable {
 		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
 		Object accountManager =
-			jakarta.faces.context.FacesContext
+			FacesContext
 				.getCurrentInstance()
 				.getExternalContext()
 				.getSessionMap().get("accountManager");
@@ -60,10 +60,10 @@ public class User implements Serializable {
 					tUser.getId());
 	
 			if(user != null) {
-				jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
-						new jakarta.faces.application.FacesMessage(
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(
 							ResourceBundle.getBundle("messages",
-								jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
+								FacesContext.getCurrentInstance().getViewRoot().getLocale())
 									.getString("msg.config.user.alreadyexists")));
 				return "";
 			}
@@ -78,7 +78,7 @@ public class User implements Serializable {
 			session.commit();
 
 			Object accountManager =
-					jakarta.faces.context.FacesContext
+					FacesContext
 						.getCurrentInstance()
 						.getExternalContext()
 						.getSessionMap().get("accountManager");
@@ -86,10 +86,10 @@ public class User implements Serializable {
 					((AccountManager)accountManager).setLoginUser(tUser);
 				}
 		} catch (Exception e) {
-			jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
-					new jakarta.faces.application.FacesMessage(
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(
 						ResourceBundle.getBundle("messages",
-							jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
+							FacesContext.getCurrentInstance().getViewRoot().getLocale())
 								.getString("msg.common.addfailure")));
 			return "";
 		} finally {
@@ -122,7 +122,7 @@ public class User implements Serializable {
 			session.commit();
 
 			Object accountManager =
-				jakarta.faces.context.FacesContext
+				FacesContext
 					.getCurrentInstance()
 					.getExternalContext()
 					.getSessionMap().get("accountManager");
@@ -130,10 +130,10 @@ public class User implements Serializable {
 				((AccountManager)accountManager).setLoginUser(tUser);
 			}
 		} catch (Exception e) {
-			jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
-					new jakarta.faces.application.FacesMessage(
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(
 							ResourceBundle.getBundle("messages",
-								jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
+								FacesContext.getCurrentInstance().getViewRoot().getLocale())
 									.getString("msg.common.editfailure")));
 			return "";
 		} finally {
@@ -157,7 +157,7 @@ public class User implements Serializable {
 			session.commit();
 
 			Object accountManager =
-				jakarta.faces.context.FacesContext
+				FacesContext
 					.getCurrentInstance()
 					.getExternalContext()
 					.getSessionMap().get("accountManager");
@@ -165,10 +165,10 @@ public class User implements Serializable {
 				((AccountManager)accountManager).setLoginUser(((AccountManager)accountManager).getGuestUser());
 			}
 		} catch (Exception e) {
-			jakarta.faces.context.FacesContext.getCurrentInstance().addMessage(null,
-					new jakarta.faces.application.FacesMessage(
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(
 						ResourceBundle.getBundle("messages",
-							jakarta.faces.context.FacesContext.getCurrentInstance().getViewRoot().getLocale())
+							FacesContext.getCurrentInstance().getViewRoot().getLocale())
 								.getString("msg.common.deletefailure")));
 			return "";
 		} finally {
