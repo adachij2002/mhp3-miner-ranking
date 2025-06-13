@@ -7,6 +7,10 @@
 
   <absolute-ordering />
 
+  <listener>
+    <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+  </listener>
+
   <!-- Jersey -->
   <servlet>
     <servlet-name>Jersey REST Service</servlet-name>
