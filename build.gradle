@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.glassfish:jakarta.faces:4.0.1'
     implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
     implementation 'jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1'
+    implementation 'org.jboss.weld.servlet:weld-servlet-core:5.1.2.Final'
 
     // JSTL
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
