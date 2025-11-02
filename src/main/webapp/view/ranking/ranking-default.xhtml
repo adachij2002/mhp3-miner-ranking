@@ -3,138 +3,141 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="../templates/layout.xhtml">
-	<ui:param name="onLoadJS" value="document.getElementById('q_keyword').focus()" />
-	<ui:define name="metadata">
-		<f:metadata>
-			<f:viewParam name="q_keyword" value="#{ranking.minerRankingSearchParam.keyword}" />
-			<f:viewParam name="q_pageIndex" value="#{ranking.minerRankingSearchParam.pageIndex}" />
-			<f:viewParam name="q_pageSize" value="#{ranking.minerRankingSearchParam.pageSize}" />
-		</f:metadata>
- 	</ui:define>
-	<ui:define name="content">
-		<h:form id="top_main" prependId="false">
-			<ui:include src="/view/common/menu.xhtml" />
- 			<div class="title">
-				<h:outputText value="#{msg['msg.ranking.ranking.topic']}" escape="false"/>
-			</div>
-			<br />
-			<h:panelGroup id="searchPanel" styleClass="form-inline">
-				<h:inputText id="q_keyword" value="#{ranking.minerRankingSearchParam.keyword}" styleClass="input-xlarge" />
-				<h:commandButton id="search_cmd" value="#{msg['nav.common.search']}"
-					action="#{ranking.search}" type="submit"
-					styleClass="btn" >
-					<f:ajax execute="q_keyword" render=":top_main:listPanel" onevent="showWorkingIndicator"/>
-				</h:commandButton>
-			</h:panelGroup>
-			<h3>
-				<h:outputText value="#{msg['label.ranking.ranking.list']}"/>
-				<h:panelGroup id="workingIndicator" layout="block" styleClass="status" style="display: none;">
-					<img src="../images/ajax-loader.gif" />
-				</h:panelGroup>
-			</h3>
-			<h:panelGroup id="listPanel">
-				<h:outputFormat value="#{msg['label.ranking.ranking.list.minercount']}" >
-					<f:param value="#{ranking.minerCount}"/>
-				</h:outputFormat>
-				<br />
-				<h:outputFormat value="#{msg['nav.common.resultcount']}" >
-					<f:param value="#{ranking.resultCount}"/>
-				</h:outputFormat>
-				<br />
-				<h:panelGroup id="navPanelTop" layout="block" rendered="#{not empty ranking.minerRankings}" styleClass="pagination pagination-centered">
-					<ul>
-					<li>
-					<h:commandLink value="#{msg['nav.common.prev']}"
-						action="#{ranking.previousPage}"
-						disabled="#{ranking.minerRankingSearchParam.pageIndex le 0}" >
-						<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
-					</h:commandLink>
-					</li>
-					<ui:repeat value="#{ranking.pages}" var="page" varStatus="status">
-						<li>
-						<h:commandLink value="#{page + 1}"
-							action="#{ranking.movePage}"
-							disabled="#{page eq ranking.minerRankingSearchParam.pageIndex}" >
-							<f:param name="pagenum" value="${page}" />
-							<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
-						</h:commandLink>
-						</li>
-					</ui:repeat>
-					<li>
-					<h:commandLink value="#{msg['nav.common.next']}"
-						action="#{ranking.nextPage}"
-						disabled="#{ranking.minerRankingSearchParam.pageIndex * ranking.minerRankingSearchParam.pageSize + ranking.minerRankingSearchParam.pageSize >= ranking.resultCount}" >
-						<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
-					</h:commandLink>
-					</li>
-					</ul>
-				</h:panelGroup>
-				<h:dataTable
-					id="dataTable"
-					value="#{ranking.minerRankings}"
-					var="minerRanking"
-					border="1"
-					rendered="#{not empty ranking.minerRankings}"
-					styleClass="table table-striped"
-					columnClasses="num_column, mhname_column, amuletcount_column">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="#{msg['label.ranking.ranking.list.num']}"/>
-						</f:facet>
-						<h:outputText value="#{ranking.minerRankingSearchParam.pageIndex * ranking.minerRankingSearchParam.pageSize + ranking.minerRankings.rowIndex + 1}"/>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="#{msg['label.ranking.ranking.list.mhname']}"/>
-						</f:facet>
-						<h:outputText value="#{minerRanking.mhName}"/>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="#{msg['label.ranking.ranking.list.amuletcount']}"/>
-						</f:facet>
-						<h:outputText value="#{minerRanking.amuletCount}"/>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="#{msg['label.ranking.ranking.list.comment']}"/>
-						</f:facet>
-						<h:outputText value="#{minerRanking.comment}"/>
-					</h:column>
-				</h:dataTable>
-				<h:panelGroup id="navPanelBottom" layout="block" rendered="#{not empty ranking.minerRankings}" styleClass="pagination pagination-centered">
-					<ul>
-					<li>
-					<h:commandLink value="#{msg['nav.common.prev']}"
-						action="#{ranking.previousPage}"
-						disabled="#{ranking.minerRankingSearchParam.pageIndex le 0}">
-						<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
-					</h:commandLink>
-					</li>
-					<ui:repeat value="#{ranking.pages}" var="page" varStatus="status">
-						<li>
-						<h:commandLink value="#{page + 1}"
-							action="#{ranking.movePage}"
-							disabled="#{page eq ranking.minerRankingSearchParam.pageIndex}" >
-							<f:param name="pagenum" value="${page}" />
-							<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
-						</h:commandLink>
-						</li>
-					</ui:repeat>
-					<li>
-					<h:commandLink value="#{msg['nav.common.next']}"
-						action="#{ranking.nextPage}"
-						disabled="#{ranking.minerRankingSearchParam.pageIndex * ranking.minerRankingSearchParam.pageSize + ranking.minerRankingSearchParam.pageSize >= ranking.resultCount}">
-						<f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
-					</h:commandLink>
-					</li>
-					</ul>
-				</h:panelGroup>
-			</h:panelGroup>
-			<br />
-			<!-- for IE bug -->
-			<h:inputText style="visibility:hidden;display:none;" disabled="true" required="false" />
-		</h:form>
-	</ui:define>
+  <ui:param name="onLoadJS" value="document.getElementById('q_keyword').focus()"/>
+  <ui:define name="metadata">
+    <f:metadata>
+      <f:viewParam name="q_keyword" value="#{ranking.minerRankingSearchParam.keyword}"/>
+      <f:viewParam name="q_pageIndex" value="#{ranking.minerRankingSearchParam.pageIndex}"/>
+      <f:viewParam name="q_pageSize" value="#{ranking.minerRankingSearchParam.pageSize}"/>
+    </f:metadata>
+  </ui:define>
+  <ui:define name="content">
+    <h:form id="top_main" prependId="false">
+      <ui:include src="/view/common/menu.xhtml"/>
+      <div class="title">
+        <h:outputText value="#{msg['msg.ranking.ranking.topic']}" escape="false"/>
+      </div>
+      <br/>
+      <h:panelGroup id="searchPanel" styleClass="form-inline">
+        <h:inputText id="q_keyword" value="#{ranking.minerRankingSearchParam.keyword}" styleClass="input-xlarge"/>
+        <h:commandButton id="search_cmd" value="#{msg['nav.common.search']}"
+                         action="#{ranking.search}" type="submit"
+                         styleClass="btn">
+          <f:ajax execute="q_keyword" render=":top_main:listPanel" onevent="showWorkingIndicator"/>
+        </h:commandButton>
+      </h:panelGroup>
+      <h3>
+        <h:outputText value="#{msg['label.ranking.ranking.list']}"/>
+        <h:panelGroup id="workingIndicator" layout="block" styleClass="status" style="display: none;">
+          <img src="../images/ajax-loader.gif"/>
+        </h:panelGroup>
+      </h3>
+      <h:panelGroup id="listPanel">
+        <h:outputFormat value="#{msg['label.ranking.ranking.list.minercount']}">
+          <f:param value="#{ranking.minerCount}"/>
+        </h:outputFormat>
+        <br/>
+        <h:outputFormat value="#{msg['nav.common.resultcount']}">
+          <f:param value="#{ranking.resultCount}"/>
+        </h:outputFormat>
+        <br/>
+        <h:panelGroup id="navPanelTop" layout="block" rendered="#{not empty ranking.minerRankings}"
+                      styleClass="pagination pagination-centered">
+          <ul>
+            <li>
+              <h:commandLink value="#{msg['nav.common.prev']}"
+                             action="#{ranking.previousPage}"
+                             disabled="#{ranking.minerRankingSearchParam.pageIndex le 0}">
+                <f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
+              </h:commandLink>
+            </li>
+            <ui:repeat value="#{ranking.pages}" var="page" varStatus="status">
+              <li>
+                <h:commandLink value="#{page + 1}"
+                               action="#{ranking.movePage}"
+                               disabled="#{page eq ranking.minerRankingSearchParam.pageIndex}">
+                  <f:param name="pagenum" value="${page}"/>
+                  <f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
+                </h:commandLink>
+              </li>
+            </ui:repeat>
+            <li>
+              <h:commandLink value="#{msg['nav.common.next']}"
+                             action="#{ranking.nextPage}"
+                             disabled="#{ranking.minerRankingSearchParam.pageIndex * ranking.minerRankingSearchParam.pageSize + ranking.minerRankingSearchParam.pageSize >= ranking.resultCount}">
+                <f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
+              </h:commandLink>
+            </li>
+          </ul>
+        </h:panelGroup>
+        <h:dataTable
+            id="dataTable"
+            value="#{ranking.minerRankings}"
+            var="minerRanking"
+            border="1"
+            rendered="#{not empty ranking.minerRankings}"
+            styleClass="table table-striped"
+            columnClasses="num_column, mhname_column, amuletcount_column">
+          <h:column>
+            <f:facet name="header">
+              <h:outputText value="#{msg['label.ranking.ranking.list.num']}"/>
+            </f:facet>
+            <h:outputText
+                value="#{ranking.minerRankingSearchParam.pageIndex * ranking.minerRankingSearchParam.pageSize + ranking.minerRankings.rowIndex + 1}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">
+              <h:outputText value="#{msg['label.ranking.ranking.list.mhname']}"/>
+            </f:facet>
+            <h:outputText value="#{minerRanking.mhName}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">
+              <h:outputText value="#{msg['label.ranking.ranking.list.amuletcount']}"/>
+            </f:facet>
+            <h:outputText value="#{minerRanking.amuletCount}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">
+              <h:outputText value="#{msg['label.ranking.ranking.list.comment']}"/>
+            </f:facet>
+            <h:outputText value="#{minerRanking.comment}"/>
+          </h:column>
+        </h:dataTable>
+        <h:panelGroup id="navPanelBottom" layout="block" rendered="#{not empty ranking.minerRankings}"
+                      styleClass="pagination pagination-centered">
+          <ul>
+            <li>
+              <h:commandLink value="#{msg['nav.common.prev']}"
+                             action="#{ranking.previousPage}"
+                             disabled="#{ranking.minerRankingSearchParam.pageIndex le 0}">
+                <f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
+              </h:commandLink>
+            </li>
+            <ui:repeat value="#{ranking.pages}" var="page" varStatus="status">
+              <li>
+                <h:commandLink value="#{page + 1}"
+                               action="#{ranking.movePage}"
+                               disabled="#{page eq ranking.minerRankingSearchParam.pageIndex}">
+                  <f:param name="pagenum" value="${page}"/>
+                  <f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
+                </h:commandLink>
+              </li>
+            </ui:repeat>
+            <li>
+              <h:commandLink value="#{msg['nav.common.next']}"
+                             action="#{ranking.nextPage}"
+                             disabled="#{ranking.minerRankingSearchParam.pageIndex * ranking.minerRankingSearchParam.pageSize + ranking.minerRankingSearchParam.pageSize >= ranking.resultCount}">
+                <f:ajax render=":top_main:listPanel" onevent="showWorkingIndicator"/>
+              </h:commandLink>
+            </li>
+          </ul>
+        </h:panelGroup>
+      </h:panelGroup>
+      <br/>
+      <!-- for IE bug -->
+      <h:inputText style="visibility:hidden;display:none;" disabled="true" required="false"/>
+    </h:form>
+  </ui:define>
 </ui:composition>
 </html>
