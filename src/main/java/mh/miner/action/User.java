@@ -4,179 +4,197 @@ import mh.miner.entity.TStatus;
 import mh.miner.entity.TUser;
 import mh.miner.manager.AccountManager;
 import mh.miner.manager.SqlSessionFactoryManager;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+
+import java.io.Serializable;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import java.io.Serializable;
-import java.util.ResourceBundle;
 
 @ManagedBean
 @ViewScoped
 public class User implements Serializable {
 
-	private SqlSessionFactory sessionFactory;
+    private SqlSessionFactory sessionFactory;
 
-	private TUser tUser = new TUser();
+    private TUser tUser = new TUser();
 
-	public TUser gettUser() {
-		return tUser;
-	}
+    public TUser gettUser() {
+        return tUser;
+    }
 
-	public void settUser(TUser tUser) {
-		this.tUser = tUser;
-	}
+    public void settUser(TUser tUser) {
+        this.tUser = tUser;
+    }
 
-	@PostConstruct
-	public void init() {
-		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
+    @PostConstruct
+    public void init() {
+        sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-		Object accountManager =
-			FacesContext
-				.getCurrentInstance()
-				.getExternalContext()
-				.getSessionMap().get("accountManager");
-		if(accountManager instanceof AccountManager) {
-			TUser user = ((AccountManager)accountManager).getLoginUser();
-			if(user != null
-					&& !user.getId().equals(((AccountManager)accountManager).getGuestUser().getId())) {
-				tUser = user;
-			}
-		}
-	}
+        Object accountManager =
+                FacesContext.getCurrentInstance()
+                        .getExternalContext()
+                        .getSessionMap()
+                        .get("accountManager");
+        if (accountManager instanceof AccountManager) {
+            TUser user = ((AccountManager) accountManager).getLoginUser();
+            if (user != null
+                    && !user.getId()
+                            .equals(((AccountManager) accountManager).getGuestUser().getId())) {
+                tUser = user;
+            }
+        }
+    }
 
-	public String create() {
-		SqlSession session = null;
+    public String create() {
+        SqlSession session = null;
 
-		try {
-			session = sessionFactory.openSession();
-	
-			TUser user = (TUser)session.selectOne(
-					"mh.miner.entity.TUser.selectById",
-					tUser.getId());
-	
-			if(user != null) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(
-							ResourceBundle.getBundle("messages",
-								FacesContext.getCurrentInstance().getViewRoot().getLocale())
-									.getString("msg.config.user.alreadyexists")));
-				return "";
-			}
+        try {
+            session = sessionFactory.openSession();
 
-			session.insert("mh.miner.entity.TUser.insert", tUser);
+            TUser user = session.selectOne("mh.miner.entity.TUser.selectById", tUser.getId());
 
-			TStatus status = new TStatus();
-			status.setChecked(false);
-			status.setUserId(tUser.getId());
-			session.insert("mh.miner.entity.TStatus.insertForNewUser", status);
+            if (user != null) {
+                FacesContext.getCurrentInstance()
+                        .addMessage(
+                                null,
+                                new FacesMessage(
+                                        ResourceBundle.getBundle(
+                                                        "messages",
+                                                        FacesContext.getCurrentInstance()
+                                                                .getViewRoot()
+                                                                .getLocale())
+                                                .getString("msg.config.user.alreadyexists")));
+                return "";
+            }
 
-			session.commit();
+            session.insert("mh.miner.entity.TUser.insert", tUser);
 
-			Object accountManager =
-					FacesContext
-						.getCurrentInstance()
-						.getExternalContext()
-						.getSessionMap().get("accountManager");
-				if(accountManager instanceof AccountManager) {
-					((AccountManager)accountManager).setLoginUser(tUser);
-				}
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(
-						ResourceBundle.getBundle("messages",
-							FacesContext.getCurrentInstance().getViewRoot().getLocale())
-								.getString("msg.common.addfailure")));
-			return "";
-		} finally {
-			if(session != null) {
-				session.close();
-			}
-		}
+            TStatus status = new TStatus();
+            status.setChecked(false);
+            status.setUserId(tUser.getId());
+            session.insert("mh.miner.entity.TStatus.insertForNewUser", status);
 
-		return "/view/ranking/ranking?faces-redirect=true";
-	}
+            session.commit();
 
-	public String update() {
-		SqlSession session = null;
+            Object accountManager =
+                    FacesContext.getCurrentInstance()
+                            .getExternalContext()
+                            .getSessionMap()
+                            .get("accountManager");
+            if (accountManager instanceof AccountManager) {
+                ((AccountManager) accountManager).setLoginUser(tUser);
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(
+                            null,
+                            new FacesMessage(
+                                    ResourceBundle.getBundle(
+                                                    "messages",
+                                                    FacesContext.getCurrentInstance()
+                                                            .getViewRoot()
+                                                            .getLocale())
+                                            .getString("msg.common.addfailure")));
+            return "";
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
 
-		try {
-			session = sessionFactory.openSession();
+        return "/view/ranking/ranking?faces-redirect=true";
+    }
 
-			TUser user = (TUser)session.selectOne(
-					"mh.miner.entity.TUser.selectById",
-					tUser.getId());
+    public String update() {
+        SqlSession session = null;
 
-			user.setMhName(tUser.getMhName());
-			user.setPassword(tUser.getPassword());
-			user.setPublish(tUser.isPublish());
+        try {
+            session = sessionFactory.openSession();
 
-			session.update(
-					"mh.miner.entity.TUser.update",
-					tUser);
+            TUser user = session.selectOne("mh.miner.entity.TUser.selectById", tUser.getId());
 
-			session.commit();
+            user.setMhName(tUser.getMhName());
+            user.setPassword(tUser.getPassword());
+            user.setPublish(tUser.isPublish());
 
-			Object accountManager =
-				FacesContext
-					.getCurrentInstance()
-					.getExternalContext()
-					.getSessionMap().get("accountManager");
-			if(accountManager instanceof AccountManager) {
-				((AccountManager)accountManager).setLoginUser(tUser);
-			}
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(
-							ResourceBundle.getBundle("messages",
-								FacesContext.getCurrentInstance().getViewRoot().getLocale())
-									.getString("msg.common.editfailure")));
-			return "";
-		} finally {
-			if(session != null) {
-				session.close();
-			}
-		}
+            session.update("mh.miner.entity.TUser.update", tUser);
 
-		return "/view/ranking/ranking?faces-redirect=true";
-	}
+            session.commit();
 
-	public String delete() {
-		SqlSession session = null;
+            Object accountManager =
+                    FacesContext.getCurrentInstance()
+                            .getExternalContext()
+                            .getSessionMap()
+                            .get("accountManager");
+            if (accountManager instanceof AccountManager) {
+                ((AccountManager) accountManager).setLoginUser(tUser);
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(
+                            null,
+                            new FacesMessage(
+                                    ResourceBundle.getBundle(
+                                                    "messages",
+                                                    FacesContext.getCurrentInstance()
+                                                            .getViewRoot()
+                                                            .getLocale())
+                                            .getString("msg.common.editfailure")));
+            return "";
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
 
-		try {
-			session = sessionFactory.openSession();
+        return "/view/ranking/ranking?faces-redirect=true";
+    }
 
-			session.delete("mh.miner.entity.TStatus.deleteByUserId", tUser.getId());
-			session.delete("mh.miner.entity.TUser.deleteById", tUser.getId());
+    public String delete() {
+        SqlSession session = null;
 
-			session.commit();
+        try {
+            session = sessionFactory.openSession();
 
-			Object accountManager =
-				FacesContext
-					.getCurrentInstance()
-					.getExternalContext()
-					.getSessionMap().get("accountManager");
-			if(accountManager instanceof AccountManager) {
-				((AccountManager)accountManager).setLoginUser(((AccountManager)accountManager).getGuestUser());
-			}
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(
-						ResourceBundle.getBundle("messages",
-							FacesContext.getCurrentInstance().getViewRoot().getLocale())
-								.getString("msg.common.deletefailure")));
-			return "";
-		} finally {
-			if(session != null) {
-				session.close();
-			}
-		}
-	
-		return "/view/ranking/ranking?faces-redirect=true";
-	}
+            session.delete("mh.miner.entity.TStatus.deleteByUserId", tUser.getId());
+            session.delete("mh.miner.entity.TUser.deleteById", tUser.getId());
+
+            session.commit();
+
+            Object accountManager =
+                    FacesContext.getCurrentInstance()
+                            .getExternalContext()
+                            .getSessionMap()
+                            .get("accountManager");
+            if (accountManager instanceof AccountManager) {
+                ((AccountManager) accountManager)
+                        .setLoginUser(((AccountManager) accountManager).getGuestUser());
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(
+                            null,
+                            new FacesMessage(
+                                    ResourceBundle.getBundle(
+                                                    "messages",
+                                                    FacesContext.getCurrentInstance()
+                                                            .getViewRoot()
+                                                            .getLocale())
+                                            .getString("msg.common.deletefailure")));
+            return "";
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return "/view/ranking/ranking?faces-redirect=true";
+    }
 }

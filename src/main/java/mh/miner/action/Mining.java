@@ -11,8 +11,16 @@ import mh.miner.service.MiningStatusSortOrder;
 import mh.miner.service.MiningStatusUpdateParam;
 import mh.miner.service.SortOrder.SortType;
 import mh.miner.util.PaginationUtil;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -21,234 +29,260 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
 
 @ManagedBean
 @ViewScoped
 public class Mining implements Serializable {
 
-	private SqlSessionFactory sessionFactory;
+    private SqlSessionFactory sessionFactory;
 
-	private MiningStatusSearchParam miningStatusSearchParam = new MiningStatusSearchParam();
-	private DataModel<MiningStatus> miningStatuses;
-	private int resultCount;
-	private int navSize;
-	private List<Integer> pages = new ArrayList<Integer>();
+    private MiningStatusSearchParam miningStatusSearchParam = new MiningStatusSearchParam();
+    private DataModel<MiningStatus> miningStatuses;
+    private int resultCount;
+    private int navSize;
+    private List<Integer> pages = new ArrayList<Integer>();
 
-	public MiningStatusSearchParam getMiningStatusSearchParam() {
-		return miningStatusSearchParam;
-	}
-	public void setMiningStatusSearchParam(
-			MiningStatusSearchParam miningStatusSearchParam) {
-		this.miningStatusSearchParam = miningStatusSearchParam;
-	}
-	public DataModel<MiningStatus> getMiningStatuses() {
-		return miningStatuses;
-	}
-	public void setMiningStatuses(DataModel<MiningStatus> miningStatuses) {
-		this.miningStatuses = miningStatuses;
-	}
-	public int getResultCount() {
-		return resultCount;
-	}
-	public List<Integer> getPages() {
-		return pages;
-	}
+    public MiningStatusSearchParam getMiningStatusSearchParam() {
+        return miningStatusSearchParam;
+    }
 
-	@PostConstruct
-	public void init() {
-		sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
+    public void setMiningStatusSearchParam(MiningStatusSearchParam miningStatusSearchParam) {
+        this.miningStatusSearchParam = miningStatusSearchParam;
+    }
 
-		Object accountManager =
-			FacesContext
-				.getCurrentInstance()
-				.getExternalContext()
-				.getSessionMap().get("accountManager");
-		if(accountManager instanceof AccountManager) {
-			TUser user = ((AccountManager)accountManager).getLoginUser();
-			miningStatusSearchParam.settUser(user);
-		}
+    public DataModel<MiningStatus> getMiningStatuses() {
+        return miningStatuses;
+    }
 
-		MMine mMine = new MMine();
-		miningStatusSearchParam.setmMine(mMine);
+    public void setMiningStatuses(DataModel<MiningStatus> miningStatuses) {
+        this.miningStatuses = miningStatuses;
+    }
 
-		List<MiningStatusSortOrder> sortOrders = new ArrayList<MiningStatusSortOrder>();
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.MINE, SortType.ASC));
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL1_NAME, SortType.ASC));
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL1_POINT, SortType.DESC));
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL2_NAME, SortType.ASC));
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL2_POINT, SortType.DESC));
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SEED, SortType.ASC));
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.AMULET_LEVEL, SortType.ASC));
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.CHECKED, SortType.ASC));
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SLOT_NUM, SortType.ASC));
-		sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.AMULET_TYPE, SortType.ASC));
-		miningStatusSearchParam.setSortOrders(sortOrders);
+    public int getResultCount() {
+        return resultCount;
+    }
 
-		miningStatusSearchParam.setPageIndex(0);
-		miningStatusSearchParam.setPageSize(
-				ConfigurationManager.getInstance().getConf().getMiningConf().getMaxPagesize());
+    public List<Integer> getPages() {
+        return pages;
+    }
 
-		navSize = ConfigurationManager.getInstance().getConf().getMiningConf().getNavsize();
+    @PostConstruct
+    public void init() {
+        sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-		searchStatus();
-	}
+        Object accountManager =
+                FacesContext.getCurrentInstance()
+                        .getExternalContext()
+                        .getSessionMap()
+                        .get("accountManager");
+        if (accountManager instanceof AccountManager) {
+            TUser user = ((AccountManager) accountManager).getLoginUser();
+            miningStatusSearchParam.settUser(user);
+        }
 
-	public String search() {
-		miningStatusSearchParam.setPageIndex(0);
-		this.searchStatus();
+        MMine mMine = new MMine();
+        miningStatusSearchParam.setmMine(mMine);
 
-		return "";
-	}
+        List<MiningStatusSortOrder> sortOrders = new ArrayList<MiningStatusSortOrder>();
+        sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.MINE, SortType.ASC));
+        sortOrders.add(
+                new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL1_NAME, SortType.ASC));
+        sortOrders.add(
+                new MiningStatusSortOrder(
+                        MiningStatusSortOrder.Column.SKILL1_POINT, SortType.DESC));
+        sortOrders.add(
+                new MiningStatusSortOrder(MiningStatusSortOrder.Column.SKILL2_NAME, SortType.ASC));
+        sortOrders.add(
+                new MiningStatusSortOrder(
+                        MiningStatusSortOrder.Column.SKILL2_POINT, SortType.DESC));
+        sortOrders.add(new MiningStatusSortOrder(MiningStatusSortOrder.Column.SEED, SortType.ASC));
+        sortOrders.add(
+                new MiningStatusSortOrder(MiningStatusSortOrder.Column.AMULET_LEVEL, SortType.ASC));
+        sortOrders.add(
+                new MiningStatusSortOrder(MiningStatusSortOrder.Column.CHECKED, SortType.ASC));
+        sortOrders.add(
+                new MiningStatusSortOrder(MiningStatusSortOrder.Column.SLOT_NUM, SortType.ASC));
+        sortOrders.add(
+                new MiningStatusSortOrder(MiningStatusSortOrder.Column.AMULET_TYPE, SortType.ASC));
+        miningStatusSearchParam.setSortOrders(sortOrders);
 
-	public String previousPage() {
-		miningStatusSearchParam.setPageIndex(
-				miningStatusSearchParam.getPageIndex() - 1);
-		this.searchStatus();
+        miningStatusSearchParam.setPageIndex(0);
+        miningStatusSearchParam.setPageSize(
+                ConfigurationManager.getInstance().getConf().getMiningConf().getMaxPagesize());
 
-		return "";
-	}
+        navSize = ConfigurationManager.getInstance().getConf().getMiningConf().getNavsize();
 
-	public String nextPage() {
-		miningStatusSearchParam.setPageIndex(
-				miningStatusSearchParam.getPageIndex() + 1);
-		this.searchStatus();
+        searchStatus();
+    }
 
-		return "";
-	}
+    public String search() {
+        miningStatusSearchParam.setPageIndex(0);
+        this.searchStatus();
 
-	public String movePage() {
-		String pagenum = FacesContext.getCurrentInstance().getExternalContext()
-				.getRequestParameterMap().get("pagenum");
-		miningStatusSearchParam.setPageIndex(Integer.parseInt(pagenum));
-		this.searchStatus();
+        return "";
+    }
 
-		return "";
-	}
+    public String previousPage() {
+        miningStatusSearchParam.setPageIndex(miningStatusSearchParam.getPageIndex() - 1);
+        this.searchStatus();
 
-	public String sortByColumn(String column) {
-		if(!MiningStatusSortOrder.isSortOrderColumn(column)) {
-			return "";
-		}
+        return "";
+    }
 
-		if(column.equals(MiningStatusSortOrder.Column.SKILL1_NAME)) {
-			this.sortByColumns(Arrays.asList(
-					MiningStatusSortOrder.Column.SKILL1_NAME,
-					MiningStatusSortOrder.Column.SKILL1_POINT));
-			return "";
-		} else if(column.equals(MiningStatusSortOrder.Column.SKILL2_NAME)) {
-			this.sortByColumns(Arrays.asList(
-					MiningStatusSortOrder.Column.SKILL2_NAME,
-					MiningStatusSortOrder.Column.SKILL2_POINT));
-			return "";
-		}
+    public String nextPage() {
+        miningStatusSearchParam.setPageIndex(miningStatusSearchParam.getPageIndex() + 1);
+        this.searchStatus();
 
-		this.sortByColumns(Arrays.asList(column));
+        return "";
+    }
 
-		return "";
-	}
+    public String movePage() {
+        String pagenum =
+                FacesContext.getCurrentInstance()
+                        .getExternalContext()
+                        .getRequestParameterMap()
+                        .get("pagenum");
+        miningStatusSearchParam.setPageIndex(Integer.parseInt(pagenum));
+        this.searchStatus();
 
-	public String updateStatus() {
-		SqlSession session = null;
+        return "";
+    }
 
-		try {
-			// update t_status
-			if(miningStatuses.getRowIndex() >= 0) {
-				session = sessionFactory.openSession();
+    public String sortByColumn(String column) {
+        if (!MiningStatusSortOrder.isSortOrderColumn(column)) {
+            return "";
+        }
 
-				MiningStatus status = miningStatuses.getRowData();
-				MiningStatusUpdateParam statusParam = new MiningStatusUpdateParam();
-				statusParam.setUserId(miningStatusSearchParam.gettUser().getId());
-				statusParam.setAmuletIds(Arrays.asList(status.getAmuletId()));
-				statusParam.setChecked(status.isChecked());
-				session.update(
-						"mh.miner.entity.TStatus.updateByAmuletIds",
-						statusParam);
+        if (column.equals(MiningStatusSortOrder.Column.SKILL1_NAME)) {
+            this.sortByColumns(
+                    Arrays.asList(
+                            MiningStatusSortOrder.Column.SKILL1_NAME,
+                            MiningStatusSortOrder.Column.SKILL1_POINT));
+            return "";
+        } else if (column.equals(MiningStatusSortOrder.Column.SKILL2_NAME)) {
+            this.sortByColumns(
+                    Arrays.asList(
+                            MiningStatusSortOrder.Column.SKILL2_NAME,
+                            MiningStatusSortOrder.Column.SKILL2_POINT));
+            return "";
+        }
 
-				session.commit();
-			}
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(
-						ResourceBundle.getBundle("messages",
-							FacesContext.getCurrentInstance().getViewRoot().getLocale())
-								.getString("msg.common.savefailure")));
-			return "";
-		} finally {
-			if(session != null) {
-				session.close();
-			}
-		}
+        this.sortByColumns(List.of(column));
 
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(
-						ResourceBundle.getBundle("messages",
-							FacesContext.getCurrentInstance().getViewRoot().getLocale())
-								.getString("msg.common.savesuccess")));
+        return "";
+    }
 
-		return "";
-	}
+    public String updateStatus() {
+        SqlSession session = null;
 
-	private void searchStatus() {
-		SqlSession session = sessionFactory.openSession();
+        try {
+            // update t_status
+            if (miningStatuses.getRowIndex() >= 0) {
+                session = sessionFactory.openSession();
 
-		resultCount = (Integer)session.selectOne(
-				"mh.miner.service.MiningStatus.countStatus",
-				miningStatusSearchParam);
+                MiningStatus status = miningStatuses.getRowData();
+                MiningStatusUpdateParam statusParam = new MiningStatusUpdateParam();
+                statusParam.setUserId(miningStatusSearchParam.gettUser().getId());
+                statusParam.setAmuletIds(Collections.singletonList(status.getAmuletId()));
+                statusParam.setChecked(status.isChecked());
+                session.update("mh.miner.entity.TStatus.updateByAmuletIds", statusParam);
 
-		@SuppressWarnings("unchecked")
-		List<MiningStatus> statuses = session.selectList(
-			"mh.miner.service.MiningStatus.selectStatus",
-			miningStatusSearchParam);
+                session.commit();
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(
+                            null,
+                            new FacesMessage(
+                                    ResourceBundle.getBundle(
+                                                    "messages",
+                                                    FacesContext.getCurrentInstance()
+                                                            .getViewRoot()
+                                                            .getLocale())
+                                            .getString("msg.common.savefailure")));
+            return "";
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
 
-		if(statuses.size() > 0) {
-			miningStatuses = new ArrayDataModel<MiningStatus>(statuses.toArray(new MiningStatus[statuses.size()]));
-		} else {
-			miningStatuses = null;
-		}
+        FacesContext.getCurrentInstance()
+                .addMessage(
+                        null,
+                        new FacesMessage(
+                                ResourceBundle.getBundle(
+                                                "messages",
+                                                FacesContext.getCurrentInstance()
+                                                        .getViewRoot()
+                                                        .getLocale())
+                                        .getString("msg.common.savesuccess")));
 
-		// set Pagination
-		pages = PaginationUtil.createPages(
-				miningStatusSearchParam.getPageIndex(),
-				navSize,
-				(int)Math.ceil((double)resultCount / (double)miningStatusSearchParam.getPageSize()));
+        return "";
+    }
 
-		session.close();
-	}
-	
-	private String sortByColumns(List<String> columns) {
-		List<MiningStatusSortOrder> orders = miningStatusSearchParam.getSortOrders();
-		List<MiningStatusSortOrder> matches = new ArrayList<MiningStatusSortOrder>();
+    private void searchStatus() {
+        SqlSession session = sessionFactory.openSession();
 
-		for(int i = 0; i < orders.size(); i++) {
-    		for(int j = 0; j < columns.size(); j++) {
-    			if(orders.get(i).getColumn().equals(columns.get(j))) {
-        			if(i == j) {
-						if(orders.get(j).getType() == SortType.ASC) {
-							orders.get(j).setType(SortType.DESC);
-						} else {
-							orders.get(j).setType(SortType.ASC);
-						}
-	    			}
-        			matches.add(orders.get(i));
-    				break;
-        		}
-			}
-		}
+        resultCount =
+                session.selectOne(
+                        "mh.miner.service.MiningStatus.countStatus", miningStatusSearchParam);
 
-		if(matches.size() > 0) {
-			orders.removeAll(matches);
-			orders.addAll(0, matches);
-		}
+        @SuppressWarnings("unchecked")
+        List<MiningStatus> statuses =
+                session.selectList(
+                        "mh.miner.service.MiningStatus.selectStatus", miningStatusSearchParam);
 
-		miningStatusSearchParam.setSortOrders(orders);
+        if (statuses.size() > 0) {
+            miningStatuses =
+                    new ArrayDataModel<MiningStatus>(
+                            statuses.toArray(new MiningStatus[statuses.size()]));
+        } else {
+            miningStatuses = null;
+        }
 
-		this.searchStatus();
+        // set Pagination
+        pages =
+                PaginationUtil.createPages(
+                        miningStatusSearchParam.getPageIndex(),
+                        navSize,
+                        (int)
+                                Math.ceil(
+                                        (double) resultCount
+                                                / (double) miningStatusSearchParam.getPageSize()));
 
-		return "";
-	}
+        session.close();
+    }
+
+    private String sortByColumns(List<String> columns) {
+        List<MiningStatusSortOrder> orders = miningStatusSearchParam.getSortOrders();
+        List<MiningStatusSortOrder> matches = new ArrayList<MiningStatusSortOrder>();
+
+        for (int i = 0; i < orders.size(); i++) {
+            for (int j = 0; j < columns.size(); j++) {
+                if (orders.get(i).getColumn().equals(columns.get(j))) {
+                    if (i == j) {
+                        if (orders.get(j).getType() == SortType.ASC) {
+                            orders.get(j).setType(SortType.DESC);
+                        } else {
+                            orders.get(j).setType(SortType.ASC);
+                        }
+                    }
+                    matches.add(orders.get(i));
+                    break;
+                }
+            }
+        }
+
+        if (matches.size() > 0) {
+            orders.removeAll(matches);
+            orders.addAll(0, matches);
+        }
+
+        miningStatusSearchParam.setSortOrders(orders);
+
+        this.searchStatus();
+
+        return "";
+    }
 }
