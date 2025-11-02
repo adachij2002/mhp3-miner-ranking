@@ -3,26 +3,24 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mh.miner.entity.MMine">
-	<resultMap type="MMine" id="mMineResult">
-		<result column="id" property="id" />
-		<result column="name" property="name" />
-	</resultMap>
-	<select id="select" resultType="MMine"
-		resultMap="mMineResult">
-		SELECT
-			*
-		FROM
-			m_mine
-		ORDER BY
-			id
-    </select>
-	<select id="selectById"  parameterType="String" resultType="MMine"
-		resultMap="mMineResult">
-		SELECT
-			*
-		FROM
-			m_mine
-		WHERE
-			id = #{value}
-    </select>
+  <resultMap type="MMine" id="mMineResult">
+    <result column="id" property="id" />
+    <result column="name" property="name" />
+  </resultMap>
+  <select id="select" resultType="MMine" resultMap="mMineResult">
+    SELECT
+      *
+    FROM
+      m_mine
+    ORDER BY
+      id
+  </select>
+  <select id="selectById" parameterType="String" resultType="MMine" resultMap="mMineResult">
+    SELECT
+      *
+    FROM
+      m_mine
+    WHERE
+      id = #{value}
+  </select>
 </mapper>
