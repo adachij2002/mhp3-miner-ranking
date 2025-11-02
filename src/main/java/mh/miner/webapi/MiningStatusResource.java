@@ -4,54 +4,53 @@ import mh.miner.manager.SqlSessionFactoryManager;
 import mh.miner.service.MiningStatus;
 import mh.miner.service.MiningStatusSearchParam;
 import mh.miner.util.QueryParamUtil;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+
+import java.util.List;
 
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import java.util.List;
-
 
 @Path("/status")
 public class MiningStatusResource {
-	private SqlSessionFactory sessionFactory = SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
+    private final SqlSessionFactory sessionFactory =
+            SqlSessionFactoryManager.getInstance().getSqlSessionFactory();
 
-	@GET
-	@Path("/search")
+    @GET
+    @Path("/search")
     @Produces("application/json; charset=UTF-8")
-	public List<MiningStatus> searchStatus(
-			@BeanParam
-			MiningStatusSearchParam miningStatusSearchParam) {
-		SqlSession session = sessionFactory.openSession();
+    public List<MiningStatus> searchStatus(
+            @BeanParam MiningStatusSearchParam miningStatusSearchParam) {
+        SqlSession session = sessionFactory.openSession();
 
-		QueryParamUtil.validatePagination(miningStatusSearchParam);
+        QueryParamUtil.validatePagination(miningStatusSearchParam);
 
-		@SuppressWarnings("unchecked")
-		List<MiningStatus> statuses = session.selectList(
-				"mh.miner.service.MiningStatus.selectStatus",
-				miningStatusSearchParam);
+        @SuppressWarnings("unchecked")
+        List<MiningStatus> statuses =
+                session.selectList(
+                        "mh.miner.service.MiningStatus.selectStatus", miningStatusSearchParam);
 
-		session.close();
+        session.close();
 
-		return statuses;
-	}
+        return statuses;
+    }
 
-	@GET
-	@Path("/count")
+    @GET
+    @Path("/count")
     @Produces("application/json; charset=UTF-8")
-	public int countStatus(
-			@BeanParam
-			MiningStatusSearchParam miningStatusSearchParam) {
-		SqlSession session = sessionFactory.openSession();
+    public int countStatus(@BeanParam MiningStatusSearchParam miningStatusSearchParam) {
+        SqlSession session = sessionFactory.openSession();
 
-		int resultCount = (Integer)session.selectOne(
-				"mh.miner.service.MiningStatus.countStatus",
-				miningStatusSearchParam);
+        int resultCount =
+                session.selectOne(
+                        "mh.miner.service.MiningStatus.countStatus", miningStatusSearchParam);
 
-		session.close();
+        session.close();
 
-		return resultCount;
-	}
+        return resultCount;
+    }
 }
